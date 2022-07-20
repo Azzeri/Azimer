@@ -21,6 +21,7 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "@protonemedia/inertiajs-tables-laravel-query-builder": "^2.0.2",
         "daisyui": "^2.19.0"
     }
 }
