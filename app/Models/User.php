@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,6 +9,11 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * User model class
+ *
+ * @author Mariusz Waloszczyk
+ */
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -58,4 +62,43 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Returns all roles assigned to the user
+     * {@inheritdoc}
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(
+            Role::class,
+            'role_user',
+            'user_id',
+            'role_suffix',
+        );
+    }
+
+    /**
+     * Checks if user has specified resource with actions
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function hasResourceWithAction(
+        string $resource_suffix,
+        string $action
+    ): bool {
+        foreach ($this->roles as $role) {
+            foreach ($role->resources as $resource) {
+                if (
+                    $resource->suffix === $resource_suffix &&
+                    in_array($action, json_decode($resource->pivot->actions))
+                ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
