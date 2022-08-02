@@ -7,6 +7,7 @@ use App\Http\Requests\Role\UpdateRoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Resource;
 use App\Models\Role;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -17,6 +18,8 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
  */
 class RoleService
 {
+    const CAN_NOT_CHANGE = 'Role can not be updated or deleted';
+
     /**
      * Returns all roles from database
      * with optional pagination
@@ -55,6 +58,10 @@ class RoleService
         UpdateRoleRequest $request,
         Role $role
     ): bool {
+        if (! $this->canRoleBeChanged($role)) {
+            throw new Exception(self::CAN_NOT_CHANGE);
+        }
+
         $roleResources = $role->resources;
 
         try {
@@ -78,6 +85,10 @@ class RoleService
      */
     public function destroyRole(Role $role): bool|null
     {
+        if (! $this->canRoleBeChanged($role)) {
+            throw new Exception(self::CAN_NOT_CHANGE);
+        }
+
         return $role->delete();
     }
 
@@ -103,5 +114,49 @@ class RoleService
                 ]
             );
         }
+    }
+
+    /**
+     * Check if role can be deleted or updated
+     *
+     * @author Mariusz Waloszczyk
+     */
+    private function canRoleBeChanged(Role $role): bool
+    {
+        return $this->getNumberOfUsersWithFullRolesControl() > 1;
+    }
+
+    /**
+     * Checks how many users have roles resource
+     * with all actions
+     *
+     * @author Mariusz Waloszczyk
+     */
+    private function getNumberOfUsersWithFullRolesControl(): int
+    {
+        // Przenieść to do serwisu
+        $users = User::all(); //zmienic na api resource
+        $numberOfUsers = 0;
+        foreach ($users as $user) {
+            $actionsCounter = 0;
+            foreach (Resource::getPossibleActions() as $action) {
+                if (
+                    $user->hasResourceWithAction(
+                        Resource::RES_ROLES_OVERALL,
+                        $action
+                    )
+                ) {
+                    $actionsCounter++;
+                }
+            }
+
+            if ($actionsCounter == count(Resource::getPossibleActions())) {
+                $numberOfUsers++;
+            }
+
+            $actionsCounter = 0;
+        }
+
+        return $numberOfUsers;
     }
 }

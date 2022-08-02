@@ -8,6 +8,7 @@ use App\Models\Resource;
 use App\Models\Role;
 use App\Services\DropdownService;
 use App\Services\RoleService;
+use Exception;
 
 /**
  * @author Mariusz Waloszczyk
@@ -86,7 +87,10 @@ class RoleController extends Controller
             Role::class
         );
 
-        $this->roleService->destroyRole($role);
+        try {
+            $this->roleService->destroyRole($role);
+        } catch (Exception $e) {
+        }
 
         return redirect()->route('roles.index');
     }

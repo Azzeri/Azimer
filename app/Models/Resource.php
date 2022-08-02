@@ -56,4 +56,20 @@ class Resource extends Model
         'suffix',
         'name',
     ];
+
+    /**
+     * Returns all possible actions for resources
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public static function getPossibleActions(): array
+    {
+        return [
+            self::ACTION_CREATE,
+            self::ACTION_DELETE,
+            self::ACTION_UPDATE,
+            self::ACTION_VIEW,
+            self::ACTION_VIEW_ANY,
+        ];
+    }
 }
