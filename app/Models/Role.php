@@ -64,4 +64,15 @@ class Role extends Model
             'actions'
         );
     }
+
+    /**
+     * Returns all users assigned to the role
+     * {@inheritdoc}
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

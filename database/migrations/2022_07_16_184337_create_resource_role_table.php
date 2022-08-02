@@ -19,9 +19,17 @@ return new class extends Migration
         Schema::create('resource_role', function (Blueprint $table) {
             $table->id();
             $table->string('resource_suffix');
-            $table->foreign('resource_suffix')->references('suffix')->on('resources');
+            $table->foreign('resource_suffix')
+                ->references('suffix')
+                ->on('resources')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->string('role_suffix');
-            $table->foreign('role_suffix')->references('suffix')->on('roles');
+            $table->foreign('role_suffix')
+                ->references('suffix')
+                ->on('roles')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->json('actions');
             $table->comment('Resources assigned to roles. Actions determine exact operations that user can perform.');
             $table->timestamps();

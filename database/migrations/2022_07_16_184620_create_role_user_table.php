@@ -18,9 +18,16 @@ return new class extends Migration
     {
         Schema::create('role_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate()
+                ->constrained();
             $table->string('role_suffix');
-            $table->foreign('role_suffix')->references('suffix')->on('roles');
+            $table->foreign('role_suffix')
+                ->references('suffix')
+                ->on('roles')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->comment('Roles assigned to each user.');
             $table->timestamps();
         });

@@ -55,6 +55,5 @@ class Resource extends Model
     protected $fillable = [
         'suffix',
         'name',
-        'actions',
     ];
 }
