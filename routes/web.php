@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('/roles', RoleController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('/manufacturers', ManufacturerController::class)->only(['index', 'store', 'update', 'destroy']);
 });

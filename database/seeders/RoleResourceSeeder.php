@@ -34,5 +34,12 @@ class RoleResourceSeeder extends Seeder
                 'name' => 'Overall roles management',
             ],
         ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_MANUFACTURERS_OVERALL,
+                'name' => 'Overall manufacturers management',
+            ],
+        ]);
     }
 }
