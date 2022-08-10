@@ -30,7 +30,7 @@ abstract class TestCase extends BaseTestCase
 
         foreach ($resources as $resource) {
             $role->resources()->attach(
-                Resource::find($resource['suffix']),
+                Resource::findOrFail($resource['suffix']),
                 [
                     'actions' => json_encode(
                         $resource['actions']
