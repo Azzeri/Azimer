@@ -22,9 +22,10 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = Role::find(Role::ROLE_ROLES_OVERALL);
+        $roleRoles = Role::find(Role::ROLE_ROLES_OVERALL);
+        $roleUsers = Role::find(Role::ROLE_USERS_OVERALL);
 
-        $role->resources()->attach(
+        $roleRoles->resources()->attach(
             Resource::RES_ROLES_OVERALL,
             [
                 'actions' => json_encode([
@@ -37,10 +38,25 @@ class UserSeeder extends Seeder
             ]
         );
 
+        $roleUsers->resources()->attach(
+            Resource::RES_USERS_OVERALL,
+            [
+                'actions' => json_encode([
+                    Resource::ACTION_VIEW_ANY,
+                    Resource::ACTION_CREATE,
+                    Resource::ACTION_DELETE,
+                    Resource::ACTION_UPDATE,
+                    Resource::ACTION_VIEW,
+                ]),
+            ]
+        );
+
         User::factory()
-            ->hasAttached($role)
+            ->hasAttached($roleRoles)
+            ->hasAttached($roleUsers)
             ->create([
                 'name' => 'Administrator',
+                'surname' => 'Administrator',
                 'email' => 'admin@admin.admin',
                 'password' => Hash::make('qwerty'),
             ]);
