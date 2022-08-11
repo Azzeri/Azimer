@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,4 +36,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('/roles', RoleController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('/users', UserController::class)->only(['index', 'store', 'update', 'destroy']);
 });
