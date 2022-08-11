@@ -11,7 +11,7 @@ class UpdateManufacturerRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     *@author Piotr Nagórny
+     * @author Piotr Nagórny
      */
     public function authorize(): bool
     {
@@ -30,7 +30,7 @@ class UpdateManufacturerRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'min:3',
+                'string',
                 'max:64',
             ],
         ];

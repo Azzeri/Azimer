@@ -7,6 +7,9 @@ use App\Models\Resource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * @author Piotr Nagórny
+ */
 class ManufacturerTest extends TestCase
 {
     use RefreshDatabase;
@@ -105,9 +108,6 @@ class ManufacturerTest extends TestCase
         );
 
         $this->assertDatabaseHas('manufacturers', $updatedManufacturerParams);
-        $this->assertDatabaseMissing('manufacturers', $currentManufacturerParams);
-        // $response->assertValid();
-        // $response->assertRedirect(route('manufacturers.index'));
     }
 
     /**

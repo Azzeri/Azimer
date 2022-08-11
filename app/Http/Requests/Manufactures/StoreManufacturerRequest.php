@@ -32,7 +32,6 @@ class StoreManufacturerRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'min:3',
                 'max:64',
             ],
         ];

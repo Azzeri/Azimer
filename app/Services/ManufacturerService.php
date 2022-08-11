@@ -19,8 +19,9 @@ class ManufacturerService
      *
      * @author Piotr Nagórny
      */
-    public function storeManufacturer(StoreManufacturerRequest $request): Manufacturer
-    {
+    public function storeManufacturer(
+        StoreManufacturerRequest $request
+    ): Manufacturer {
         return Manufacturer::create([
             'name' => $request->name,
         ]);
@@ -46,8 +47,9 @@ class ManufacturerService
      *
      * @author Piotr Nagórny
      */
-    public function destroyManufacturer(Manufacturer $manufacturer): bool|null
-    {
+    public function destroyManufacturer(
+        Manufacturer $manufacturer
+    ): bool|null {
         return $manufacturer->delete();
     }
 }
