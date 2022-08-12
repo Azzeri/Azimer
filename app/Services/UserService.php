@@ -34,6 +34,7 @@ class UserService
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($password),
+            'fire_brigade_unit_id' => $request->fire_brigade_unit_id,
         ]);
     }
 
@@ -61,6 +62,7 @@ class UserService
             'surname' => $request->surname,
             'email' => $request->email,
             'phone' => $request->phone,
+            'fire_brigade_unit_id' => $request->fire_brigade_unit_id,
         ]);
     }
 
@@ -142,6 +144,8 @@ class UserService
             Resource::RES_ROLES_OVERALL
         ) > 1 && $this->getUsersWithFullResourceControl(
             Resource::RES_USERS_OVERALL
+        ) > 1 && $this->getUsersWithFullResourceControl(
+            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL
         ) > 1;
     }
 

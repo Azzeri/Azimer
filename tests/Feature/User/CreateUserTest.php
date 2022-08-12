@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\User;
 
+use App\Models\FireBrigadeUnit;
 use App\Models\Resource;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
@@ -42,11 +42,15 @@ class CreateUserTest extends TestCase
 
         $this->actingAs($auth);
 
+        $fireBrigadeUnit =
+            FireBrigadeUnit::factory()->create();
+
         $params = [
             'name' => 'Test',
             'surname' => 'Test',
             'email' => 'test@gmail.com',
             'phone' => '123456789',
+            'fire_brigade_unit_id' => $fireBrigadeUnit->id,
         ];
 
         // Act
