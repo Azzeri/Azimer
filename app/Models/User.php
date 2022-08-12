@@ -33,6 +33,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'fire_brigade_unit_id',
     ];
 
     /**
@@ -79,6 +80,17 @@ class User extends Authenticatable
             'user_id',
             'role_suffix',
         );
+    }
+
+    /**
+     * Returns unit to which user belongs
+     * {@inheritdoc}
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function fireBrigadeUnit()
+    {
+        return $this->belongsTo(FireBrigadeUnit::class);
     }
 
     /**

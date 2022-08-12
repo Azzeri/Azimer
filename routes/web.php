@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FireBrigadeUnitController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -35,6 +36,12 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('/roles', RoleController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::resource('/users', UserController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('/roles', RoleController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('/users', UserController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('/fireBrigadeUnits', FireBrigadeUnitController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
 });

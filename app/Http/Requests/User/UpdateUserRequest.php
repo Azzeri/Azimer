@@ -25,6 +25,8 @@ class UpdateUserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
+     * @author Mariusz Waloszczyk
+     *
      * @return array<string, mixed>
      */
     public function rules()
@@ -33,6 +35,7 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|string|max:64',
             'surname' => 'required|string|max:64',
             'phone' => 'nullable|string|max:20',
+            'superior_unit_id' => 'nullable|exists:fire_brigade_units',
             'email' => [
                 'required',
                 'email:filter',

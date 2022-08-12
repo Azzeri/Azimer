@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\User;
 
+use App\Models\FireBrigadeUnit;
 use App\Models\Resource;
 use App\Models\Role;
 use App\Models\User;
@@ -43,6 +44,9 @@ class UpdateUserTest extends TestCase
 
         $this->actingAs($auth);
 
+        $fireBrigadeUnit =
+            FireBrigadeUnit::factory()->create();
+
         $oldData = [
             'name' => 'testName',
             'surname' => 'testSurname',
@@ -55,6 +59,8 @@ class UpdateUserTest extends TestCase
             'surname' => 'updatedSurname',
             'email' => 'updatedemail@gmail.com',
             'phone' => '1123456789',
+            'phone' => '1123456789',
+            'fire_brigade_unit_id' => $fireBrigadeUnit->id,
         ];
 
         $user = User::factory()
@@ -73,6 +79,7 @@ class UpdateUserTest extends TestCase
             'surname' => $newData['surname'],
             'email' => $newData['email'],
             'phone' => $newData['phone'],
+            'fire_brigade_unit_id' => $newData['fire_brigade_unit_id'],
             'roles' => [
                 [
                     'suffix' => Role::ROLE_ROLES_OVERALL,

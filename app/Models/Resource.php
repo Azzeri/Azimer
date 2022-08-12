@@ -28,6 +28,16 @@ class Resource extends Model
 
     const RES_USERS_OVERALL = 'res_users_overall';
 
+    const RES_USERS_OWN_UNIT = 'res_users_own_unit';
+
+    const RES_USERS_LOWLY_UNITS = 'res_users_lowly_units';
+
+    const RES_FIRE_BRIGADE_UNITS_OVERALL = 'res_fire_brigade_units_overall';
+
+    const RES_FIRE_BRIGADE_UNIT_OWN = 'res_fire_brigade_unit_own';
+
+    const RES_FIRE_BRIGADE_UNITS_LOWLY = 'res_fire_brigade_units_lowly';
+
     /**
      * The primary key associated with the table.
      *

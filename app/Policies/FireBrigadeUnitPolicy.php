@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\FireBrigadeUnit;
 use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -9,7 +10,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 /**
  * @author Mariusz Waloszczyk
  */
-class UserPolicy
+class FireBrigadeUnitPolicy
 {
     use HandlesAuthorization;
 
@@ -23,13 +24,13 @@ class UserPolicy
     public function viewAny(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_USERS_OVERALL,
+            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
             Resource::ACTION_VIEW_ANY
         ) || $user->hasResourceWithAction(
-            Resource::RES_USERS_OWN_UNIT,
+            Resource::RES_FIRE_BRIGADE_UNIT_OWN,
             Resource::ACTION_VIEW_ANY
         ) || $user->hasResourceWithAction(
-            Resource::RES_USERS_LOWLY_UNITS,
+            Resource::RES_FIRE_BRIGADE_UNITS_LOWLY,
             Resource::ACTION_VIEW_ANY
         );
     }
@@ -44,13 +45,7 @@ class UserPolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_USERS_OVERALL,
-            Resource::ACTION_CREATE
-        ) || $user->hasResourceWithAction(
-            Resource::RES_USERS_OWN_UNIT,
-            Resource::ACTION_CREATE
-        ) || $user->hasResourceWithAction(
-            Resource::RES_USERS_LOWLY_UNITS,
+            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
             Resource::ACTION_CREATE
         );
     }
@@ -62,23 +57,25 @@ class UserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model)
-    {
+    public function update(
+        User $user,
+        FireBrigadeUnit $fireBrigadeUnit
+    ) {
         return $user->hasResourceWithAction(
-            Resource::RES_USERS_OVERALL,
+            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
             Resource::ACTION_UPDATE
         ) ||
             ($user->hasResourceWithAction(
-                Resource::RES_USERS_OWN_UNIT,
+                Resource::RES_FIRE_BRIGADE_UNIT_OWN,
                 Resource::ACTION_UPDATE
             ) &&
-                $model->fire_brigade_unit_id == $user->fire_brigade_unit_id
+                $fireBrigadeUnit->id == $user->fire_brigade_unit_id
             ) ||
             ($user->hasResourceWithAction(
-                Resource::RES_USERS_LOWLY_UNITS,
+                Resource::RES_FIRE_BRIGADE_UNITS_LOWLY,
                 Resource::ACTION_UPDATE
             ) &&
-                $model->fireBrigadeUnit->superior_unit_id == $user->fire_brigade_unit_id
+                $fireBrigadeUnit->superior_unit_id == $user->fire_brigade_unit_id
             );
     }
 
@@ -89,23 +86,13 @@ class UserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, User $model)
-    {
+    public function delete(
+        User $user,
+        FireBrigadeUnit $fireBrigadeUnit
+    ) {
         return $user->hasResourceWithAction(
-            Resource::RES_USERS_OVERALL,
+            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
             Resource::ACTION_DELETE
-        ) ||
-            ($user->hasResourceWithAction(
-                Resource::RES_USERS_OWN_UNIT,
-                Resource::ACTION_DELETE
-            ) &&
-                $model->fire_brigade_unit_id == $user->fire_brigade_unit_id
-            ) ||
-            ($user->hasResourceWithAction(
-                Resource::RES_USERS_LOWLY_UNITS,
-                Resource::ACTION_DELETE
-            ) &&
-                $model->fireBrigadeUnit->superior_unit_id == $user->fire_brigade_unit_id
-            );
+        );
     }
 }

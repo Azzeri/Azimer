@@ -45,6 +45,15 @@ class UserSeeder extends Seeder
             ]
         );
 
+        $role->resources()->attach(
+            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+            [
+                'actions' => json_encode(
+                    Resource::getPossibleActions(),
+                ),
+            ]
+        );
+
         User::factory()
             ->hasAttached($role)
             ->create([
