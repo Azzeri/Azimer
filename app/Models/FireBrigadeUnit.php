@@ -52,6 +52,7 @@ class FireBrigadeUnit extends Model
     {
         return $this->hasMany(
             FireBrigadeUnit::class,
+            'superior_unit_id'
         );
     }
 
