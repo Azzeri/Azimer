@@ -9,20 +9,17 @@ import NavigationDropdownMenu from './NavigationDropdownMenu.vue';
   <label tabindex="0" class="btn btn-ghost lg:hidden">
     <Hamburger />
   </label>
-  <ul 
-    tabindex="0" 
-    class="menu 
-      menu-compact 
-      dropdown-content 
-      mt-3 
-      p-2 
-      shadow 
-      bg-base-100 
-      text-base-content 
-      rounded-box 
-      w-52"
-  >
-    <NavigationDropdownMenu />
-  </ul>
+    <NavigationDropdownMenu 
+      listClass="menu 
+        menu-compact 
+        dropdown-content 
+        mt-3 
+        p-2 
+        shadow 
+        bg-base-100 
+        text-base-content 
+        rounded-box 
+        w-52"
+    />
 </div>
 </template>
