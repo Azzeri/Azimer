@@ -45,6 +45,11 @@ class HandleInertiaRequests extends Middleware
             'authenticatedUserRoles' => [
                 $this->getAuthenticatedUserRoles(),
             ],
+            'flash' => [
+                'message' => fn () => $request
+                    ->session()
+                    ->get('message'),
+            ],
         ]);
     }
 

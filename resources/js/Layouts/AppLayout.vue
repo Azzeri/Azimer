@@ -10,6 +10,7 @@ defineProps({
 
 <template>
     <Head :title="title" />
+    <FlashMessage />
     <Navbar />
     <div class="container mx-auto bg-base-100 text-base-content">
         <slot />
