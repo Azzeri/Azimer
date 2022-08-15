@@ -39,4 +39,20 @@ const hasUserResourceWithAction = (roles, navResources) => {
     return false;
 };
 
+/**
+ * Opens modal window by Id
+ * @param {string} id
+ * @author Mariusz Waloszczyk
+ */
+const openModal = (id) =>
+    document.getElementById(id).classList.add("modal-open");
+
+/**
+ * Closes modal window by Id
+ * @param {string} id
+ * @author Mariusz Waloszczyk
+ */
+const closeModal = (id) =>
+    document.getElementById(id).classList.remove("modal-open");
+
 export { getUserInitials, hasUserResourceWithAction, openModal, closeModal };
