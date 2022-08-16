@@ -115,6 +115,11 @@ class FireBrigadeUnitController extends Controller
         FireBrigadeUnit $fireBrigadeUnit,
         DeleteFireBrigadeUnitAction $deleteFireBrigadeUnitAction
     ): RedirectResponse {
+        $this->authorize(
+            Resource::ACTION_DELETE,
+            FireBrigadeUnit::class
+        );
+
         $deleteFireBrigadeUnitAction
             ->execute($fireBrigadeUnit);
 
