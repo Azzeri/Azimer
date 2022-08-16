@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\User\DeleteUserAction;
+use App\Actions\User\StoreUserAction;
+use App\Actions\User\UpdateUserAction;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\Resource;
@@ -40,12 +43,13 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(
-        StoreUserRequest $request
+        StoreUserRequest $request,
+        StoreUserAction $storeUserAction
     ) {
         $randomPassword = $this->userService
             ->generateRandomPassword();
 
-        $user = $this->userService->storeUser(
+        $user = $storeUserAction->execute(
             $request,
             $randomPassword
         );
@@ -70,9 +74,10 @@ class UserController extends Controller
      */
     public function update(
         UpdateUserRequest $request,
+        UpdateUserAction $updateUserAction,
         User $user
     ) {
-        $user = $this->userService->updateUser(
+        $updateUserAction->execute(
             $request,
             $user
         );
@@ -89,15 +94,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
-    {
+    public function destroy(
+        User $user,
+        DeleteUserAction $deleteUserAction
+    ) {
         $this->authorize(
             Resource::ACTION_DELETE,
             $user,
             User::class
         );
 
-        $this->userService->destroyUser($user);
+        if (! $this->userService->canUserBeDeleted($user)) {
+            $deleteUserAction->execute($user);
+        }
 
         return redirect()->route('users.index');
     }

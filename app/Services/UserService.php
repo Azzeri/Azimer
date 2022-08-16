@@ -2,13 +2,10 @@
 
 namespace App\Services;
 
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
 use App\Mail\WelcomeEmail;
 use App\Models\Resource;
 use App\Models\Role;
 use App\Models\User;
-use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -20,73 +17,12 @@ use Illuminate\Support\Facades\Mail;
 class UserService
 {
     /**
-     * Stores user in the database
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public function storeUser(
-        StoreUserRequest $request,
-        string $password
-    ): User {
-        return User::create([
-            'name' => $request->name,
-            'surname' => $request->surname,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make($password),
-            'fire_brigade_unit_id' => $request->fire_brigade_unit_id,
-        ]);
-    }
-
-    /**
-     * Updates given user
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public function updateUser(
-        UpdateUserRequest $request,
-        User $user
-    ): bool {
-        $userRoles = $user->roles();
-        $user->roles()->detach();
-
-        try {
-            $this->attachRoles($user, $request->roles);
-        } catch (Exception $e) {
-            $user->roles()->detach();
-            $user->roles()->attach($userRoles);
-        }
-
-        return $user->update([
-            'name' => $request->name,
-            'surname' => $request->surname,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'fire_brigade_unit_id' => $request->fire_brigade_unit_id,
-        ]);
-    }
-
-    /**
-     * Soft deletes user from storage
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public function destroyUser(User $user): bool|null
-    {
-        if (! $this->canUserBeDeleted($user)) {
-            return false;
-        }
-
-        return $user->delete();
-    }
-
-    /**
      * Detaches all roles and
      * attaches new roles to the user
      *
      * @author Mariusz Waloszczyk
      */
-    private function attachRoles(
+    public function attachRoles(
         User $user,
         array $roles
     ): void {
@@ -94,7 +30,7 @@ class UserService
 
         foreach ($roles as $role) {
             $user->roles()->attach(
-                Role::find($role['suffix']),
+                Role::findOrFail($role['suffix']),
             );
         }
     }
@@ -138,7 +74,7 @@ class UserService
      *
      * @author Mariusz Waloszczyk
      */
-    private function canUserBeDeleted(): bool
+    public function canUserBeDeleted(): bool
     {
         return $this->getUsersWithFullResourceControl(
             Resource::RES_ROLES_OVERALL
