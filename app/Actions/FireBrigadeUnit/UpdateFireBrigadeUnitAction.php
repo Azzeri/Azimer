@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class UpdateFireBrigadeUnitAction
 {
     /**
-     * Stores unit in db
+     * Updates unit in db
      *
      * @author Mariusz Waloszczyk
      */

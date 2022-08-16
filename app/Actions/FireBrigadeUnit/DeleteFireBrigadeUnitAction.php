@@ -10,7 +10,7 @@ use App\Models\FireBrigadeUnit;
 class DeleteFireBrigadeUnitAction
 {
     /**
-     * Stores unit in db
+     * Deletes unit from db
      *
      * @author Mariusz Waloszczyk
      */
