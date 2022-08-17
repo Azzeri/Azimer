@@ -22,18 +22,35 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = Role::find(Role::ROLE_ROLES_OVERALL);
+        $role = Role::create([
+            'suffix' => 'role_overall',
+            'name' => 'One to rule them all',
+        ]);
 
         $role->resources()->attach(
             Resource::RES_ROLES_OVERALL,
             [
-                'actions' => json_encode([
-                    Resource::ACTION_VIEW_ANY,
-                    Resource::ACTION_CREATE,
-                    Resource::ACTION_DELETE,
-                    Resource::ACTION_UPDATE,
-                    Resource::ACTION_VIEW,
-                ]),
+                'actions' => json_encode(
+                    Resource::getPossibleActions(),
+                ),
+            ]
+        );
+
+        $role->resources()->attach(
+            Resource::RES_USERS_OVERALL,
+            [
+                'actions' => json_encode(
+                    Resource::getPossibleActions(),
+                ),
+            ]
+        );
+
+        $role->resources()->attach(
+            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+            [
+                'actions' => json_encode(
+                    Resource::getPossibleActions(),
+                ),
             ]
         );
 
@@ -41,6 +58,7 @@ class UserSeeder extends Seeder
             ->hasAttached($role)
             ->create([
                 'name' => 'Administrator',
+                'surname' => 'Administrator',
                 'email' => 'admin@admin.admin',
                 'password' => Hash::make('qwerty'),
             ]);

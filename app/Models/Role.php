@@ -17,6 +17,10 @@ class Role extends Model
     /** Default roles */
     const ROLE_ROLES_OVERALL = 'role_roles_overall';
 
+    const ROLE_USERS_OVERALL = 'role_users_overall';
+
+    const ROLE_FIRE_BRIGADE_UNITS_OVERALL = 'role_fire_brigade_units_overall';
+
     /**
      * The primary key associated with the table.
      *
