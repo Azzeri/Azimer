@@ -7,8 +7,10 @@ use App\Http\Requests\Vehicle\UpdateVehicleRequest;
 use App\Models\Resource;
 use App\Models\Vehicle;
 use App\Services\VehicleService;
-use Exception;
 
+/**
+ * @author Piotr Nagórny
+ */
 class VehicleController extends Controller
 {
     public function __construct(
@@ -33,7 +35,6 @@ class VehicleController extends Controller
      *
      * @author Piotr Nagórny
      *
-     * @param  \App\Http\Requests\Vehicle\StoreVehicleRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreVehicleRequest $request)
@@ -48,12 +49,13 @@ class VehicleController extends Controller
      *
      * @author Piotr Nagórny
      *
-     * @param  \App\Http\Requests\Vehicle\UpdateVehicleRequest  $request
      * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
-    {
+    public function update(
+        UpdateVehicleRequest $request,
+        Vehicle $vehicle
+    ) {
         $this->vehicleService->updateVehicle(
             $request,
             $vehicle
@@ -67,7 +69,6 @@ class VehicleController extends Controller
      *
      * @author Piotr Nagórny
      *
-     * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
     public function destroy(Vehicle $vehicle)
@@ -77,7 +78,11 @@ class VehicleController extends Controller
             $vehicle,
             Vehicle::class
         );
-        
+
+        $this->vehicleService->destroyVehicle(
+            $vehicle
+        );
+
         return redirect()->route('vehicles.index');
     }
 }

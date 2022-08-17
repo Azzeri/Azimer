@@ -14,8 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('vehicles', function (Blueprint $table) {
-            $table->string('number')->primary();
-            $table->string('name');
+            $table->string('number', 64)->primary();
+            $table->string('name', 128);
             $table->timestamps();
         });
     }

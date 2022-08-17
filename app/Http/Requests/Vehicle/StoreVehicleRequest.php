@@ -7,11 +7,15 @@ use App\Models\Vehicle;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
+/**
+ * @author Piotr Nagórny
+ */
 class StoreVehicleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     * @author Piotr Nagórny 
+     *
+     * @author Piotr Nagórny
      */
     public function authorize(): bool
     {
@@ -20,7 +24,9 @@ class StoreVehicleRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
      * @author Piotr Nagónry
+     *
      * @return array<string, mixed>
      */
     public function rules()
@@ -35,7 +41,7 @@ class StoreVehicleRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'max:64',
+                'max:128',
             ],
         ];
     }

@@ -135,6 +135,6 @@ class VehicleTest extends TestCase
         $response = $this->delete(route('vehicles.destroy', $vehicle));
 
         $response->assertRedirect(route('vehicles.index'));
-        $this->assertModelExists($vehicle);
+        $this->assertModelMissing($vehicle);
     }
 }

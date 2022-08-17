@@ -7,6 +7,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
+/**
+ * @author Piotr Nagórny
+ */
 class UpdateVehicleRequest extends FormRequest
 {
     /**
@@ -39,7 +42,7 @@ class UpdateVehicleRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'max:64',
+                'max:128',
             ],
         ];
     }

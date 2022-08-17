@@ -20,9 +20,8 @@ class vehicleService
      * @author Piotr Nagórny
      */
     public function storeVehicle(
-        StoreVehicleRequest 
-        $request
-        ): vehicle {
+        StoreVehicleRequest $request
+    ): vehicle {
         return Vehicle::create([
             'number' => $request->number,
             'name' => $request->name,
