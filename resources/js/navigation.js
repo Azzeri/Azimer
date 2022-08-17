@@ -1,9 +1,13 @@
 const navigation = [
     {
         label: "Users",
-        link: "dashboard",
-        icon: "fa-solid fa-house",
-        resources: [],
+        link: "users.index",
+        icon: "fa-solid fa-user",
+        resources: [
+            "res_users_overall",
+            "res_users_own_unit",
+            "res_users_lowly_units",
+        ],
     },
     {
         label: "Items",
