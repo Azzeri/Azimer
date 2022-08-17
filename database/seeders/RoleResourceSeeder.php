@@ -41,5 +41,54 @@ class RoleResourceSeeder extends Seeder
                 'name' => 'Overall manufacturers management',
             ],
         ]);
+        
+        DB::table('roles')->insert([
+            [
+                'suffix' => Role::ROLE_USERS_OVERALL,
+                'name' => 'Overall users manager',
+            ],
+        ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_USERS_OVERALL,
+                'name' => 'Overall users management',
+            ],
+        ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_FIRE_BRIGADE_UNIT_OWN,
+                'name' => 'Own fire brigade unit management',
+            ],
+        ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_FIRE_BRIGADE_UNITS_LOWLY,
+                'name' => 'Lowly fire brigade units management',
+            ],
+        ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+                'name' => 'Overall fire brigade units management',
+            ],
+        ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_USERS_OWN_UNIT,
+                'name' => 'Users in own unit management',
+            ],
+        ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_USERS_LOWLY_UNITS,
+                'name' => 'Users in lowly units management',
+            ],
+        ]);
     }
 }

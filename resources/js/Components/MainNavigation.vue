@@ -4,7 +4,7 @@ import NavigationDropdownMenu from './NavigationDropdownMenu.vue';
 </script>
 
 <template>
-  <ul class="menu menu-horizontal p-0">
-    <NavigationDropdownMenu />
-  </ul>
+  <NavigationDropdownMenu 
+    listClass="menu menu-horizontal p-0"
+  />
 </template>
