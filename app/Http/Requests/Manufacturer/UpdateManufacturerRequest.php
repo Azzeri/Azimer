@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Manufactures;
+namespace App\Http\Requests\Manufacturer;
 
-use App\Models\Manufacturer;
 use App\Models\Resource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
-class StoreManufacturerRequest extends FormRequest
+class UpdateManufacturerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +15,7 @@ class StoreManufacturerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows(Resource::ACTION_CREATE, Manufacturer::class);
+        return Gate::allows(Resource::ACTION_UPDATE, $this->manufacturer);
     }
 
     /**

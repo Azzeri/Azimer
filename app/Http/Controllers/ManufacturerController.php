@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Manufactures\StoreManufacturerRequest;
-use App\Http\Requests\Manufactures\UpdateManufacturerRequest;
+use App\Http\Requests\Manufacturer\StoreManufacturerRequest;
+use App\Http\Requests\Manufacturer\UpdateManufacturerRequest;
 use App\Models\Manufacturer;
 use App\Models\Resource;
 use App\Services\ManufacturerService;
 
 /**
- * @author Piotr Nagónry
+ * @author Piotr Nagórny
  */
 class ManufacturerController extends Controller
 {
@@ -35,7 +35,6 @@ class ManufacturerController extends Controller
      *
      * @author Piotr Nagónry
      *
-     * @param  \App\Http\Requests\Manufactures\StoreManufacturerRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(
@@ -51,12 +50,13 @@ class ManufacturerController extends Controller
      *
      * @author Piotr Nagónry
      *
-     * @param  \App\Http\Requests\Manufactures\UpdateManufacturerRequest  $request
      * @param  \App\Models\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateManufacturerRequest $request, Manufacturer $manufacturer)
-    {
+    public function update(
+        UpdateManufacturerRequest $request,
+        Manufacturer $manufacturer
+    ) {
         $this->manufacturerService->updateManufacturer(
             $request,
             $manufacturer
@@ -77,6 +77,10 @@ class ManufacturerController extends Controller
             Resource::ACTION_DELETE,
             $manufacturer,
             Manufacturer::class
+        );
+
+        $this->manufacturerService->destroyManufacturer(
+            $manufacturer
         );
 
         return redirect()->route('manufacturers.index');

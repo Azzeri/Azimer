@@ -2,10 +2,9 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Manufactures\StoreManufacturerRequest;
-use App\Http\Requests\Manufactures\UpdateManufacturerRequest;
+use App\Http\Requests\Manufacturer\StoreManufacturerRequest;
+use App\Http\Requests\Manufacturer\UpdateManufacturerRequest;
 use App\Models\Manufacturer;
-use Exception;
 
 /**
  * Class for roles operations
@@ -15,7 +14,7 @@ use Exception;
 class ManufacturerService
 {
     /**
-     * Stores role in the database
+     * Stores manufacturer in the database
      *
      * @author Piotr Nagórny
      */
@@ -28,7 +27,7 @@ class ManufacturerService
     }
 
     /**
-     * @throws Exception
+     * Updates manufacturer data
      *
      * @author Piotr Nagórny
      */
@@ -42,8 +41,7 @@ class ManufacturerService
     }
 
     /**
-     * Removes the role from storage
-     * also detaches all relations
+     * Removes the manufacturer from storage
      *
      * @author Piotr Nagórny
      */

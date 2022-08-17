@@ -131,7 +131,7 @@ class ManufacturerTest extends TestCase
         $manufacturer = Manufacturer::factory()->create();
         $response = $this->delete(route('manufacturers.destroy', $manufacturer));
 
+        $this->assertModelMissing($manufacturer);
         $response->assertRedirect((route('manufacturers.index')));
-        $this->assertModelExists($manufacturer);
     }
 }
