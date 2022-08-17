@@ -90,5 +90,12 @@ class RoleResourceSeeder extends Seeder
                 'name' => 'Users in lowly units management',
             ],
         ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_VEHICLES_OVERALL,
+                'name' => 'Overall vehicles management',
+            ],
+        ]);
     }
 }

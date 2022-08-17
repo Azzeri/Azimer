@@ -3,6 +3,7 @@
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\FireBrigadeUnitController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -49,4 +50,6 @@ Route::middleware([
     Route::resource('/fireBrigadeUnits', FireBrigadeUnitController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 
+    Route::resource('/vehicles', VehicleController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
 });
