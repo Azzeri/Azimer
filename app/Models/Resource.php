@@ -26,6 +26,8 @@ class Resource extends Model
 
     const RES_ROLES_OVERALL = 'res_roles_overall';
 
+    const RES_MANUFACTURERS_OVERALL = 'res_manufacturers_overall';
+    
     const RES_USERS_OVERALL = 'res_users_overall';
 
     const RES_USERS_OWN_UNIT = 'res_users_own_unit';

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\FireBrigadeUnitController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -36,6 +37,9 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::resource('/manufacturers', ManufacturerController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
+
     Route::resource('/roles', RoleController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 
@@ -44,4 +48,5 @@ Route::middleware([
 
     Route::resource('/fireBrigadeUnits', FireBrigadeUnitController::class)
         ->only(['index', 'store', 'update', 'destroy']);
+
 });
