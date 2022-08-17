@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\FireBrigadeUnitController;
+use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,4 +37,19 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::resource('/manufacturers', ManufacturerController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('/roles', RoleController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('/users', UserController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('/fireBrigadeUnits', FireBrigadeUnitController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('/vehicles', VehicleController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
 });
