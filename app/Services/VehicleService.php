@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Http\Requests\vehicle\StorevehicleRequest;
-use App\Http\Requests\vehicle\UpdatevehicleRequest;
-use App\Models\vehicle;
+use App\Http\Requests\Vehicle\StoreVehicleRequest;
+use App\Http\Requests\Vehicle\UpdateVehicleRequest;
+use App\Models\Vehicle;
 use Exception;
 
 /**
@@ -21,10 +21,11 @@ class vehicleService
      */
     public function storeVehicle(
         StoreVehicleRequest $request
-    ): vehicle {
+    ): Vehicle {
         return Vehicle::create([
             'number' => $request->number,
             'name' => $request->name,
+            'fire_brigade_unit_id' => $request->fire_brigade_unit_id,
         ]);
     }
 
@@ -42,6 +43,7 @@ class vehicleService
         return $vehicle->update([
             'number' => $request->number,
             'name' => $request->name,
+            'fire_brigade_unit_id' => $request->fire_brigade_unit_id,
         ]);
     }
 

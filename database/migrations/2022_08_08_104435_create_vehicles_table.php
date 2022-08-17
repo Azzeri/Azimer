@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->string('number', 64)->primary();
             $table->string('name', 128);
+            $table->foreignId('fire_brigade_unit_id')->constrained();
             $table->timestamps();
         });
     }

@@ -43,6 +43,9 @@ class StoreVehicleRequest extends FormRequest
                 'string',
                 'max:128',
             ],
+            'fire_brigade_unit_id' => [
+                'exists:fire_brigade_units,id',
+            ],
         ];
     }
 }

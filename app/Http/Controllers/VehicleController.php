@@ -37,8 +37,9 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreVehicleRequest $request)
-    {
+    public function store(
+        StoreVehicleRequest $request
+    ) {
         $this->vehicleService->storeVehicle($request);
 
         return redirect()->route('vehicles.index');

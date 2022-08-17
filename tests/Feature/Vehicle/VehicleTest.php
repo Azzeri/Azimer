@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\FireBrigadeUnit;
 use App\Models\Resource;
 use App\Models\Vehicle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -58,17 +59,20 @@ class VehicleTest extends TestCase
         ]);
 
         $this->actingAs($auth);
+
+        $unit = FireBrigadeUnit::factory()->create();
+
         $params = [
             'number' => 'test number',
             'name' => 'test vehicle',
+            'fire_brigade_unit_id' => $unit->id,
         ];
 
         $response = $this->post(route('vehicles.store'), $params);
 
-        $response->assertRedirect(route('vehicles.index'));
         $response->assertValid();
-
         $this->assertDatabaseHas('vehicles', $params);
+        $response->assertRedirect(route('vehicles.index'));
     }
 
     /**
@@ -89,20 +93,27 @@ class VehicleTest extends TestCase
 
         $this->actingAs($auth);
 
+        $unit = FireBrigadeUnit::factory()->create();
+
         $currentVehicleParams = [
             'number' => '123',
             'name' => 'current_name',
+            'fire_brigade_unit_id' => $unit->id,
         ];
         $updatedVehicleParams = [
             'number' => '321',
             'name' => 'updated_name',
+            'fire_brigade_unit_id' => $unit->id,
         ];
 
-        $vehicle = Vehicle::factory()->create();
+        $vehicle = Vehicle::factory()->create([
+            'fire_brigade_unit_id' => $unit->id,
+        ]);
 
         $request = [
             'number' => $updatedVehicleParams['number'],
             'name' => $updatedVehicleParams['name'],
+            'fire_brigade_unit_id' => $updatedVehicleParams['fire_brigade_unit_id'],
         ];
 
         $response = $this->put(
@@ -131,7 +142,11 @@ class VehicleTest extends TestCase
 
         $this->actingAs($auth);
 
-        $vehicle = Vehicle::factory()->create();
+        $unit = FireBrigadeUnit::factory()->create();
+
+        $vehicle = Vehicle::factory()->create([
+            'fire_brigade_unit_id' => $unit->id,
+        ]);
         $response = $this->delete(route('vehicles.destroy', $vehicle));
 
         $response->assertRedirect(route('vehicles.index'));

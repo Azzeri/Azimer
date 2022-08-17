@@ -33,8 +33,20 @@ class Vehicle extends Model
      */
     public $incrementing = false;
 
+    /**
+     * Returns unit to which vehicle belongs
+     * {@inheritdoc}
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function fireBrigadeUnit()
+    {
+        return $this->belongsTo(FireBrigadeUnit::class);
+    }
+
     protected $fillable = [
         'number',
         'name',
+        'fire_brigade_unit_id',
     ];
 }
