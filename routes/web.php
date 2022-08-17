@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\FireBrigadeUnitController;
+use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;

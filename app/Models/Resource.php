@@ -29,7 +29,7 @@ class Resource extends Model
     const RES_VEHICLES_OVERALL = 'res_vehicles_overall';
 
     const RES_MANUFACTURERS_OVERALL = 'res_manufacturers_overall';
-    
+
     const RES_USERS_OVERALL = 'res_users_overall';
 
     const RES_USERS_OWN_UNIT = 'res_users_own_unit';
