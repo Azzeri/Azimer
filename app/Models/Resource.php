@@ -24,6 +24,8 @@ class Resource extends Model
 
     const ACTION_VIEW = 'view';
 
+    const RES_DUMMY = 'res_dummy';
+
     const RES_ROLES_OVERALL = 'res_roles_overall';
 
     const RES_VEHICLES_OVERALL = 'res_vehicles_overall';

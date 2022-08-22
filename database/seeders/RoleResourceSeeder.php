@@ -21,6 +21,13 @@ class RoleResourceSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_DUMMY,
+                'name' => 'Dummy resource',
+            ],
+        ]);
+
         DB::table('roles')->insert([
             [
                 'suffix' => Role::ROLE_ROLES_OVERALL,

@@ -3,6 +3,8 @@ import { Table } from "@protonemedia/inertiajs-tables-laravel-query-builder";
 import { openModal } from "@/shared.js";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import CreateFormModal from "@/Components/FireBrigadeUnit/CreateFormModal.vue";
+import { Link } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
 
 defineProps({
     fireBrigadeUnits: Object,
@@ -22,7 +24,8 @@ defineProps({
                 </button>
             </template>
             <template #cell(actions)="{ item: unit }">
-                <button @click="" class="btn btn-xs btn-info">Details</button>
+                <Link :href="route('fireBrigadeUnits.show', unit.id)" class="btn btn-xs btn-info">Details</Link>
+                <button @click="Inertia.delete(route('fireBrigadeUnits.destroy', unit.id))" class="ml-2 btn btn-xs btn-error">Delete</button>
             </template>
             <template #cell(superior_unit_id)="{ item: unit }">
                 {{

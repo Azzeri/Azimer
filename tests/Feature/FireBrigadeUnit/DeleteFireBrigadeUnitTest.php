@@ -4,6 +4,7 @@ namespace Tests\Feature\FireBrigadeUnit;
 
 use App\Models\FireBrigadeUnit;
 use App\Models\Resource;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -47,18 +48,28 @@ class DeleteFireBrigadeUnitTest extends TestCase
     {
         // Arrange
         $sampleUnit = FireBrigadeUnit::factory()->create();
+        $childUnit = FireBrigadeUnit::factory()->create();
+        $user = User::factory()->create();
+
+        $childUnit->update([
+            'superior_unit_id' => $sampleUnit->id,
+        ]);
+        $user->update([
+            'fire_brigade_unit_id' => $sampleUnit->id,
+        ]);
 
         // Act
         $response = $this->delete(
             route(
                 'fireBrigadeUnits.destroy',
-                $sampleUnit->id
+                $sampleUnit
             )
-
         );
 
         // Assert
-        $this->assertModelMissing($sampleUnit);
+        $this->assertSoftDeleted($sampleUnit);
+        // $this->assertNull($childUnit->superior_unit_id);
+        // $this->assertNull($user->fire_brigade_unit_id);
         $response->assertRedirect(route('fireBrigadeUnits.index'));
     }
 }

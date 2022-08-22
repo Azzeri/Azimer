@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\FireBrigadeUnit\DeleteFireBrigadeUnitAction;
 use App\Actions\FireBrigadeUnit\StoreFireBrigadeUnitAction;
 use App\Actions\FireBrigadeUnit\UpdateFireBrigadeUnitAction;
-use App\Http\Requests\FireBrigadeUnit\StoreFireBrigadeUnitRequest;
-use App\Http\Requests\FireBrigadeUnit\UpdateFireBrigadeUnitRequest;
+use App\Http\Requests\FireBrigadeUnit\FireBrigadeUnitRequest;
 use App\Models\FireBrigadeUnit;
 use App\Models\Resource;
 use App\Models\User;
@@ -16,22 +15,21 @@ use Illuminate\Support\Facades\Auth;
 use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
 use Spatie\QueryBuilder\QueryBuilder;
 
+/**
+ * @author Mariusz Waloszczyk
+ */
 class FireBrigadeUnitController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @author Mariusz Waloszczyk
+     * @return \Illuminate\Http\Response
      *
-     * @return \Inertia\ResponseFactory|\Inertia\Response
+     * @author Mariusz Waloszczyk
      */
-    public function index()
-    {
-        $this->authorize(
-            Resource::ACTION_VIEW_ANY,
-            FireBrigadeUnit::class
-        );
-
+    public function index(
+        FireBrigadeUnitRequest $request
+    ) {
         $query = $this
             ->getFireBrigadeUnitsQuery();
 
@@ -73,12 +71,23 @@ class FireBrigadeUnitController extends Controller
     }
 
     /**
+     * Display the resource.
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function show(
+        FireBrigadeUnitRequest $request,
+        FireBrigadeUnit $fireBrigadeUnit
+    ) {
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @author Mariusz Waloszczyk
      */
     public function store(
-        StoreFireBrigadeUnitRequest $request,
+        FireBrigadeUnitRequest $request,
         StoreFireBrigadeUnitAction $storeFireBrigadeUnitAction
     ): RedirectResponse {
         $storeFireBrigadeUnitAction->execute($request);
@@ -94,7 +103,7 @@ class FireBrigadeUnitController extends Controller
      * @author Mariusz Waloszczyk
      */
     public function update(
-        UpdateFireBrigadeUnitRequest $request,
+        FireBrigadeUnitRequest $request,
         UpdateFireBrigadeUnitAction $updateFireBrigadeUnitAction,
         FireBrigadeUnit $fireBrigadeUnit
     ): RedirectResponse {
@@ -112,14 +121,10 @@ class FireBrigadeUnitController extends Controller
      * @author Mariusz Waloszczyk
      */
     public function destroy(
+        FireBrigadeUnitRequest $request,
         FireBrigadeUnit $fireBrigadeUnit,
         DeleteFireBrigadeUnitAction $deleteFireBrigadeUnitAction
     ): RedirectResponse {
-        $this->authorize(
-            Resource::ACTION_DELETE,
-            FireBrigadeUnit::class
-        );
-
         $deleteFireBrigadeUnitAction
             ->execute($fireBrigadeUnit);
 

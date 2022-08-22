@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @author Mariusz Waloszczyk
  */
 class FireBrigadeUnit extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +25,7 @@ class FireBrigadeUnit extends Model
         'addr_postcode',
         'addr_locality',
         'superior_unit_id',
+        'deleted_at',
     ];
 
     /**

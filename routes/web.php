@@ -48,7 +48,7 @@ Route::middleware([
         ->only(['index', 'store', 'update', 'destroy']);
 
     Route::resource('/fireBrigadeUnits', FireBrigadeUnitController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
+        ->only(['index', 'store', 'update', 'destroy', 'show']);
 
     Route::resource('/vehicles', VehicleController::class)
         ->only(['index', 'store', 'update', 'destroy']);
