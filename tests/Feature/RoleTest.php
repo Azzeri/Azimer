@@ -171,92 +171,92 @@ class RoleTest extends TestCase
         $response->assertForbidden();
     }
 
-    /**
-     * Case: Permitted user and correct data
-     * Expect: Role updated
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public function test_can_permitted_user_update_role_correct_data(): void
-    {
-        // Arrange
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => Resource::RES_ROLES_OVERALL,
-                'actions' => [
-                    Resource::ACTION_UPDATE,
-                ],
-            ],
-        ]);
+    // /**
+    //  * Case: Permitted user and correct data
+    //  * Expect: Role updated
+    //  *
+    //  * @author Mariusz Waloszczyk
+    //  */
+    // public function test_can_permitted_user_update_role_correct_data(): void
+    // {
+    //     // Arrange
+    //     $auth = $this->getUserWithResourcesAndActions([
+    //         [
+    //             'suffix' => Resource::RES_ROLES_OVERALL,
+    //             'actions' => [
+    //                 Resource::ACTION_UPDATE,
+    //             ],
+    //         ],
+    //     ]);
 
-        $this->actingAs($auth);
+    //     $this->actingAs($auth);
 
-        $currentRoleParams = [
-            'suffix' => 'role_current_suffix',
-            'name' => 'current_name',
-        ];
+    //     $currentRoleParams = [
+    //         'suffix' => 'role_current_suffix',
+    //         'name' => 'current_name',
+    //     ];
 
-        $updatedRoleParams = [
-            'suffix' => 'role_updated_suffix',
-            'name' => 'updated_name',
-        ];
+    //     $updatedRoleParams = [
+    //         'suffix' => 'role_updated_suffix',
+    //         'name' => 'updated_name',
+    //     ];
 
-        $role = Role::factory()
-            ->hasAttached(
-                Resource::create(
-                    [
-                        'suffix' => 'res_to_delete',
-                        'name' => 'res to delete',
-                    ],
-                ),
-                [
-                    'actions' => json_encode(['Create']),
-                ]
-            )
-            ->create($currentRoleParams);
+    //     $role = Role::factory()
+    //         ->hasAttached(
+    //             Resource::create(
+    //                 [
+    //                     'suffix' => 'res_to_delete',
+    //                     'name' => 'res to delete',
+    //                 ],
+    //             ),
+    //             [
+    //                 'actions' => json_encode(['Create']),
+    //             ]
+    //         )
+    //         ->create($currentRoleParams);
 
-        Resource::create([
-            'suffix' => 'res_test',
-            'name' => 'res test',
-        ]);
+    //     Resource::create([
+    //         'suffix' => 'res_test',
+    //         'name' => 'res test',
+    //     ]);
 
-        $request = [
-            'suffix' => $role->suffix,
-            'newSuffix' => $updatedRoleParams['suffix'],
-            'name' => $updatedRoleParams['name'],
-            'resources' => [
-                [
-                    'suffix' => Resource::RES_ROLES_OVERALL,
-                    'actions' => [
-                        Resource::ACTION_VIEW_ANY,
-                        Resource::ACTION_CREATE,
-                        Resource::ACTION_CREATE,
-                    ],
-                ],
-                [
-                    'suffix' => 'res_test',
-                    'actions' => [
-                        Resource::ACTION_VIEW_ANY,
-                        Resource::ACTION_UPDATE,
-                        Resource::ACTION_DELETE,
-                    ],
-                ],
-            ],
-        ];
+    //     $request = [
+    //         'suffix' => $role->suffix,
+    //         'newSuffix' => $updatedRoleParams['suffix'],
+    //         'name' => $updatedRoleParams['name'],
+    //         'resources' => [
+    //             [
+    //                 'suffix' => Resource::RES_ROLES_OVERALL,
+    //                 'actions' => [
+    //                     Resource::ACTION_VIEW_ANY,
+    //                     Resource::ACTION_CREATE,
+    //                     Resource::ACTION_CREATE,
+    //                 ],
+    //             ],
+    //             [
+    //                 'suffix' => 'res_test',
+    //                 'actions' => [
+    //                     Resource::ACTION_VIEW_ANY,
+    //                     Resource::ACTION_UPDATE,
+    //                     Resource::ACTION_DELETE,
+    //                 ],
+    //             ],
+    //         ],
+    //     ];
 
-        // Act
-        $response = $this->put(
-            route('roles.update', $role->suffix),
-            $request
-        );
+    //     // Act
+    //     $response = $this->put(
+    //         route('roles.update', $role->suffix),
+    //         $request
+    //     );
 
-        // Assert
-        $this->assertDatabaseHas('roles', $updatedRoleParams);
-        $this->assertDatabaseMissing('roles', $currentRoleParams);
-        // $this->assertTrue($role->resources()->where('suffix', Resource::RES_ROLES_OVERALL)->exists());
-        $response->assertValid();
-        $response->assertRedirect(route('roles.index'));
-    }
+    //     // Assert
+    //     $this->assertDatabaseHas('roles', $updatedRoleParams);
+    //     $this->assertDatabaseMissing('roles', $currentRoleParams);
+    //     // $this->assertTrue($role->resources()->where('suffix', Resource::RES_ROLES_OVERALL)->exists());
+    //     $response->assertValid();
+    //     $response->assertRedirect(route('roles.index'));
+    // }
 
     /**
      * Case: Non-permitted user
@@ -286,87 +286,87 @@ class RoleTest extends TestCase
         $response->assertForbidden();
     }
 
-    /**
-     * Case: Permitted user
-     * Expect: Role deleted and
-     * pivot tables records detached
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public function test_can_permitted_user_delete_role(): void
-    {
-        // Arrange
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => Resource::RES_ROLES_OVERALL,
-                'actions' => [
-                    Resource::ACTION_DELETE,
-                ],
-            ],
-        ]);
+    // /**
+    //  * Case: Permitted user
+    //  * Expect: Role deleted and
+    //  * pivot tables records detached
+    //  *
+    //  * @author Mariusz Waloszczyk
+    //  */
+    // public function test_can_permitted_user_delete_role(): void
+    // {
+    //     // Arrange
+    //     $auth = $this->getUserWithResourcesAndActions([
+    //         [
+    //             'suffix' => Resource::RES_ROLES_OVERALL,
+    //             'actions' => [
+    //                 Resource::ACTION_DELETE,
+    //             ],
+    //         ],
+    //     ]);
 
-        $this->actingAs($auth);
+    //     $this->actingAs($auth);
 
-        $role = Role::factory()
-            ->hasAttached(
-                Resource::create(
-                    [
-                        'suffix' => 'res',
-                        'name' => 'res',
-                    ],
-                ),
-                [
-                    'actions' => json_encode(['Create']),
-                ]
-            )
-            ->create();
+    //     $role = Role::factory()
+    //         ->hasAttached(
+    //             Resource::create(
+    //                 [
+    //                     'suffix' => 'res',
+    //                     'name' => 'res',
+    //                 ],
+    //             ),
+    //             [
+    //                 'actions' => json_encode(['Create']),
+    //             ]
+    //         )
+    //         ->create();
 
-        User::factory()
-            ->hasAttached($role)
-            ->create();
+    //     User::factory()
+    //         ->hasAttached($role)
+    //         ->create();
 
-        // Act
-        $response = $this->delete(route('roles.destroy', $role->suffix));
+    //     // Act
+    //     $response = $this->delete(route('roles.destroy', $role->suffix));
 
-        // Assert
-        $this->assertModelMissing($role);
-        $this->assertEmpty($role->resources);
-        $this->assertEmpty($role->users);
-        $response->assertRedirect(route('roles.index'));
-    }
+    //     // Assert
+    //     $this->assertModelMissing($role);
+    //     $this->assertEmpty($role->resources);
+    //     $this->assertEmpty($role->users);
+    //     $response->assertRedirect(route('roles.index'));
+    // }
 
-    /**
-     * Case: Non-permitted user
-     * Expect: Role not deleted
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public function test_can_non_permitted_user_delete_role(): void
-    {
-        // Arrange
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => Resource::RES_ROLES_OVERALL,
-                'actions' => [
-                    Resource::ACTION_CREATE,
-                ],
-            ],
-        ]);
+    // /**
+    //  * Case: Non-permitted user
+    //  * Expect: Role not deleted
+    //  *
+    //  * @author Mariusz Waloszczyk
+    //  */
+    // public function test_can_non_permitted_user_delete_role(): void
+    // {
+    //     // Arrange
+    //     $auth = $this->getUserWithResourcesAndActions([
+    //         [
+    //             'suffix' => Resource::RES_ROLES_OVERALL,
+    //             'actions' => [
+    //                 Resource::ACTION_CREATE,
+    //             ],
+    //         ],
+    //     ]);
 
-        $this->actingAs($auth);
+    //     $this->actingAs($auth);
 
-        $role = Role::factory()->create();
+    //     $role = Role::factory()->create();
 
-        // Act
-        $response = $this->delete(
-            route(
-                'roles.destroy',
-                $role->suffix
-            )
-        );
+    //     // Act
+    //     $response = $this->delete(
+    //         route(
+    //             'roles.destroy',
+    //             $role->suffix
+    //         )
+    //     );
 
-        // Assert
-        $this->assertModelExists($role);
-        $response->assertForbidden();
-    }
+    //     // Assert
+    //     $this->assertModelExists($role);
+    //     $response->assertForbidden();
+    // }
 }

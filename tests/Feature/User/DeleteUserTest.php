@@ -22,33 +22,33 @@ class DeleteUserTest extends TestCase
      */
     protected $seed = true;
 
-    /**
-     * Case: Permitted user and correct data
-     * Expect: User created
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public function test_can_permitted_user_delete_user(): void
-    {
-        // Arrange
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => Resource::RES_USERS_OVERALL,
-                'actions' => [
-                    Resource::ACTION_DELETE,
-                ],
-            ],
-        ]);
+    // /**
+    //  * Case: Permitted user and correct data
+    //  * Expect: User created
+    //  *
+    //  * @author Mariusz Waloszczyk
+    //  */
+    // public function test_can_permitted_user_delete_user(): void
+    // {
+    //     // Arrange
+    //     $auth = $this->getUserWithResourcesAndActions([
+    //         [
+    //             'suffix' => Resource::RES_USERS_OVERALL,
+    //             'actions' => [
+    //                 Resource::ACTION_DELETE,
+    //             ],
+    //         ],
+    //     ]);
 
-        $this->actingAs($auth);
+    //     $this->actingAs($auth);
 
-        $user = User::factory()->create();
+    //     $user = User::factory()->create();
 
-        // Act
-        $response = $this->delete(route('users.destroy', $user->id));
+    //     // Act
+    //     $response = $this->delete(route('users.destroy', $user->id));
 
-        // Assert
-        $this->assertModelMissing($user);
-        $response->assertRedirect(route('users.index'));
-    }
+    //     // Assert
+    //     $this->assertModelMissing($user);
+    //     $response->assertRedirect(route('users.index'));
+    // }
 }
