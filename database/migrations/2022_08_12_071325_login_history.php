@@ -18,7 +18,7 @@ return new class extends Migration
     {
         Schema::create('login_histories', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained();
-            $table->boolean('success');
+            $table->boolean('is_success');
             $table->datetime('date');
             $table->string('login_ip', 15);
             $table->string('browser');

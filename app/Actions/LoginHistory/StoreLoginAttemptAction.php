@@ -13,11 +13,11 @@ class StoreLoginAttemptAction
     /**
      * @author Piotr Nagórny
      */
-    public function execute(int $userid, bool $isSuccess)
+    public function execute(int $userId, bool $isSuccess)
     {
         $agent = new Agent();
         LoginHistory::create([
-            'user_id' => $userid,
+            'user_id' => $userId,
             'success' => $isSuccess,
             'date' => now(),
             'login_ip' => request()->getClientIp(),

@@ -7,16 +7,14 @@ use App\Actions\LoginHistory\StoreLoginAttemptAction;
 /**
  * @author Piotr Nagórny
  */
-class FailedHistoryListener
+class LoginHistoryFailedListener
 {
     /**
      * Create the event listener.
      *
      * @author Piotr Nagórny
-     *
-     * @return void
      */
-    public function __construct(public StoreLoginAttemptAction $log)
+    public function __construct(public StoreLoginAttemptAction $storeLoginAttemptAction)
     {
         //
     }
@@ -33,7 +31,7 @@ class FailedHistoryListener
         if ($event->user == null) {
             return;
         }
-        $userid = $event->user->id;
-        $this->log->execute($userid, false);
+        $userId = $event->user->id;
+        $this->storeLoginAttemptAction->execute($userId, false);
     }
 }
