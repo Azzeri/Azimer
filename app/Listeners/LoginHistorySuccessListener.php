@@ -14,8 +14,9 @@ class LoginHistorySuccessListener
      *
      * @author Piotr Nagórny
      */
-    public function __construct(public StoreLoginAttemptAction $storeLoginAttemptAction)
-    {
+    public function __construct(
+        public StoreLoginAttemptAction $storeLoginAttemptAction
+    ) {
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Listeners\LoginHistoryFailedListener;
+use App\Listeners\LoginHistoryFailListener;
 use App\Listeners\LoginHistorySuccessListener;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
             LoginHistorySuccessListener::class,
         ],
         Failed::class => [
-            LoginHistoryFailedListener::class,
+            LoginHistoryFailListener::class,
         ],
     ];
 

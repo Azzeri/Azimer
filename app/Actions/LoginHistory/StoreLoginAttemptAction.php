@@ -18,7 +18,7 @@ class StoreLoginAttemptAction
         $agent = new Agent();
         LoginHistory::create([
             'user_id' => $userId,
-            'success' => $isSuccess,
+            'is_success' => $isSuccess,
             'date' => now(),
             'login_ip' => request()->getClientIp(),
             'browser' => $agent->browser(),
