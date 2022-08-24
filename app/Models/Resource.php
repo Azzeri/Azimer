@@ -26,8 +26,6 @@ class Resource extends Model
 
     const RES_ROLES_OVERALL = 'res_roles_overall';
 
-    const RES_LOGIN_HISTORY_OVERALL = 'res_login_history_overall';
-
     /**
      * The primary key associated with the table.
      *

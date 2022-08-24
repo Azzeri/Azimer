@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use Illuminate\Support\Facades\DB;
+use App\Actions\LoginHistory\StoreLoginAttemptAction;
 
 /**
  * @author Piotr Nagórny
@@ -12,9 +12,11 @@ class FailedHistoryListener
     /**
      * Create the event listener.
      *
+     * @author Piotr Nagórny
+     *
      * @return void
      */
-    public function __construct()
+    public function __construct(public StoreLoginAttemptAction $log)
     {
         //
     }
@@ -25,19 +27,13 @@ class FailedHistoryListener
      * @author Piotr Nagórny
      *
      * @param  object  $event
-     * @return void
      */
-    public function handle($event)
+    public function handle($event): void
     {
         if ($event->user == null) {
             return;
-        } else {
-            DB::table('login_histories')->insert([
-                'user_id' => $event->user->id,
-                'success' => false,
-                'date' => now(),
-                'login_ip' => request()->getClientIp(),
-            ]);
         }
+        $userid = $event->user->id;
+        $this->log->execute($userid, false);
     }
 }

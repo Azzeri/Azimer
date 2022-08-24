@@ -13,16 +13,15 @@ return new class extends Migration
      * Run the migrations.
      *
      * @author Piotr Nagórny
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('login_histories', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained();
             $table->boolean('success');
-            $table->timestamp('date');
-            $table->string('login_ip');
+            $table->datetime('date');
+            $table->string('login_ip', 15);
+            $table->string('browser');
         });
     }
 
@@ -30,10 +29,8 @@ return new class extends Migration
      * Reverse the migrations.
      *
      * @author Piotr Nagórny
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('login_histories');
     }

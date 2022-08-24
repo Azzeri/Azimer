@@ -12,10 +12,13 @@ class LoginHistory extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'user_id',
         'success',
         'date',
         'login_ip',
+        'browser',
     ];
 }
