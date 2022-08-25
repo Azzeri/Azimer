@@ -35,7 +35,7 @@ class StoreUserRequest extends FormRequest
             'surname' => 'required|string|max:64',
             'phone' => 'nullable|string|max:20',
             'email' => 'required|unique:users|email:filter',
-            'fire_brigade_unit_id' => 'nullable|exists:fire_brigade_units',
+            'fire_brigade_unit_id' => 'nullable|exists:fire_brigade_units,id',
         ];
     }
 }
