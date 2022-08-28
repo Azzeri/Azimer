@@ -104,5 +104,12 @@ class RoleResourceSeeder extends Seeder
                 'name' => 'Overall vehicles management',
             ],
         ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_EQUIPMENT_OVERALL,
+                'name' => 'Overall equipment management',
+            ],
+        ]);
     }
 }
