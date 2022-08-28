@@ -20,25 +20,26 @@ return new class extends Migration
             $table->id();
             $table->string('name', 64);
             $table->foreignId('eq_item_category_id')
-                ->constrained()
+                ->constrained('eq_item_categories')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->string('vehicle_number');
             $table->foreignId('manufacturer_id')
                 ->constrained();
-            $table->boolean('construction_number')
+            $table->boolean('has_vehicle')
                 ->default(false);
-            $table->boolean('inventory_number')
+            $table->boolean('has_construction_number')
                 ->default(false);
-            $table->boolean('identification_number')
+            $table->boolean('has_inventory_number')
                 ->default(false);
-            $table->boolean('date_expiry')
+            $table->boolean('has_identification_number')
                 ->default(false);
-            $table->boolean('date_legalisation')
+            $table->boolean('has_date_expiry')
                 ->default(false);
-            $table->boolean('date_legalisation_due')
+            $table->boolean('has_date_legalisation')
                 ->default(false);
-            $table->boolean('date_production')
+            $table->boolean('has_date_legalisation_due')
+                ->default(false);
+            $table->boolean('has_date_production')
                 ->default(false);
             $table->comment('Table determining item properties.');
         });
