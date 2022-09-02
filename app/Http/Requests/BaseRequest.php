@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Resource;
+use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
@@ -23,6 +24,10 @@ class BaseRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        if (!$this->model) {
+            throw new Exception('Request model not found');
+        }
+
         return match ($this->method()) {
             $this::METHOD_GET => $this->accessForView(),
             $this::METHOD_POST => $this->accessForCreate(),
