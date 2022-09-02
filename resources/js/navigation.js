@@ -32,7 +32,7 @@ const navigation = [
                 link: "eqItemTemplates.index",
                 icon: "fa-solid fa-house",
                 resources: [
-                    "res_equipment_overall"
+                    "res_equipment_resources_overall"
                 ],
             },
             {

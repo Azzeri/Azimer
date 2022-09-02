@@ -27,7 +27,7 @@ class CreateEqItemTemplateTest extends TestCase
 
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_EQUIPMENT_OVERALL,
+                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
                 'actions' => [
                     Resource::ACTION_CREATE,
                 ],

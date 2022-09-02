@@ -107,8 +107,8 @@ class RoleResourceSeeder extends Seeder
 
         DB::table('resources')->insert([
             [
-                'suffix' => Resource::RES_EQUIPMENT_OVERALL,
-                'name' => 'Overall equipment management',
+                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                'name' => 'Overall equipment resources management',
             ],
         ]);
     }

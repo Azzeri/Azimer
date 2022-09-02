@@ -24,7 +24,7 @@ class EqItemTemplatePolicy
     public function viewAny(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_VIEW_ANY
         );
     }
@@ -39,7 +39,7 @@ class EqItemTemplatePolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_CREATE
         );
     }
@@ -56,7 +56,7 @@ class EqItemTemplatePolicy
         EqItemTemplate $eqItemTemplate
     ) {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_UPDATE
         );
     }
@@ -73,7 +73,7 @@ class EqItemTemplatePolicy
         EqItemTemplate $eqItemTemplate
     ) {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_DELETE
         );
     }

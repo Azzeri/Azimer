@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
         );
 
         $role->resources()->attach(
-            Resource::RES_EQUIPMENT_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             [
                 'actions' => json_encode(
                     Resource::getPossibleActions(),
