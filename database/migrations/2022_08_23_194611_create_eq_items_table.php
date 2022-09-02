@@ -26,7 +26,8 @@ return new class extends Migration
                 ->constrained();
             $table->foreignId('fire_brigade_unit_id')
                 ->constrained();
-            $table->string('vehicle_number');
+            $table->string('vehicle_number')
+                ->nullable();
             $table->foreign('vehicle_number')
                 ->nullable()
                 ->references('number')

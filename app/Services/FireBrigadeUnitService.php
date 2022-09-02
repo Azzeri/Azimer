@@ -28,4 +28,22 @@ class FireBrigadeUnitService
             ->where('superior_unit_id', $fireBrigadeUnit->id)
             ->update(['superior_unit_id' => null]);
     }
+
+    /**
+     * Returns random fire brigade unit or creates one
+     * if none exists
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public static function getRandomFireBrigadeUnit(): FireBrigadeUnit
+    {
+        $unit = FireBrigadeUnit::inRandomOrder()->first();
+
+        if (is_null($unit)) {
+            return FireBrigadeUnit::factory()
+                ->create();
+        }
+
+        return $unit;
+    }
 }
