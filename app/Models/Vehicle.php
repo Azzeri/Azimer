@@ -33,6 +33,12 @@ class Vehicle extends Model
      */
     public $incrementing = false;
 
+    protected $fillable = [
+        'number',
+        'name',
+        'fire_brigade_unit_id',
+    ];
+
     /**
      * Returns unit to which vehicle belongs
      * {@inheritdoc}
@@ -43,10 +49,4 @@ class Vehicle extends Model
     {
         return $this->belongsTo(FireBrigadeUnit::class);
     }
-
-    protected $fillable = [
-        'number',
-        'name',
-        'fire_brigade_unit_id',
-    ];
 }
