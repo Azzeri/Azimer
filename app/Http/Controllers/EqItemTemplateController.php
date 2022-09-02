@@ -7,6 +7,7 @@ use App\Actions\EqItemTemplate\StoreEqItemTemplateAction;
 use App\Actions\EqItemTemplate\UpdateEqItemTemplateAction;
 use App\Http\Requests\EqItemTemplate\EqItemTemplateRequest;
 use App\Models\EqItemTemplate;
+use App\Services\DropdownService;
 use Illuminate\Http\RedirectResponse;
 use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -26,17 +27,10 @@ class EqItemTemplateController extends Controller
     public function index(
         EqItemTemplateRequest $request
     ) {
-        $query = $this
-            ->getEqItemTemplatesQuery();
-
-        $eqItemTemplates = $query
-            ->paginate()
-            ->withQueryString();
-
-        return inertia('EqItemTemplate/Index', [
-            'eqItemTemplates' => $eqItemTemplates,
-            'eqItemCategories' => [1, 2, 3, 4], // temporary
-        ])->table(function (InertiaTable $table) {
+        return inertia(
+            'EqItemTemplate/Index',
+            $this->getIndexProps()
+        )->table(function (InertiaTable $table) {
             $table
                 ->column(
                     key: 'id',
@@ -165,6 +159,27 @@ class EqItemTemplateController extends Controller
     }
 
     /**
+     * Returns props for frontend page component
+     *
+     * @author Mariusz Waloszczyk
+     */
+    private function getIndexProps(): array
+    {
+        $query = $this
+            ->getEqItemTemplatesQuery();
+
+        $eqItemTemplates = $query
+            ->paginate()
+            ->withQueryString();
+
+        return [
+            'eqItemTemplates' => $eqItemTemplates,
+            'eqItemManufacturersSelect' => DropdownService::getManufacturersDropdown(),
+            'eqItemCategoriesSelect' => [['value' => 1, 'label' => 'cat 1'], ['value' => 2, 'label' => 'cat 2']], // temporary
+        ];
+    }
+
+    /**
      * Returns templates list for index
      *
      * @author Mariusz Waloszczyk
@@ -186,6 +201,7 @@ class EqItemTemplateController extends Controller
                 'has_date_legalisation_due',
                 'has_date_production',
             )
+            ->with('manufacturer')
             ->allowedSorts([
                 'id',
                 'name',

@@ -32,4 +32,17 @@ class EqItemTemplate extends Model
         'has_date_legalisation_due',
         'has_date_production',
     ];
+
+    /**
+     * Returns manufacturer
+     * {@inheritdoc}
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function manufacturer()
+    {
+        return $this->belongsTo(
+            Manufacturer::class,
+        );
+    }
 }

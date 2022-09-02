@@ -29,9 +29,11 @@ const navigation = [
             },
             {
                 label: "Templates",
-                link: "dashboard",
+                link: "eqItemTemplates.index",
                 icon: "fa-solid fa-house",
-                resources: [],
+                resources: [
+                    "res_equipment_overall"
+                ],
             },
             {
                 label: "Sets",

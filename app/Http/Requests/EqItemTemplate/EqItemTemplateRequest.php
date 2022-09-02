@@ -23,14 +23,14 @@ class EqItemTemplateRequest extends BaseRequest
         return [
             'eq_item_category_id' => 'required|exists:eq_item_categories,id',
             'manufacturer_id' => 'required|exists:manufacturers,id',
-            'has_vehicle' => 'boolean',
-            'has_construction_number' => 'boolean',
-            'has_inventory_number' => 'boolean',
-            'has_identification_number' => 'boolean',
-            'has_date_expiry' => 'boolean',
-            'has_date_legalisation' => 'boolean',
-            'has_date_legalisation_due' => 'boolean',
-            'has_date_production' => 'boolean',
+            'has_vehicle' => 'required|boolean',
+            'has_construction_number' => 'required|boolean',
+            'has_inventory_number' => 'required|boolean',
+            'has_identification_number' => 'required|boolean',
+            'has_date_expiry' => 'required|boolean',
+            'has_date_legalisation' => 'required|boolean',
+            'has_date_legalisation_due' => 'required|boolean',
+            'has_date_production' => 'required|boolean',
         ];
     }
 
