@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('name', 255);
             $table->text('description')
                 ->nullable();
-            $table->smallInteger('interval');
+            $table->smallInteger('interval')
+                ->unsigned();
             $table->foreignId('eq_item_category_id')
                 ->constrained();
             $table->foreignId('manufacturer_id')
