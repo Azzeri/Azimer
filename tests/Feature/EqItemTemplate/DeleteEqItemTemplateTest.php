@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\FireBrigadeUnit;
+namespace Tests\Feature\EqItemTemplate;
 
 use App\Models\EqItemTemplate;
 use App\Models\Resource;
