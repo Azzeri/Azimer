@@ -111,5 +111,26 @@ class RoleResourceSeeder extends Seeder
                 'name' => 'Overall equipment resources management',
             ],
         ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_EQUIPMENT_OVERALL,
+                'name' => 'Overall equipment management',
+            ],
+        ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_EQUIPMENT_OWN_UNIT,
+                'name' => 'Equipment in own unit management',
+            ],
+        ]);
+
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_EQUIPMENT_LOWLY_UNITS,
+                'name' => 'Equipment in lowly units management',
+            ],
+        ]);
     }
 }

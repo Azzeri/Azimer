@@ -12,7 +12,7 @@ use Exception;
  *
  * @author Piotr Nagórny
  */
-class vehicleService
+class VehicleService
 {
     /**
      * Stores vehicle in the database

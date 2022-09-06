@@ -46,6 +46,12 @@ class Resource extends Model
 
     const RES_EQUIPMENT_RESOURCES_OVERALL = 'res_equipment_resources_overall';
 
+    const RES_EQUIPMENT_OVERALL = 'res_equipment_overall';
+
+    const RES_EQUIPMENT_OWN_UNIT = 'res_equipment_own_unit';
+
+    const RES_EQUIPMENT_LOWLY_UNITS = 'res_equipment_lowly_units';
+
     /**
      * The primary key associated with the table.
      *

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Models\Resource;
-use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
