@@ -4,7 +4,7 @@ namespace Tests\Feature\EqItemTemplate;
 
 use App\Models\EqItemTemplate;
 use App\Models\Resource;
-use App\Services\ManufacturerService;
+use App\Services\EqItemTemplateService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -22,9 +22,16 @@ class UpdateEqItemTemplateTest extends TestCase
      */
     protected $seed = true;
 
+    /**
+     * @var EqItemTemplateService
+     */
+    private $eqItemTemplateService;
+
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->eqItemTemplateService = new EqItemTemplateService();
 
         $auth = $this->getUserWithResourcesAndActions([
             [
@@ -49,7 +56,7 @@ class UpdateEqItemTemplateTest extends TestCase
         // Arrange
         $template = EqItemTemplate::factory()->create();
 
-        $form = $this->getCorrectForm();
+        $form = $this->eqItemTemplateService->getSampleCorrectForm();
 
         // Act
         $response = $this->put(
@@ -64,30 +71,5 @@ class UpdateEqItemTemplateTest extends TestCase
         $response->assertValid();
         $this->assertDatabaseHas('eq_item_templates', $form);
         $response->assertRedirect(route('eqItemTemplates.index'));
-    }
-
-    /**
-     * Returns form that will pass validation
-     *
-     * @author Mariusz Waloszczyk
-     */
-    private function getCorrectForm(): array
-    {
-        $category = 1; // temporary
-        $manufacturer = ManufacturerService::getRandomManufacturer();
-
-        return [
-            'name' => 'test template',
-            'eq_item_category_id' => $category,
-            'manufacturer_id' => $manufacturer->id,
-            'has_vehicle' => true,
-            'has_construction_number' => true,
-            'has_inventory_number' => true,
-            'has_identification_number' => true,
-            'has_date_expiry' => true,
-            'has_date_legalisation' => true,
-            'has_date_legalisation_due' => true,
-            'has_date_production' => true,
-        ];
     }
 }
