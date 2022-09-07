@@ -18,8 +18,8 @@ return new class extends Migration
     {
         Schema::create('eq_service_templates', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
-            $table->text('description')
+            $table->string('name', 64);
+            $table->text('description', 2048)
                 ->nullable();
             $table->smallInteger('interval')
                 ->unsigned();
