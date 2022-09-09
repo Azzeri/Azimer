@@ -44,6 +44,8 @@ class Resource extends Model
 
     const RES_FIRE_BRIGADE_UNITS_LOWLY = 'res_fire_brigade_units_lowly';
 
+    const RES_EQ_ITEM_CATEGORIES_OVERALL = 'res_eq_item_categories_overall';
+
     /**
      * The primary key associated with the table.
      *

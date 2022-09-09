@@ -104,5 +104,11 @@ class RoleResourceSeeder extends Seeder
                 'name' => 'Overall vehicles management',
             ],
         ]);
+        DB::table('resources')->insert([
+            [
+                'suffix' => Resource::RES_EQ_ITEM_CATEGORIES_OVERALL,
+                'name' => 'Overall eq item categories management',
+            ],
+        ]);
     }
 }
