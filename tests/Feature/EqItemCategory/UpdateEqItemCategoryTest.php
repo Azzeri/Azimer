@@ -47,7 +47,7 @@ class UpdateEqItemCategoryTest extends TestCase
 
     /**
      * Case: Correct data
-     * Expect: Unit updated
+     * Expect: Category updated
      *
      * @author Mariusz Waloszczyk
      */
@@ -101,7 +101,7 @@ class UpdateEqItemCategoryTest extends TestCase
         );
 
         // Assert
-        // $response->assertInvalid($incorrectField);
+        $response->assertInvalid($incorrectField);
         $this->assertDatabaseMissing('eq_item_categories', $form);
     }
 

@@ -46,7 +46,7 @@ class CreateEqItemCategoryTest extends TestCase
 
     /**
      * Case: Correct data
-     * Expected: Unit created
+     * Expected: Category created
      *
      * @author Piotr Nagórny
      */

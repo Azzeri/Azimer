@@ -25,7 +25,6 @@ class EqItemCategoryFactory extends Factory
             'photo_path' => fake()->image(null, 640, 480),
             'is_fillable' => fake()->boolean(),
             'parent_category_id' => null,
-
         ];
     }
 }

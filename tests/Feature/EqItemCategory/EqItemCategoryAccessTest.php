@@ -4,6 +4,7 @@ namespace Tests\Feature\EqItemCategory;
 
 use App\Models\EqItemCategory;
 use App\Models\Resource;
+use App\Services\EqItemCategoryService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -20,6 +21,18 @@ class EqItemCategoryAccessTest extends TestCase
      * @var bool
      */
     protected $seed = true;
+
+    /**
+     * @var EqItemCategoryService
+     */
+    private $eqItemCategoryService;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        
+        $this->eqItemCategoryService = new EqItemCategoryService();
+    }
 
     /**
      * Tests index access with different resources
@@ -92,7 +105,7 @@ class EqItemCategoryAccessTest extends TestCase
         ]);
         $this->actingAs($auth);
 
-        $form = $this->getCorrectForm();
+        $form = $this->eqItemCategoryService->getCorrectForm();
 
         // Act
         $response = $this->post(
@@ -144,7 +157,7 @@ class EqItemCategoryAccessTest extends TestCase
         ]);
         $this->actingAs($auth);
 
-        $form = $this->getCorrectForm();
+        $form = $this->eqItemCategoryService->getCorrectForm();
         $category = EqItemCategory::factory()->create();
 
         // Act
@@ -229,23 +242,6 @@ class EqItemCategoryAccessTest extends TestCase
                 true,
                 Resource::RES_DUMMY,
             ],
-        ];
-    }
-
-    /**
-     * Returns form that will pass validation
-     *
-     * @author Piotr Nagórny
-     */
-    private function getCorrectForm(): array
-    {
-        $parentCategory = EqItemCategory::factory()->create();
-
-        return [
-            'name' => 'test',
-            'photo_path' => '/images/default.png',
-            'is_fillable' => true,
-            'parent_category_id' => $parentCategory->id,
         ];
     }
 }

@@ -39,7 +39,7 @@ class DeleteEqItemCategoryTest extends TestCase
 
     /**
      * Case: Correct data
-     * Expect: eqItemCategory created
+     * Expect: Category deleted
      *
      * @author Piotr Nagórny
      */
@@ -57,6 +57,7 @@ class DeleteEqItemCategoryTest extends TestCase
         );
 
         // Assert
+        $this->assertModelMissing($sampleUnit);
         $response->assertRedirect(route('eqItemCategories.index'));
     }
 }
