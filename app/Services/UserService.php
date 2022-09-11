@@ -122,4 +122,23 @@ class UserService
 
         return $collectedUsers;
     }
+
+
+    /**
+     * Returns random user or creates one
+     * if none exists
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public static function getRandomUser(): User
+    {
+        $user = User::inRandomOrder()->first();
+
+        if (is_null($user)) {
+            return User::factory()
+                ->create();
+        }
+
+        return $user;
+    }
 }

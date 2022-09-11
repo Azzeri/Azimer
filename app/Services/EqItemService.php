@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\EqItem;
 use App\Models\EqItemTemplate;
 use App\Models\FireBrigadeUnit;
 use App\Models\Vehicle;
@@ -38,5 +39,23 @@ class EqItemService
             'date_legalisation_due' => '2010-10-10',
             'date_production' => '2010-10-10',
         ];
+    }
+
+    /**
+     * Returns random eq item or creates one
+     * if none exists
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public static function getRandomEqItem(): EqItem
+    {
+        $item = EqItem::inRandomOrder()->first();
+
+        if (is_null($item)) {
+            return EqItem::factory()
+                ->create();
+        }
+
+        return $item;
     }
 }

@@ -30,7 +30,6 @@ return new class extends Migration
                 ->constrained();
             $table->foreignId('user_id')
                 ->constrained();
-            $table->softDeletes();
         });
     }
 
