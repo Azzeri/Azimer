@@ -12,7 +12,7 @@ use Exception;
  *
  * @author Piotr Nagórny
  */
-class vehicleService
+class VehicleService
 {
     /**
      * Stores vehicle in the database
@@ -57,5 +57,35 @@ class vehicleService
         Vehicle $vehicle
     ): bool|null {
         return $vehicle->delete();
+    }
+
+    /**
+     * Returns random vehicle in fbunit or creates one
+     * if none exists
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public static function getRandomVehicle(
+        int $fireBrigadeUnitId
+    ): Vehicle {
+        $vehicle = Vehicle::where(
+            'fire_brigade_unit_id',
+            $fireBrigadeUnitId
+        )
+            ->inRandomOrder()
+            ->first();
+
+        if (is_null($vehicle)) {
+            $vehicle = Vehicle::factory()
+                ->create();
+
+            $vehicle->update([
+                'fire_brigade_unit_id' => $fireBrigadeUnitId,
+            ]);
+
+            return $vehicle;
+        }
+
+        return $vehicle;
     }
 }

@@ -6,8 +6,8 @@ defineProps({
 });
 </script>
 <template>
-    <div :id="id" class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box max-w-7xl">
+    <div :id="id" class="modal">
+        <div class="modal-box">
             <button
                 @click="closeModal(id)"
                 class="btn btn-sm btn-circle absolute right-2 top-2"

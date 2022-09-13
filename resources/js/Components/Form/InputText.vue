@@ -1,20 +1,19 @@
 <script setup>
-
 defineProps({
     label: String,
     field: String,
-    form: null
+    form: null,
 });
 </script>
 <template>
-    <div class="form-control w-full max-w-xs">
+    <div class="form-control w-full">
         <label v-if="label" class="label">
             <span class="label-text"> {{ label }} </span>
         </label>
         <input
             type="text"
             :placeholder="label"
-            class="input input-bordered w-full max-w-xs"
+            class="input input-bordered w-full"
             v-model="form[field]"
         />
         <label v-if="form.errors[field]" class="label">

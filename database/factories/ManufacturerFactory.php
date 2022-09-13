@@ -21,7 +21,9 @@ class ManufacturerFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->name(),
+            'name' => fake()
+                ->unique()
+                ->numerify('Manufacturer - ####'),
         ];
     }
 }

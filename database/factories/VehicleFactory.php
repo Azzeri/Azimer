@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Services\FireBrigadeUnitService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,9 +21,12 @@ class VehicleFactory extends Factory
      */
     public function definition()
     {
+        $unit = FireBrigadeUnitService::getRandomFireBrigadeUnit();
+
         return [
-            'number' => $this->faker->unique()->numerify('Veh-####'),
-            'name' => $this->faker->name(),
+            'number' => fake()->unique()->numerify('Veh-####'),
+            'name' => fake()->name(),
+            'fire_brigade_unit_id' => $unit->id,
         ];
     }
 }

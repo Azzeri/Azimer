@@ -50,4 +50,22 @@ class ManufacturerService
     ): bool|null {
         return $manufacturer->delete();
     }
+
+    /**
+     * Returns random manufacturer or creates one
+     * if none exists
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public static function getRandomManufacturer(): Manufacturer
+    {
+        $manufacturer = Manufacturer::inRandomOrder()->first();
+
+        if (is_null($manufacturer)) {
+            return Manufacturer::factory()
+                ->create();
+        }
+
+        return $manufacturer;
+    }
 }

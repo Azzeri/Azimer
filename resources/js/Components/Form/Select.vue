@@ -4,11 +4,11 @@ defineProps({
     field: String,
     form: null,
     options: Array,
-    selected: String|null,
+    selected: String | null,
 });
 </script>
 <template>
-    <div class="form-control w-full max-w-xs">
+    <div class="form-control w-full">
         <label v-if="label" class="label">
             <span class="label-text">{{ label }}</span>
         </label>
