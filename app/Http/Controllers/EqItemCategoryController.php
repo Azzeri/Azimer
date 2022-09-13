@@ -43,12 +43,6 @@ class EqItemCategoryController extends Controller
                     sortable: true,
                 )
                 ->column(
-                    key: 'photo_path',
-                    label: 'Photo path',
-                    searchable: true,
-                    sortable: true,
-                )
-                ->column(
                     key: 'is_fillable',
                     label: 'Fillable',
                     searchable: true,
@@ -123,12 +117,12 @@ class EqItemCategoryController extends Controller
         $query = $this
             ->getEqItemCategoryQuery();
 
-        $eqItemCategory = $query
+        $eqItemCategories = $query
             ->paginate()
             ->withQueryString();
 
         return [
-            'eqItemTemplates' => $eqItemCategory,
+            'eqItemCategories' => $eqItemCategories,
         ];
     }
 
