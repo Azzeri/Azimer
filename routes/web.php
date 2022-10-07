@@ -4,6 +4,7 @@ use App\Http\Controllers\EqItemCategoryController;
 use App\Http\Controllers\EqItemController;
 use App\Http\Controllers\EqItemTemplateController;
 use App\Http\Controllers\EqServiceTemplateController;
+use App\Http\Controllers\EqUsageController;
 use App\Http\Controllers\FireBrigadeUnitController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\RoleController;
@@ -58,6 +59,7 @@ Route::middleware([
         ->only(['index', 'store', 'update', 'destroy']);
 
     Route::resource('/eqItemCategories', EqItemCategoryController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
 
     Route::resource('/eqItemTemplates', EqItemTemplateController::class)
         ->only(['index', 'store', 'update', 'destroy']);
@@ -67,4 +69,7 @@ Route::middleware([
 
     Route::resource('/eqServiceTemplates', EqServiceTemplateController::class)
         ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('/eqUsages', EqUsageController::class)
+        ->only(['index', 'store']);
 });
