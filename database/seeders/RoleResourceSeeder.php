@@ -139,12 +139,5 @@ class RoleResourceSeeder extends Seeder
                 'name' => 'Equipment in lowly units management',
             ],
         ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_EQ_USAGES,
-                'name' => 'Equipment usages overall',
-            ],
-        ]);
     }
 }

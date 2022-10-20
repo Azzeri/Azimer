@@ -30,7 +30,7 @@ class EqItemCategoryAccessTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
+        
         $this->eqItemCategoryService = new EqItemCategoryService();
     }
 
