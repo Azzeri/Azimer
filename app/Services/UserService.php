@@ -123,6 +123,7 @@ class UserService
         return $collectedUsers;
     }
 
+
     /**
      * Returns random user or creates one
      * if none exists

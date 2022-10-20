@@ -37,6 +37,7 @@ class EqServiceTemplateService
             : $commonParameters;
     }
 
+
     /**
      * Returns random service template or creates one
      * if none exists
