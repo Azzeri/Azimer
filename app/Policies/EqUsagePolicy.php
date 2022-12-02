@@ -6,25 +6,22 @@ use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-/**
- * @author Mariusz Waloszczyk
- */
-class EqServicePolicy
+class EqUsagePolicy
 {
     use HandlesAuthorization;
 
     /**
      * Determine whether the user can create models.
      *
-     * @author Mariusz Waloszczyk
+     * @author Piotr Nagórny
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function create(User $user)
     {
         return $user->hasResourceWithAction(
             Resource::RES_EQUIPMENT_OVERALL,
-            Resource::ACTION_UPDATE
+            Resource::ACTION_CREATE,
         );
     }
 }
