@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             RoleResourceSeeder::class,
             UserSeeder::class,
             ManufacturerSeeder::class,
+            EqItemCategorySeeder::class,
         ]);
     }
 }

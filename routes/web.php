@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EqItemCategoryController;
 use App\Http\Controllers\EqItemController;
 use App\Http\Controllers\EqItemTemplateController;
 use App\Http\Controllers\EqServiceController;
@@ -56,6 +57,8 @@ Route::middleware([
 
     Route::resource('/vehicles', VehicleController::class)
         ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('/eqItemCategories', EqItemCategoryController::class)
 
     Route::resource('/eqItemTemplates', EqItemTemplateController::class)
         ->only(['index', 'store', 'update', 'destroy']);
