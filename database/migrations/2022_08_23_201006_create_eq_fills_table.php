@@ -20,7 +20,6 @@ return new class extends Migration
             $table->id();
             $table->datetime('started_at');
             $table->datetime('finished_at');
-            $table->smallInteger('duration_minutes');
             $table->string('eq_item_code');
             $table->foreign('eq_item_code')
                 ->references('code')

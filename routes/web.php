@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EqFillController;
 use App\Http\Controllers\EqItemCategoryController;
 use App\Http\Controllers\EqItemController;
 use App\Http\Controllers\EqItemTemplateController;
@@ -78,5 +79,8 @@ Route::middleware([
         ->name('eqServices.finish');
 
     Route::resource('/eqUsages', EqUsageController::class)
+        ->only(['store']);
+
+    Route::resource('/eqFills', EqFillController::class)
         ->only(['store']);
 });
