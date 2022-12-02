@@ -20,8 +20,9 @@ return new class extends Migration
             $table->id();
             $table->text('description')
                 ->nullable();
-            $table->datetime('performed_at')
-                ->default(null);
+            $table->date('expected_perform_date');
+            $table->date('actual_perform_date')
+                ->nullable();
             $table->string('eq_item_code');
             $table->foreign('eq_item_code')
                 ->references('code')
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->foreignId('eq_service_template_id')
                 ->constrained();
             $table->foreignId('user_id')
+                ->nullable()
                 ->constrained();
         });
     }
