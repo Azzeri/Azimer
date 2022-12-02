@@ -17,6 +17,9 @@ class EqUsageRequest extends BaseRequest
         $this->model = Request::route('eqUsage');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getCommonValidationRules(): array
     {
         return [
@@ -24,7 +27,6 @@ class EqUsageRequest extends BaseRequest
             'executed_at' => 'required|date',
             'duration_minutes' => 'required|integer',
             'eq_item_code' => 'exists:eq_items,code',
-            'user_id' => 'exists:users,id',
         ];
     }
 }

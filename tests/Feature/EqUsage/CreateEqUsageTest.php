@@ -34,7 +34,7 @@ class CreateEqUsageTest extends TestCase
 
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_EQ_USAGES,
+                'suffix' => Resource::RES_EQUIPMENT_OVERALL,
                 'actions' => [
                     Resource::ACTION_CREATE,
                 ],
@@ -63,7 +63,6 @@ class CreateEqUsageTest extends TestCase
         // Assert
         $response->assertValid();
         $this->assertDatabaseHas('eq_usages', $form);
-        $response->assertRedirect(route('eqUsages.index'));
     }
 
     /**
@@ -102,10 +101,6 @@ class CreateEqUsageTest extends TestCase
             ],
             'eq_item_code' => [
                 'eq_item_code',
-                100000000,
-            ],
-            'user_id' => [
-                'user_id',
                 100000000,
             ],
         ];

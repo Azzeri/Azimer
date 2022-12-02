@@ -71,5 +71,5 @@ Route::middleware([
         ->only(['index', 'store', 'update', 'destroy']);
 
     Route::resource('/eqUsages', EqUsageController::class)
-        ->only(['index', 'store']);
+        ->only(['store']);
 });

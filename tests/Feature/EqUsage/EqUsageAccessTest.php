@@ -34,55 +34,6 @@ class EqUsageAccessTest extends TestCase
     }
 
     /**
-     * Tests index access with different resources
-     *
-     * @dataProvider indexProvider
-     *
-     * @author Piotr Nagórny
-     */
-    public function test_index_access($forbidden, $resource)
-    {
-        // Arrange
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => $resource,
-                'actions' => [
-                    Resource::ACTION_VIEW_ANY,
-                ],
-            ],
-        ]);
-        $this->actingAs($auth);
-
-        // Act
-        $response = $this->get(
-            route(
-                'eqUsages.index',
-            )
-        );
-
-        // Assert
-        if ($forbidden) {
-            $response->assertForbidden();
-        } else {
-            $response->assertOk();
-        }
-    }
-
-    public function indexProvider()
-    {
-        return [
-            'overall Usage' => [
-                false,
-                Resource::RES_EQ_USAGES,
-            ],
-            'forbidden' => [
-                true,
-                Resource::RES_DUMMY,
-            ],
-        ];
-    }
-
-    /**
      * Tests store access with different resources
      *
      * @dataProvider storeProvider
@@ -125,7 +76,7 @@ class EqUsageAccessTest extends TestCase
         return [
             'overall Usage' => [
                 false,
-                Resource::RES_EQ_USAGES,
+                Resource::RES_EQUIPMENT_OVERALL,
             ],
             'forbidden' => [
                 true,

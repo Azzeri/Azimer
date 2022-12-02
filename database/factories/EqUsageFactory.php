@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\EqItem;
-use App\Models\User;
+use App\Services\EqItemService;
+use App\Services\UserService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,15 +22,15 @@ class EqUsageFactory extends Factory
      */
     public function definition()
     {
-        $eqItemCode = EqItem::factory()->create();
-        $user_id = User::factory()->create();
+        $eqItem = EqItemService::getRandomEqItem();
+        $user = UserService::getRandomUser();
 
         return [
             'description' => fake()->sentence(),
             'executed_at' => fake()->dateTime(),
             'duration_minutes' => fake()->randomNumber(),
-            'eq_item_code' => $eqItemCode->code,
-            'user_id' => $user_id->id,
+            'eq_item_code' => $eqItem->code,
+            'user_id' => $user->id,
         ];
     }
 }
