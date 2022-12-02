@@ -25,14 +25,29 @@ class EqServiceFactory extends Factory
     {
         $item = EqItemService::getRandomEqItem();
         $template = EqServiceTemplateService::getRandomEqServiceTemplate();
-        $user = UserService::getRandomUser();
 
         return [
             'description' => fake()->paragraph(),
-            'performed_at' => fake()->date(),
+            'expected_perform_date' => fake()->date(),
             'eq_item_code' => $item->code,
             'eq_service_template_id' => $template->id,
-            'user_id' => $user->id,
         ];
+    }
+
+    /**
+     * Inidicates service should be marked as finished
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function markedAsFinished()
+    {
+        return $this->state(function (array $attributes) {
+            $user = UserService::getRandomUser();
+
+            return [
+                'actual_perform_date' => fake()->date(),
+                'user_id' => $user->id,
+            ];
+        });
     }
 }

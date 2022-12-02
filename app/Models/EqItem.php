@@ -28,7 +28,6 @@ class EqItem extends Model
     protected $fillable = [
         'code',
         'name',
-        'is_activated',
         'eq_item_template_id',
         'fire_brigade_unit_id',
         'vehicle_number',

@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('code', 32)
                 ->primary();
             $table->string('name', 255);
-            $table->boolean('is_activated')
-                ->default(false);
             $table->foreignId('eq_item_template_id')
                 ->constrained();
             $table->foreignId('fire_brigade_unit_id')

@@ -388,4 +388,82 @@ class EqItemAccessTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * Tests activateService access with different resources
+     *
+     * @dataProvider activateServiceProvider
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function test_activate_service_access(
+        $forbidden,
+        $resource,
+        $sendLowlyUnit = false
+    ) {
+        // Arrange
+        $auth = $this->getUserWithResourcesAndActions([
+            [
+                'suffix' => $resource,
+                'actions' => [
+                    Resource::ACTION_UPDATE,
+                ],
+            ],
+        ]);
+        $this->actingAs($auth);
+
+        $lowlyUnit = FireBrigadeUnit::factory()
+            ->withSuperiorUnit()
+            ->create();
+        $superiorUnit = $lowlyUnit->superiorFireBrigadeUnit;
+        $auth->fireBrigadeUnit = $superiorUnit;
+        $requestUnit = $sendLowlyUnit
+            ? $lowlyUnit
+            : $superiorUnit;
+
+        $item = EqItem::factory()->create();
+
+        $item->update([
+            'fire_brigade_unit_id' => $requestUnit->id,
+        ]);
+
+        // Act
+        $response = $this->put(
+            route(
+                'eqItems.activateService',
+                $item
+            ),
+            []
+        );
+
+        // Assert
+        if ($forbidden) {
+            $response->assertForbidden();
+        } else {
+            $response->assertStatus(302);
+        }
+    }
+
+    public function activateServiceProvider()
+    {
+        return [
+            'overall units equipment' => [
+                false,
+                Resource::RES_EQUIPMENT_OVERALL,
+            ],
+            'own unit equipment' => [
+                false,
+                Resource::RES_EQUIPMENT_OWN_UNIT,
+            ],
+            'lowly units equipment' => [
+                false,
+                Resource::RES_EQUIPMENT_LOWLY_UNITS,
+                true,
+            ],
+            'forbidden' => [
+                true,
+                Resource::RES_DUMMY,
+            ],
+        ];
+    }
 }

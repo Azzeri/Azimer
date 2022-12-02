@@ -21,7 +21,8 @@ class EqService extends Model
      */
     protected $fillable = [
         'description',
-        'performed_at',
+        'expected_perform_date',
+        'actual_perform_date',
         'eq_item_code',
         'eq_service_template_id',
         'user_id',

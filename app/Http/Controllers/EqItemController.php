@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Actions\EqItem\DeleteEqItemAction;
+use App\Actions\EqItem\EqItemActivateServiceAction;
 use App\Actions\EqItem\StoreEqItemAction;
 use App\Actions\EqItem\UpdateEqItemAction;
+use App\Http\Requests\EqItem\EqItemActivateServiceRequest;
 use App\Http\Requests\EqItem\EqItemRequest;
 use App\Models\EqItem;
 use App\Models\Resource;
@@ -195,6 +197,26 @@ class EqItemController extends Controller
         $deleteEqItemAction->execute($eqItem);
 
         return redirect(route('eqItems.index'));
+    }
+
+    /**
+     * Creates service for given item and template
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function activateService(
+        EqItemActivateServiceRequest $request,
+        EqItemActivateServiceAction $EqItemActivateServiceAction,
+        EqItem $eqItem,
+    ): RedirectResponse {
+        $EqItemActivateServiceAction->execute(
+            $request,
+            $eqItem
+        );
+
+        return redirect()
+            ->back()
+            ->with('message', 'Sukces');
     }
 
     /**
