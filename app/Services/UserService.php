@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Helpers\DataTableRow;
+use App\Http\Resources\DateTableRowResource;
+use App\Http\Resources\UserResource;
 use App\Mail\WelcomeEmail;
 use App\Models\Resource;
 use App\Models\Role;
@@ -16,6 +19,42 @@ use Illuminate\Support\Facades\Mail;
  */
 class UserService
 {
+    /**
+     * Returns users list for index
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function getUsersQuery()
+    {
+        $dataTableService = new DataTableService(
+            [
+                new DataTableRow('id', 'ID', searchable: false),
+                new DataTableRow('name', 'name'),
+                new DataTableRow('surname', 'surname'),
+                new DataTableRow('email', 'email'),
+                new DataTableRow('phone', 'phone', sortable: false),
+                new DataTableRow('fire_brigade_unit_id', 'Fire Brigade Unit', searchable: false),
+                new DataTableRow('actions', 'actions', searchable: false, sortable: false),
+            ]
+        );
+
+        $query = $dataTableService->prepareQuery(
+            User::class,
+            [
+                'fireBrigadeUnit',
+            ],
+        );
+
+        $query = $dataTableService->getResults($query);
+
+        return UserResource::collection($query)
+            ->additional([
+                'columns' => DateTableRowResource::collection(
+                    $dataTableService->getFields()
+                ),
+            ]);
+    }
+
     /**
      * Detaches all roles and
      * attaches new roles to the user

@@ -9,11 +9,9 @@ use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\Resource;
 use App\Models\User;
+use App\Services\DataTableService;
 use App\Services\DropdownService;
 use App\Services\UserService;
-use Illuminate\Support\Facades\Auth;
-use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
-use Spatie\QueryBuilder\QueryBuilder;
 
 /**
  * @author Mariusz Waloszczyk
@@ -39,52 +37,13 @@ class UserController extends Controller
             User::class
         );
 
-        $query = $this->getUsersQuery();
-
-        $users = $query
-            ->paginate()
-            ->withQueryString();
+        $users = $this->userService->getUsersQuery();
 
         return inertia('User/Index', [
             'users' => $users,
             'fireBrigadeUnitSelect' => DropdownService::getFireBrigadeUnitsDropdown(),
-        ])->table(function (InertiaTable $table) {
-            $table
-                ->column(
-                    key: 'id',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'name',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'surname',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'email',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'phone',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'fire_brigade_unit_id',
-                    label: 'Fire brigade unit',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    label: 'Actions'
-                );
-        });
+            'filters' => DataTableService::getFilters(),
+        ]);
     }
 
     /**
@@ -165,83 +124,43 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    /**
-     * Returns users list for index
-     *
-     * @author Mariusz Waloszczyk
-     */
-    private function getUsersQuery(): QueryBuilder
-    {
-        $query = QueryBuilder::for(User::class)
-            ->select(
-                'id',
-                'name',
-                'surname',
-                'email',
-                'phone',
-                'fire_brigade_unit_id',
-            )
-            ->with(
-                'fireBrigadeUnit:id,name'
-            )
-            ->allowedSorts([
-                'id',
-                'name',
-                'surname',
-                'email',
-                'phone',
-                'fire_brigade_unit_id',
-            ])
-            ->allowedFilters([
-                'id',
-                'name',
-                'surname',
-                'email',
-                'phone',
-                'fire_brigade_unit_id',
-            ])
-            ->defaultSort('id');
+    // /**
+    //  * Adds conditions to query based on user resources
+    //  *
+    //  * @author Mariusz Waloszczyk
+    //  */
+    // private function appendQueryConditions(
+    //     QueryBuilder $query
+    // ): QueryBuilder {
+    //     $auth = User::findOrFail(Auth::user()->id);
 
-        return $this->appendQueryConditions($query);
-    }
+    //     if ($auth->hasResourceWithAction(
+    //         Resource::RES_USERS_OVERALL,
+    //         Resource::ACTION_VIEW_ANY
+    //     )) {
+    //         return $query;
+    //     }
 
-    /**
-     * Adds conditions to query based on user resources
-     *
-     * @author Mariusz Waloszczyk
-     */
-    private function appendQueryConditions(
-        QueryBuilder $query
-    ): QueryBuilder {
-        $auth = User::findOrFail(Auth::user()->id);
+    //     if ($auth->hasResourceWithAction(
+    //         Resource::RES_USERS_OWN_UNIT,
+    //         Resource::ACTION_VIEW_ANY
+    //     )) {
+    //         $query->orWhere(
+    //             'fire_brigade_unit_id',
+    //             $auth->fire_brigade_unit_id
+    //         );
+    //     }
 
-        if ($auth->hasResourceWithAction(
-            Resource::RES_USERS_OVERALL,
-            Resource::ACTION_VIEW_ANY
-        )) {
-            return $query;
-        }
+    //     // if ($auth->hasResourceWithAction(
+    //     //     Resource::RES_USERS_LOWLY_UNITS,
+    //     //     Resource::ACTION_VIEW_ANY
+    //     // )) {
+    //     //     $query->orWhere(
+    //     //         'fireBrigadeUnit',
+    //     //         $auth->fire_brigade_unit_id
+    //     //     );
+    //     // }
 
-        if ($auth->hasResourceWithAction(
-            Resource::RES_USERS_OWN_UNIT,
-            Resource::ACTION_VIEW_ANY
-        )) {
-            $query->orWhere(
-                'fire_brigade_unit_id',
-                $auth->fire_brigade_unit_id
-            );
-        }
-
-        // if ($auth->hasResourceWithAction(
-        //     Resource::RES_USERS_LOWLY_UNITS,
-        //     Resource::ACTION_VIEW_ANY
-        // )) {
-        //     $query->orWhere(
-        //         'fireBrigadeUnit',
-        //         $auth->fire_brigade_unit_id
-        //     );
-        // }
-
-        return $query;
-    }
+    //     return $query;
+    // }
 }
