@@ -1,6 +1,6 @@
 const navigation = [
     {
-        label: "Users",
+        label: "Użytkownicy",
         link: "users.index",
         icon: "fa-solid fa-user",
         resources: [
@@ -10,53 +10,61 @@ const navigation = [
         ],
     },
     {
-        label: "Items",
+        label: "Sprzęt",
         icon: "fa-solid fa-house",
         resources: [],
         tabindex: "0",
         subNavigation: [
             {
-                label: "Categories",
+                label: "Sprzęt",
+                link: "eqItems.index",
+                icon: "fa-solid fa-house",
+                resources: [],
+            },
+            {
+                label: "Zestawy",
                 link: "dashboard",
                 icon: "fa-solid fa-house",
                 resources: [],
             },
             {
-                label: "Items",
-                link: "dashboard",
+                label: "Producenci",
+                link: "manufacturers.index",
                 icon: "fa-solid fa-house",
                 resources: [],
             },
             {
-                label: "Templates",
-                link: "eqItemTemplates.index",
-                icon: "fa-solid fa-house",
-                resources: [
-                    "res_equipment_resources_overall"
-                ],
-            },
-            {
-                label: "Sets",
-                link: "dashboard",
-                icon: "fa-solid fa-house",
-                resources: [],
-            },
-            {
-                label: "Manufacturers",
-                link: "dashboard",
-                icon: "fa-solid fa-house",
-                resources: [],
-            },
-            {
-                label: "Vehicles",
-                link: "dashboard",
+                label: "Pojazdy",
+                link: "vehicles.index",
                 icon: "fa-solid fa-house",
                 resources: [],
             },
         ],
     },
     {
-        label: "Units",
+        label: "Abstrakcja",
+        icon: "fa-solid fa-house",
+        resources: [],
+        tabindex: "0",
+        subNavigation: [
+            {
+                label: "Kategorie",
+                link: "eqItemCategories.index",
+                icon: "fa-solid fa-house",
+                resources: [],
+            },
+            {
+                label: "Szablony",
+                link: "eqItemTemplates.index",
+                icon: "fa-solid fa-house",
+                resources: [
+                    "res_equipment_resources_overall"
+                ],
+            },
+        ],
+    },
+    {
+        label: "Jednostki",
         link: "fireBrigadeUnits.index",
         icon: "fa-solid fa-house",
         resources: [
@@ -66,7 +74,7 @@ const navigation = [
         ],
     },
     {
-        label: "Scanner",
+        label: "Skaner",
         link: "dashboard",
         icon: "fa-solid fa-house",
         resources: [],
