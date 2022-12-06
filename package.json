@@ -22,6 +22,6 @@
     },
     "dependencies": {
         "@protonemedia/inertiajs-tables-laravel-query-builder": "^2.0.2",
-        "daisyui": "^2.19.0"
+        "daisyui": "^2.42.1"
     }
 }
