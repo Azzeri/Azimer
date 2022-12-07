@@ -22,7 +22,7 @@ class EqItemCategoryPolicy
     public function viewAny(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQ_ITEM_CATEGORIES_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_VIEW_ANY,
         );
     }
@@ -38,7 +38,7 @@ class EqItemCategoryPolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQ_ITEM_CATEGORIES_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_CREATE,
         );
     }
@@ -55,7 +55,7 @@ class EqItemCategoryPolicy
     public function update(User $user, EqItemCategory $eqItemCategory)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQ_ITEM_CATEGORIES_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_UPDATE,
         );
     }
@@ -72,7 +72,7 @@ class EqItemCategoryPolicy
     public function delete(User $user, EqItemCategory $eqItemCategory)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQ_ITEM_CATEGORIES_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_DELETE,
         );
     }

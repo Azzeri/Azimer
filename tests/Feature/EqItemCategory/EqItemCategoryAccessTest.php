@@ -74,7 +74,7 @@ class EqItemCategoryAccessTest extends TestCase
         return [
             'overall category' => [
                 false,
-                Resource::RES_EQ_ITEM_CATEGORIES_OVERALL,
+                Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             ],
             'forbidden' => [
                 true,
@@ -126,7 +126,7 @@ class EqItemCategoryAccessTest extends TestCase
         return [
             'overall category' => [
                 false,
-                Resource::RES_EQ_ITEM_CATEGORIES_OVERALL,
+                Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             ],
             'forbidden' => [
                 true,
@@ -182,7 +182,7 @@ class EqItemCategoryAccessTest extends TestCase
         return [
             'overall category' => [
                 false,
-                Resource::RES_EQ_ITEM_CATEGORIES_OVERALL,
+                Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             ],
             'forbidden' => [
                 true,
@@ -236,7 +236,7 @@ class EqItemCategoryAccessTest extends TestCase
         return [
             'overall category' => [
                 false,
-                Resource::RES_EQ_ITEM_CATEGORIES_OVERALL,
+                Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             ],
             'forbidden' => [
                 true,
