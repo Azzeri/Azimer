@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\User\DeleteUserAction;
 use App\Actions\User\StoreUserAction;
 use App\Actions\User\UpdateUserAction;
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\UserRequest;
 use App\Models\Resource;
 use App\Models\User;
 use App\Services\DataTableService;
@@ -30,13 +29,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $this->authorize(
-            Resource::ACTION_VIEW_ANY,
-            User::class
-        );
-
+    public function index(
+        UserRequest $userRequest
+    ) {
         $users = $this->userService->getUsersQuery();
 
         return inertia('User/Index', [
@@ -56,14 +51,14 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(
-        StoreUserRequest $request,
+        UserRequest $userRequest,
         StoreUserAction $storeUserAction
     ) {
         $randomPassword = $this->userService
             ->generateRandomPassword();
 
         $user = $storeUserAction->execute(
-            $request,
+            $userRequest,
             $randomPassword
         );
 
@@ -86,12 +81,12 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(
-        UpdateUserRequest $request,
+        UserRequest $userRequest,
         UpdateUserAction $updateUserAction,
         User $user
     ) {
         $updateUserAction->execute(
-            $request,
+            $userRequest,
             $user
         );
 
@@ -108,15 +103,10 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(
+        UserRequest $userRequest,
         User $user,
         DeleteUserAction $deleteUserAction
     ) {
-        $this->authorize(
-            Resource::ACTION_DELETE,
-            $user,
-            User::class
-        );
-
         if (! $this->userService->canUserBeDeleted($user)) {
             $deleteUserAction->execute($user);
         }
