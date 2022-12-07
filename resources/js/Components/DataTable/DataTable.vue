@@ -75,7 +75,7 @@
                         class="text-neutral-content"
                         style="background-color: #3d4451"
                     >
-                        {{ column.label }}
+                        {{ __(column.label) }}
                     </th>
                 </tr>
             </tfoot>
