@@ -86,16 +86,20 @@
     <div
         class="w-full sm:w-auto flex-col flex sm:flex-row-reverse justify-between py-3 text-center space-y-4 sm:space-y-0 pl-1 items-center sm:text-sm"
     >
-        <select @change="pageSize($event)" v-model="params.pageSize">
-            <option value="1">1</option>
-            <option value="15">15</option>
-            <option value="30">30</option>
-        </select>
         <DataTablePagination :meta="data.meta"></DataTablePagination>
-        <span v-if="data.meta.total"
-            >Wyniki od {{ data.meta.from }} do {{ data.meta.to }}. Łącznie
-            {{ data.meta.total }} wyników.</span
-        >
+        <span v-if="data.meta.total">
+            <select
+                class="select select-bordered select-sm text-sm"
+                @change="pageSize($event)"
+                v-model="params.pageSize"
+            >
+                <option v-for="option in pageSizeOptions" :value="option">
+                    {{ option }}
+                </option>
+            </select>
+            Wyniki od {{ data.meta.from }} do {{ data.meta.to }}. Łącznie
+            {{ data.meta.total }} wyników.
+        </span>
         <span v-else>Brak wyników</span>
     </div>
 </template>
@@ -125,6 +129,8 @@ const sort = (field) => {
 const pageSize = (event) => {
     params.pageSize = event.target.value;
 };
+
+const pageSizeOptions = [15, 30, 100];
 </script>
 
 <script>
