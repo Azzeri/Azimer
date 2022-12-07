@@ -41,7 +41,7 @@
                         <div
                             class="flex justify-between items-center space-x-2"
                         >
-                            <span>{{ column.label }}</span>
+                            <span>{{ __(column.label) }}</span>
                             <i
                                 v-if="
                                     params.field === column.name &&

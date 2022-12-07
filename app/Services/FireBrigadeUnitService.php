@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Helpers\DataTableRow;
+use App\Http\Resources\DateTableRowResource;
+use App\Http\Resources\FireBrigadeUnitResource;
 use App\Models\FireBrigadeUnit;
 use Illuminate\Support\Facades\DB;
 
@@ -12,6 +15,40 @@ use Illuminate\Support\Facades\DB;
  */
 class FireBrigadeUnitService
 {
+    /**
+     * Returns units list for index method
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function getFireBrigadeUnitsQuery()
+    {
+        $dataTableService = new DataTableService(
+            [
+                new DataTableRow('id', 'ID', searchable: false),
+                new DataTableRow('name', 'name'),
+                new DataTableRow('addr_locality', 'locality'),
+                new DataTableRow('superior_unit_id', 'superior unit', searchable: false),
+                new DataTableRow('actions', 'actions', searchable: false, sortable: false),
+            ]
+        );
+
+        $query = $dataTableService->prepareQuery(
+            FireBrigadeUnit::class,
+            [
+                'superiorFireBrigadeUnit',
+            ],
+        );
+
+        $query = $dataTableService->getResults($query);
+
+        return FireBrigadeUnitResource::collection($query)
+            ->additional([
+                'columns' => DateTableRowResource::collection(
+                    $dataTableService->getFields()
+                ),
+            ]);
+    }
+
     /**
      * Detaches all related models
      *

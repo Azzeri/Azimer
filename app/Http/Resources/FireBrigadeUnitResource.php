@@ -23,6 +23,10 @@ class FireBrigadeUnitResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'addr_locality' => $this->addr_locality,
+            'superior_fire_brigade_unit' => new FireBrigadeUnitResource(
+                $this->whenLoaded('superiorFireBrigadeUnit')
+            ),
         ];
     }
 }

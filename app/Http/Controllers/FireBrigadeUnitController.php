@@ -9,10 +9,11 @@ use App\Http\Requests\FireBrigadeUnit\FireBrigadeUnitRequest;
 use App\Models\FireBrigadeUnit;
 use App\Models\Resource;
 use App\Models\User;
+use App\Services\DataTableService;
 use App\Services\DropdownService;
+use App\Services\FireBrigadeUnitService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
@@ -20,6 +21,11 @@ use Spatie\QueryBuilder\QueryBuilder;
  */
 class FireBrigadeUnitController extends Controller
 {
+    public function __construct(
+        private FireBrigadeUnitService $fireBrigadeUnitService,
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,44 +36,15 @@ class FireBrigadeUnitController extends Controller
     public function index(
         FireBrigadeUnitRequest $request
     ) {
-        $query = $this
+        $fireBrigadeUnits = $this
+            ->fireBrigadeUnitService
             ->getFireBrigadeUnitsQuery();
-
-        $fireBrigadeUnits = $query
-            ->paginate()
-            ->withQueryString();
 
         return inertia('FireBrigadeUnit/Index', [
             'fireBrigadeUnits' => $fireBrigadeUnits,
             'superiorUnitSelect' => DropdownService::getFireBrigadeUnitsDropdown(),
-        ])->table(function (InertiaTable $table) {
-            $table
-                ->column(
-                    key: 'id',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'name',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'addr_locality',
-                    label: 'Locality',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'superior_unit_id',
-                    label: 'Superior unit',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    label: 'Actions'
-                );
-        });
+            'filters' => DataTableService::getFilters(),
+        ]);
     }
 
     /**

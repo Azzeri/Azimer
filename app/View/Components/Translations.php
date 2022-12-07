@@ -15,7 +15,9 @@ class Translations extends Component
 {
     /**
      * Get the view / contents that represent the component.
+     *
      * @author Mariusz Waloszczyk
+     *
      * @return \Illuminate\Contracts\View\View|\Closure|string
      */
     public function render()
@@ -29,7 +31,7 @@ class Translations extends Component
             if (File::exists(resource_path("lang/$locale"))) {
                 $phpTranslations = collect(File::allFiles(resource_path("lang/$locale")))
                     ->filter(function ($file) {
-                        return $file->getExtension() === "php";
+                        return $file->getExtension() === 'php';
                     })->flatMap(function ($file) {
                         return Arr::dot(File::getRequire($file->getRealPath()));
                     })->toArray();
@@ -43,7 +45,7 @@ class Translations extends Component
         });
 
         return view('components.translations', [
-            'translations' => $translations
+            'translations' => $translations,
         ]);
     }
 }
