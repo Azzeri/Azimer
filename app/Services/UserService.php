@@ -32,7 +32,6 @@ class UserService
                 new DataTableRow('name', 'name'),
                 new DataTableRow('surname', 'surname'),
                 new DataTableRow('email', 'email'),
-                new DataTableRow('phone', 'phone', sortable: false),
                 new DataTableRow('fire_brigade_unit_id', 'Fire Brigade Unit', searchable: false),
                 new DataTableRow('actions', 'actions', searchable: false, sortable: false),
             ]
