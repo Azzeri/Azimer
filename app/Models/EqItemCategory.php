@@ -25,4 +25,31 @@ class EqItemCategory extends Model
         'is_fillable',
         'parent_category_id',
     ];
+
+    /**
+     * Returns parent categories
+     * {@inheritdoc}
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function parentCategory()
+    {
+        return $this->belongsTo(
+            EqItemCategory::class,
+        );
+    }
+
+    /**
+     * Returns subcategories
+     * {@inheritdoc}
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function subcategories()
+    {
+        return $this->hasMany(
+            EqItemCategory::class,
+            'parent_category_id'
+        );
+    }
 }

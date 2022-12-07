@@ -7,54 +7,38 @@ use App\Actions\EqItemCategory\StoreEqItemCategoryAction;
 use App\Actions\EqItemCategory\UpdateEqItemCategoryAction;
 use App\Http\Requests\EqItemCategory\EqItemCategoryRequest;
 use App\Models\EqItemCategory;
-use App\Models\Resource;
+use App\Services\DataTableService;
+use App\Services\DropdownService;
+use App\Services\EqItemCategoryService;
 use Illuminate\Http\RedirectResponse;
-use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
-use Spatie\QueryBuilder\QueryBuilder;
 
 /**
  * @author Piotr Nagórny
  */
 class EqItemCategoryController extends Controller
 {
+    public function __construct(
+        public EqItemCategoryService $eqItemCategoryService,
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @author Piotr Nagórny
+     * @author Mariusz Waloszczyk
      *
      * @return \Illuminate\Http\Response
      */
     public function index(
         EqItemCategoryRequest $request,
     ) {
-        return inertia(
-            'EqItemCategory/Index',
-            $this->getIndexProps()
-        )->table(function (InertiaTable $table) {
-            $table
-                ->column(
-                    key: 'id',
-                    searchable: true,
-                    sortable: true,
-                )
-                ->column(
-                    key: 'name',
-                    searchable: true,
-                    sortable: true,
-                )
-                ->column(
-                    key: 'is_fillable',
-                    label: 'Fillable',
-                    searchable: true,
-                    sortable: true,
-                )
-                ->column(
-                    key: 'parent_category_id',
-                    label: 'Parent category',
-                    searchable: true,
-                    sortable: true,
-                );
-        });
+        $categories = $this->eqItemCategoryService->getCategoriesQuery();
+
+        return inertia('EqItemCategory/Index', [
+            'categories' => $categories,
+            'eqItemCategorySelect' => DropdownService::getEqItemCategoriesDropdown(),
+            'filters' => DataTableService::getFilters(),
+        ]);
     }
 
     /**
@@ -105,58 +89,5 @@ class EqItemCategoryController extends Controller
             ->execute($eqItemCategory);
 
         return redirect()->route('eqItemCategories.index');
-    }
-
-    /**
-     * Returns props for frontend page component
-     *
-     * @author Piotr Nagórny
-     */
-    private function getIndexProps(): array
-    {
-        $query = $this
-            ->getEqItemCategoryQuery();
-
-        $eqItemCategories = $query
-            ->paginate()
-            ->withQueryString();
-
-        return [
-            'eqItemCategories' => $eqItemCategories,
-        ];
-    }
-
-    /**
-     * Returns categories list for index
-     *
-     * @author Piotr Nagórny
-     */
-    private function getEqItemCategoryQuery(): QueryBuilder
-    {
-        $query = QueryBuilder::for(EqItemCategory::class)
-            ->select(
-                'id',
-                'name',
-                'photo_path',
-                'is_fillable',
-                'parent_category_id',
-            )
-            ->allowedSorts([
-                'id',
-                'name',
-                'photo_path',
-                'is_fillable',
-                'parent_category_id',
-            ])
-            ->allowedFilters([
-                'id',
-                'name',
-                'photo_path',
-                'is_fillable',
-                'parent_category_id',
-            ])
-            ->defaultSort('id');
-
-        return $query;
     }
 }

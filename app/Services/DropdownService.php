@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\EqItemCategory;
 use App\Models\EqItemTemplate;
 use App\Models\FireBrigadeUnit;
 use App\Models\Manufacturer;
@@ -90,5 +91,18 @@ class DropdownService
         }
 
         return $query->get();
+    }
+
+    /**
+     * Get eqItemCategories list prepared for select field
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public static function getEqItemCategoriesDropdown(): Collection
+    {
+        return EqItemCategory::select([
+            'id as value',
+            'name as label',
+        ])->get();
     }
 }

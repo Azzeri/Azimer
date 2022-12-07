@@ -29,7 +29,7 @@ class EqItemCategoryRequest extends BaseRequest
     {
         return [
             'name' => 'unique:eq_item_categories|required|string|max:64',
-            'parent_category_id' => 'exists:eq_item_categories,id',
+            'parent_category_id' => 'nullable|exists:eq_item_categories,id',
         ];
     }
 
@@ -44,6 +44,7 @@ class EqItemCategoryRequest extends BaseRequest
                 'max:64',
             ],
             'parent_category_id' => [
+                'nullable',
                 'exists:eq_item_categories,id',
                 Rule::notIn($this->eqItemCategory->id),
             ],
