@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Services\EqItemCategoryService;
 use App\Services\ManufacturerService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,12 +23,13 @@ class EqItemTemplateFactory extends Factory
     public function definition()
     {
         $manufacturer = ManufacturerService::getRandomManufacturer();
+        $eqItemCategory = EqItemCategoryService::getRandomEqItemCategory();
 
         return [
             'name' => fake()
                 ->unique()
                 ->numerify('Template - ####'),
-            'eq_item_category_id' => 1, // temporary
+            'eq_item_category_id' => $eqItemCategory->id,
             'manufacturer_id' => $manufacturer->id,
             'has_vehicle' => fake()->boolean(),
             'has_construction_number' => fake()->boolean(),

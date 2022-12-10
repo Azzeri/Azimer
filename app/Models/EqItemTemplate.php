@@ -45,4 +45,17 @@ class EqItemTemplate extends Model
             Manufacturer::class,
         );
     }
+
+    /**
+     * Returns category
+     * {@inheritdoc}
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function eqItemCategory()
+    {
+        return $this->belongsTo(
+            EqItemCategory::class,
+        );
+    }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Helpers\DataTableRow;
+use App\Http\Resources\DateTableRowResource;
+use App\Http\Resources\EqItemTemplateResource;
 use App\Models\EqItemTemplate;
 
 /**
@@ -11,6 +14,40 @@ use App\Models\EqItemTemplate;
  */
 class EqItemTemplateService
 {
+    /**
+     * Returns templates list for index
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function getEqItemTemplatesQuery()
+    {
+        $dataTableService = new DataTableService(
+            [
+                new DataTableRow('id', 'ID', searchable: false),
+                new DataTableRow('eq_item_category_id', 'Category', searchable: false),
+                new DataTableRow('manufacturer_id', 'Manufacturer', searchable: false),
+                new DataTableRow('actions', 'actions', searchable: false, sortable: false),
+            ]
+        );
+
+        $query = $dataTableService->prepareQuery(
+            EqItemTemplate::class,
+            [
+                'eqItemCategory',
+                'manufacturer',
+            ],
+        );
+
+        $query = $dataTableService->getResults($query);
+
+        return EqItemTemplateResource::collection($query)
+            ->additional([
+                'columns' => DateTableRowResource::collection(
+                    $dataTableService->getFields()
+                ),
+            ]);
+    }
+
     /**
      * Returns random eq item template or creates one
      * if none exists
@@ -36,12 +73,12 @@ class EqItemTemplateService
      */
     public function getSampleCorrectForm(): array
     {
-        $category = 1; // temporary
+        $eqItemCategory = EqItemCategoryService::getRandomEqItemCategory();
         $manufacturer = ManufacturerService::getRandomManufacturer();
 
         return [
             'name' => 'test template',
-            'eq_item_category_id' => $category,
+            'eq_item_category_id' => $eqItemCategory->id,
             'manufacturer_id' => $manufacturer->id,
             'has_vehicle' => true,
             'has_construction_number' => true,

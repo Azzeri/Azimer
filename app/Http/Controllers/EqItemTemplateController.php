@@ -7,105 +7,41 @@ use App\Actions\EqItemTemplate\StoreEqItemTemplateAction;
 use App\Actions\EqItemTemplate\UpdateEqItemTemplateAction;
 use App\Http\Requests\EqItemTemplate\EqItemTemplateRequest;
 use App\Models\EqItemTemplate;
+use App\Services\DataTableService;
 use App\Services\DropdownService;
+use App\Services\EqItemTemplateService;
 use Illuminate\Http\RedirectResponse;
-use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
-use Spatie\QueryBuilder\QueryBuilder;
 
 /**
  * @author Mariusz Waloszczyk
  */
 class EqItemTemplateController extends Controller
 {
+    public function __construct(
+        public EqItemTemplateService $eqItemTemplateService,
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
-     *
      * @author Mariusz Waloszczyk
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index(
         EqItemTemplateRequest $request
     ) {
-        return inertia(
-            'EqItemTemplate/Index',
-            $this->getIndexProps()
-        )->table(function (InertiaTable $table) {
-            $table
-                ->column(
-                    key: 'id',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'name',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'eq_item_category_id',
-                    label: 'Category',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'manufacturer_id',
-                    label: 'Manufacturer',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'has_vehicle',
-                    label: 'Vehicle',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'has_construction_number',
-                    label: 'Construction number',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'has_inventory_number',
-                    label: 'Inventory number',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'has_identification_number',
-                    label: 'Identification number',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'has_date_expiry',
-                    label: 'Date expiry',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'has_date_legalisation',
-                    label: 'Date legalisation',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'has_date_legalisation_due',
-                    label: 'Date legalisation due',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'has_date_production',
-                    label: 'Date production',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    label: 'Actions'
-                );
-        });
+        $eqItemTemplates = $this
+            ->eqItemTemplateService
+            ->getEqItemTemplatesQuery();
+
+        return inertia('EqItemTemplate/Index', [
+            'eqItemTemplates' => $eqItemTemplates,
+            'eqItemManufacturersSelect' => DropdownService::getManufacturersDropdown(),
+            'eqItemCategoriesSelect' => DropdownService::getEqItemCategoriesDropdown(),
+            'filters' => DataTableService::getFilters(),
+        ]);
     }
 
     /**
@@ -156,82 +92,5 @@ class EqItemTemplateController extends Controller
             ->execute($eqItemTemplate);
 
         return redirect(route('eqItemTemplates.index'));
-    }
-
-    /**
-     * Returns props for frontend page component
-     *
-     * @author Mariusz Waloszczyk
-     */
-    private function getIndexProps(): array
-    {
-        $query = $this
-            ->getEqItemTemplatesQuery();
-
-        $eqItemTemplates = $query
-            ->paginate()
-            ->withQueryString();
-
-        return [
-            'eqItemTemplates' => $eqItemTemplates,
-            'eqItemManufacturersSelect' => DropdownService::getManufacturersDropdown(),
-            'eqItemCategoriesSelect' => [['value' => 1, 'label' => 'cat 1'], ['value' => 2, 'label' => 'cat 2']], // temporary
-        ];
-    }
-
-    /**
-     * Returns templates list for index
-     *
-     * @author Mariusz Waloszczyk
-     */
-    private function getEqItemTemplatesQuery(): QueryBuilder
-    {
-        $query = QueryBuilder::for(EqItemTemplate::class)
-            ->select(
-                'id',
-                'name',
-                'eq_item_category_id',
-                'manufacturer_id',
-                'has_vehicle',
-                'has_construction_number',
-                'has_inventory_number',
-                'has_identification_number',
-                'has_date_expiry',
-                'has_date_legalisation',
-                'has_date_legalisation_due',
-                'has_date_production',
-            )
-            ->with('manufacturer')
-            ->allowedSorts([
-                'id',
-                'name',
-                'eq_item_category_id',
-                'manufacturer_id',
-                'has_vehicle',
-                'has_construction_number',
-                'has_inventory_number',
-                'has_identification_number',
-                'has_date_expiry',
-                'has_date_legalisation',
-                'has_date_legalisation_due',
-                'has_date_production',
-            ])
-            ->allowedFilters([
-                'id',
-                'name',
-                'eq_item_category_id',
-                'manufacturer_id',
-                'has_vehicle',
-                'has_construction_number',
-                'has_inventory_number',
-                'has_identification_number',
-                'has_date_expiry',
-                'has_date_legalisation',
-                'has_date_legalisation_due',
-                'has_date_production',
-            ])
-            ->defaultSort('id');
-
-        return $query;
     }
 }

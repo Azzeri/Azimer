@@ -62,4 +62,22 @@ class EqItemCategoryService
             'parent_category_id' => $parentCategory->id,
         ];
     }
+
+    /**
+     * Returns random eq item category or creates one
+     * if none exists
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public static function getRandomEqItemCategory(): EqItemCategory
+    {
+        $category = EqItemCategory::inRandomOrder()->first();
+
+        if (is_null($category)) {
+            return EqItemCategory::factory()
+                ->create();
+        }
+
+        return $category;
+    }
 }
