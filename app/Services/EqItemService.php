@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Helpers\DataTableRow;
+use App\Http\Resources\DateTableRowResource;
+use App\Http\Resources\EqItemResource;
 use App\Models\EqItem;
 use App\Models\EqItemTemplate;
 use App\Models\FireBrigadeUnit;
@@ -14,6 +17,40 @@ use App\Models\Vehicle;
  */
 class EqItemService
 {
+    /**
+     * Returns eqItems list for index
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function getEqItems()
+    {
+        $dataTableService = new DataTableService(
+            [
+                new DataTableRow('code', 'code'),
+                new DataTableRow('eq_item_template_id', 'template', searchable: false),
+                new DataTableRow('fire_brigade_unit_id', 'fire brigade unit', searchable: false),
+                new DataTableRow('actions', 'actions', searchable: false, sortable: false),
+            ]
+        );
+
+        $query = $dataTableService->prepareQuery(
+            EqItem::class,
+            [
+                'eqItemTemplate',
+                'fireBrigadeUnit',
+            ],
+        );
+
+        $query = $dataTableService->getResults($query);
+
+        return EqItemResource::collection($query)
+            ->additional([
+                'columns' => DateTableRowResource::collection(
+                    $dataTableService->getFields()
+                ),
+            ]);
+    }
+
     /**
      * Returns form that will pass validation
      *

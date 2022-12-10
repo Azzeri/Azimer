@@ -19,7 +19,8 @@ return new class extends Migration
         Schema::create('eq_items', function (Blueprint $table) {
             $table->string('code', 32)
                 ->primary();
-            $table->string('name', 255);
+            $table->string('name', 255)
+                ->nullable();
             $table->foreignId('eq_item_template_id')
                 ->constrained();
             $table->foreignId('fire_brigade_unit_id')

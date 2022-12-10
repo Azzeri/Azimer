@@ -11,11 +11,12 @@ use App\Http\Requests\EqItem\EqItemRequest;
 use App\Models\EqItem;
 use App\Models\Resource;
 use App\Models\User;
+use App\Services\DataTableService;
 use App\Services\DropdownService;
+use App\Services\EqItemService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
@@ -23,6 +24,11 @@ use Spatie\QueryBuilder\QueryBuilder;
  */
 class EqItemController extends Controller
 {
+    public function __construct(
+        public EqItemService $eqItemService,
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,84 +37,20 @@ class EqItemController extends Controller
      * @author Mariusz Waloszczyk
      */
     public function index(
-        EqItemRequest $request
+        EqItemRequest $eqItemRequest
     ) {
+        $eqItems = $this->eqItemService->getEqItems();
+
         return inertia(
-            'FireBrigadeUnit/Index',
-            $this->getIndexProps()
-        )->table(function (InertiaTable $table) {
-            $table
-                ->column(
-                    key: 'code',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'name',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'construction_number',
-                    label: 'construction number',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'inventory_number',
-                    label: 'inventory number',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'identification_number',
-                    label: 'identification number',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'date_production',
-                    label: 'production date',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'date_expiry',
-                    label: 'expire date',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'date_legalisation',
-                    label: 'legalisation date',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'date_legalisation_due',
-                    label: 'legalisation due',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'vehicle_number',
-                    label: 'vehicle',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'eq_item_template_id',
-                    label: 'template',
-                    searchable: true,
-                    sortable: true
-                )
-                ->column(
-                    key: 'fire_brigade_unit_id',
-                    label: 'fire brigade unit',
-                    searchable: true,
-                    sortable: true
-                );
-        });
+            'EqItem/Index',
+            [
+                'eqItems' => $eqItems,
+                'eqItemTemplatesSelect' => DropdownService::getEqItemTemplatesDropdown(),
+                'eqItemVehiclesSelect' => DropdownService::getVehiclesDropdown(),
+                'fireBrigadeUnitsSelect' => DropdownService::getFireBrigadeUnitsDropdown(),
+                'filters' => DataTableService::getFilters(),
+            ]
+        );
     }
 
     /**
@@ -163,7 +105,7 @@ class EqItemController extends Controller
 
         return redirect()
             ->route('eqItems.index')
-            ->with('message', 'Pomyślnie dodano przedmiot');
+            ->with('message', __('Pomyślnie dodano przedmiot'));
     }
 
     /**
@@ -219,149 +161,67 @@ class EqItemController extends Controller
             ->with('message', 'Sukces');
     }
 
-    /**
-     * Returns props for frontend page component
-     *
-     * @author Mariusz Waloszczyk
-     */
-    private function getIndexProps(): array
-    {
-        $query = $this
-            ->getEqItemsQuery();
+    // /**
+    //  * Adds conditions to query based on user resources
+    //  *
+    //  * @author Mariusz Waloszczyk
+    //  */
+    // private function appendQueryConditions(
+    //     QueryBuilder $query
+    // ): QueryBuilder {
+    //     $auth = User::findOrFail(Auth::user()->id);
 
-        $eqItems = $query
-            ->paginate()
-            ->withQueryString();
+    //     if ($auth->hasResourceWithAction(
+    //         Resource::RES_EQUIPMENT_OVERALL,
+    //         Resource::ACTION_VIEW_ANY
+    //     )) {
+    //         return $query;
+    //     }
 
-        return [
-            'eqItems' => $eqItems,
-            'eqItemTemplatesSelect' => DropdownService::getEqItemTemplatesDropdown(),
-            'eqItemVehiclesSelect' => $this->getVehiclesDropdown(),
-            'fireBrigadeUnitsSelect' => DropdownService::getFireBrigadeUnitsDropdown(),
-        ];
-    }
+    //     if ($auth->hasResourceWithAction(
+    //         Resource::RES_EQUIPMENT_OWN_UNIT,
+    //         Resource::ACTION_VIEW_ANY
+    //     )) {
+    //         $query->orWhere(
+    //             'fire_brigade_unit_id',
+    //             $auth->fire_brigade_unit_id
+    //         );
+    //     }
 
-    /**
-     * Returns units list for index
-     *
-     * @author Mariusz Waloszczyk
-     */
-    private function getEqItemsQuery(): QueryBuilder
-    {
-        $query = QueryBuilder::for(EqItem::class)
-            ->select(
-                'code',
-                'name',
-                'eq_item_template_id',
-                'fire_brigade_unit_id',
-                'vehicle_number',
-                'construction_number',
-                'inventory_number',
-                'identification_number',
-                'date_expiry',
-                'date_legalisation',
-                'date_legalisation_due',
-                'date_production',
-            )
-            ->with(
-                'fireBrigadeUnit:id,name',
-                'eqItemTemplate:id,name',
-                'vehicle:number,name',
-            )
-            ->allowedSorts([
-                'code',
-                'name',
-                'eq_item_template_id',
-                'fire_brigade_unit_id',
-                'vehicle_number',
-                'construction_number',
-                'inventory_number',
-                'identification_number',
-                'date_expiry',
-                'date_legalisation',
-                'date_legalisation_due',
-                'date_production',
-            ])
-            ->allowedFilters([
-                'code',
-                'name',
-                'eq_item_template_id',
-                'fire_brigade_unit_id',
-                'vehicle_number',
-                'construction_number',
-                'inventory_number',
-                'identification_number',
-                'date_expiry',
-                'date_legalisation',
-                'date_legalisation_due',
-                'date_production',
-            ])
-            ->defaultSort('id');
+    //     if ($auth->hasResourceWithAction(
+    //         Resource::RES_EQUIPMENT_LOWLY_UNITS,
+    //         Resource::ACTION_VIEW_ANY
+    //     )) {
+    //         $query->with('fireBrigadeUnit');
+    //         $query->whereRelation(
+    //             'fireBrigadeUnit',
+    //             'superior_unit_id',
+    //             'like',
+    //             $auth->fireBrigadeUnit->id
+    //         );
+    //     }
 
-        return $this->appendQueryConditions($query);
-    }
+    //     return $query;
+    // }
 
-    /**
-     * Adds conditions to query based on user resources
-     *
-     * @author Mariusz Waloszczyk
-     */
-    private function appendQueryConditions(
-        QueryBuilder $query
-    ): QueryBuilder {
-        $auth = User::findOrFail(Auth::user()->id);
+    // /**
+    //  * Get vehicles for index select
+    //  *
+    //  * @author Mariusz Waloszczyk
+    //  */
+    // private function getVehiclesDropdown(): Collection
+    // {
+    //     $auth = User::findOrFail(Auth::user()->id);
 
-        if ($auth->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OVERALL,
-            Resource::ACTION_VIEW_ANY
-        )) {
-            return $query;
-        }
+    //     if ($auth->hasResourceWithAction(
+    //         Resource::RES_EQUIPMENT_OVERALL,
+    //         Resource::ACTION_CREATE
+    //     )) {
+    //         return DropdownService::getVehiclesDropdown();
+    //     }
 
-        if ($auth->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OWN_UNIT,
-            Resource::ACTION_VIEW_ANY
-        )) {
-            $query->orWhere(
-                'fire_brigade_unit_id',
-                $auth->fire_brigade_unit_id
-            );
-        }
-
-        if ($auth->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_LOWLY_UNITS,
-            Resource::ACTION_VIEW_ANY
-        )) {
-            $query->with('fireBrigadeUnit');
-            $query->whereRelation(
-                'fireBrigadeUnit',
-                'superior_unit_id',
-                'like',
-                $auth->fireBrigadeUnit->id
-            );
-        }
-
-        return $query;
-    }
-
-    /**
-     * Get vehicles for index select
-     *
-     * @author Mariusz Waloszczyk
-     */
-    private function getVehiclesDropdown(): Collection
-    {
-        $auth = User::findOrFail(Auth::user()->id);
-
-        if ($auth->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OVERALL,
-            Resource::ACTION_CREATE
-        )) {
-            return DropdownService::getVehiclesDropdown();
-        }
-
-        return DropdownService::getVehiclesDropdown(
-            $auth->fireBrigadeUnit
-        );
-    }
+    //     return DropdownService::getVehiclesDropdown(
+    //         $auth->fireBrigadeUnit
+    //     );
+    // }
 }
