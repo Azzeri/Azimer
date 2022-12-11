@@ -22,7 +22,7 @@ class ManufacturerPolicy
     public function viewAny(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_MANUFACTURERS_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_VIEW_ANY,
         );
     }
@@ -38,7 +38,7 @@ class ManufacturerPolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_MANUFACTURERS_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_CREATE,
         );
     }
@@ -55,7 +55,7 @@ class ManufacturerPolicy
     public function update(User $user, Manufacturer $manufacturer)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_MANUFACTURERS_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_UPDATE,
         );
     }
@@ -72,7 +72,7 @@ class ManufacturerPolicy
     public function delete(User $user, Manufacturer $manufacturer)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_MANUFACTURERS_OVERALL,
+            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
             Resource::ACTION_DELETE,
         );
     }

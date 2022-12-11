@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Manufacturer\StoreManufacturerRequest;
-use App\Http\Requests\Manufacturer\UpdateManufacturerRequest;
+use App\Http\Requests\Manufacturer\ManufacturerRequest;
 use App\Models\Manufacturer;
-use App\Models\Resource;
+use App\Services\DataTableService;
 use App\Services\ManufacturerService;
 
 /**
@@ -21,13 +20,21 @@ class ManufacturerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @author Piotr Nagónry
+     * @author Mariusz Waloszczyk
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(
+        ManufacturerRequest $manufacturerRequest
+    ) {
+        $manufacturers = $this
+            ->manufacturerService
+            ->getManufacturersQuery();
+
+        return inertia('Manufacturer/Index', [
+            'manufacturers' => $manufacturers,
+            'filters' => DataTableService::getFilters(),
+        ]);
     }
 
     /**
@@ -38,9 +45,9 @@ class ManufacturerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(
-        StoreManufacturerRequest $request
+        ManufacturerRequest $manufacturerRequest
     ) {
-        $this->manufacturerService->storeManufacturer($request);
+        $this->manufacturerService->storeManufacturer($manufacturerRequest);
 
         return redirect()->route('manufacturers.index');
     }
@@ -50,15 +57,14 @@ class ManufacturerController extends Controller
      *
      * @author Piotr Nagónry
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
     public function update(
-        UpdateManufacturerRequest $request,
+        ManufacturerRequest $manufacturerRequest,
         Manufacturer $manufacturer
     ) {
         $this->manufacturerService->updateManufacturer(
-            $request,
+            $manufacturerRequest,
             $manufacturer
         );
     }
@@ -71,14 +77,10 @@ class ManufacturerController extends Controller
      * @param  \App\Models\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Manufacturer $manufacturer)
-    {
-        $this->authorize(
-            Resource::ACTION_DELETE,
-            $manufacturer,
-            Manufacturer::class
-        );
-
+    public function destroy(
+        ManufacturerRequest $manufacturerRequest,
+        Manufacturer $manufacturer
+    ) {
         $this->manufacturerService->destroyManufacturer(
             $manufacturer
         );

@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Manufacturer\StoreManufacturerRequest;
-use App\Http\Requests\Manufacturer\UpdateManufacturerRequest;
+use App\Helpers\DataTableRow;
+use App\Http\Requests\Manufacturer\ManufacturerRequest;
+use App\Http\Resources\DateTableRowResource;
+use App\Http\Resources\ManufacturerResource;
 use App\Models\Manufacturer;
 
 /**
@@ -14,12 +16,41 @@ use App\Models\Manufacturer;
 class ManufacturerService
 {
     /**
+     * Returns manufacturers list for index method
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function getManufacturersQuery()
+    {
+        $dataTableService = new DataTableService(
+            [
+                new DataTableRow('id', 'ID', searchable: false),
+                new DataTableRow('name', 'name'),
+                new DataTableRow('actions', 'actions', searchable: false, sortable: false),
+            ]
+        );
+
+        $query = $dataTableService->prepareQuery(
+            Manufacturer::class
+        );
+
+        $query = $dataTableService->getResults($query);
+
+        return ManufacturerResource::collection($query)
+            ->additional([
+                'columns' => DateTableRowResource::collection(
+                    $dataTableService->getFields()
+                ),
+            ]);
+    }
+
+    /**
      * Stores manufacturer in the database
      *
      * @author Piotr Nagórny
      */
     public function storeManufacturer(
-        StoreManufacturerRequest $request
+        ManufacturerRequest $request
     ): Manufacturer {
         return Manufacturer::create([
             'name' => $request->name,
@@ -32,7 +63,7 @@ class ManufacturerService
      * @author Piotr Nagórny
      */
     public function updateManufacturer(
-        UpdateManufacturerRequest $request,
+        ManufacturerRequest $request,
         Manufacturer $manufacturer,
     ): bool {
         return $manufacturer->update([

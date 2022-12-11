@@ -28,12 +28,6 @@ const navigation = [
                 resources: [],
             },
             {
-                label: "Producenci",
-                link: "manufacturers.index",
-                icon: "fa-solid fa-house",
-                resources: [],
-            },
-            {
                 label: "Pojazdy",
                 link: "vehicles.index",
                 icon: "fa-solid fa-house",
@@ -60,6 +54,12 @@ const navigation = [
                 resources: [
                     "res_equipment_resources_overall"
                 ],
+            },
+            {
+                label: "Producenci",
+                link: "manufacturers.index",
+                icon: "fa-solid fa-house",
+                resources: [],
             },
         ],
     },

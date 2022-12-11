@@ -42,13 +42,6 @@ class RoleResourceSeeder extends Seeder
             ],
         ]);
 
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_MANUFACTURERS_OVERALL,
-                'name' => 'Overall manufacturers management',
-            ],
-        ]);
-
         DB::table('roles')->insert([
             [
                 'suffix' => Role::ROLE_USERS_OVERALL,

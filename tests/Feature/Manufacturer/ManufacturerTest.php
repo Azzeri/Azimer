@@ -30,9 +30,9 @@ class ManufacturerTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_MANUFACTURERS_OVERALL,
+                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
                 'actions' => [
-                    Resource::ACTION_CREATE,
+                    Resource::ACTION_VIEW_ANY,
                 ],
             ],
         ]);
@@ -53,7 +53,7 @@ class ManufacturerTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_MANUFACTURERS_OVERALL,
+                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
                 'actions' => [
                     Resource::ACTION_CREATE,
                 ],
@@ -81,7 +81,7 @@ class ManufacturerTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_MANUFACTURERS_OVERALL,
+                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
                 'actions' => [
                     Resource::ACTION_UPDATE,
                 ],
@@ -119,7 +119,7 @@ class ManufacturerTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_MANUFACTURERS_OVERALL,
+                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
                 'actions' => [
                     Resource::ACTION_DELETE,
                 ],

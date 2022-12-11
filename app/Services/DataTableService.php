@@ -31,7 +31,7 @@ class DataTableService
      */
     public function prepareQuery(
         string $class,
-        array $relations,
+        array $relations = [],
     ) {
         $this->prepareFields();
 
