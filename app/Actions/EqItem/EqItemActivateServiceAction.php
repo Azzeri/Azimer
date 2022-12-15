@@ -30,7 +30,6 @@ class EqItemActivateServiceAction
             ?: Carbon::parse($request->last_service_date)->addDays($serviceTemplate->interval);
 
         return EqService::create([
-            'description' => $request->description,
             'expected_perform_date' => $expectedPerformDate,
             'eq_item_code' => $eqItem->code,
             'eq_service_template_id' => $serviceTemplate->id,

@@ -24,9 +24,9 @@ class EqUsageRequest extends BaseRequest
     {
         return [
             'description' => 'string|max:255|nullable',
-            'executed_at' => 'required|date',
-            'duration_minutes' => 'required|integer',
-            'eq_item_code' => 'exists:eq_items,code',
+            'usage_start' => 'required|date',
+            'usage_end' => 'required|date',
+            'eq_item_code' => 'required|exists:eq_items,code',
         ];
     }
 }

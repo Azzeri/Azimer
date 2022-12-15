@@ -16,7 +16,8 @@ class EqUsage extends Model
 
     protected $fillable = [
         'description',
-        'executed_at',
+        'usage_start',
+        'usage_end',
         'duration_minutes',
         'eq_item_code',
         'user_id',

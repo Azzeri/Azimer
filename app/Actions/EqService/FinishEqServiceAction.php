@@ -31,7 +31,6 @@ class FinishEqServiceAction
                 ->addDays($serviceTemplate->interval),
             'eq_item_code' => $eqService->eqItem->code,
             'eq_service_template_id' => $serviceTemplate->id,
-            'user_id' => Auth::user()->id,
         ]);
     }
 }

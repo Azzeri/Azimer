@@ -21,8 +21,8 @@ class StoreEqUsageAction
     ): EqUsage {
         return EqUsage::create([
             'description' => $request->description,
-            'executed_at' => $request->executed_at,
-            'duration_minutes' => $request->duration_minutes,
+            'usage_start' => $request->usage_start,
+            'usage_end' => $request->usage_end,
             'eq_item_code' => $request->eq_item_code,
             'user_id' => Auth::user()->id,
         ]);

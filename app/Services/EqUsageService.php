@@ -20,8 +20,8 @@ class EqUsageService
 
         return [
             'description' => 'test description',
-            'executed_at' => '2077-04-20',
-            'duration_minutes' => 50,
+            'usage_start' => '2077-04-20',
+            'usage_end' => '2077-04-21',
             'eq_item_code' => $eqItem->code,
         ];
     }

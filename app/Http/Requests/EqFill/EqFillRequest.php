@@ -23,8 +23,8 @@ class EqFillRequest extends BaseRequest
     protected function getCommonValidationRules(): array
     {
         return [
-            'started_at' => 'required|date_format:Y-m-d H:i:s|before_or_equal:today',
-            'finished_at' => 'required|date_format:Y-m-d H:i:s|after:started_at',
+            'started_at' => 'required|date|before_or_equal:today',
+            'finished_at' => 'required|date|after:started_at',
             'eq_item_code' => 'exists:eq_items,code',
         ];
     }

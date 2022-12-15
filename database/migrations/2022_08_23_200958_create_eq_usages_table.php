@@ -20,8 +20,8 @@ return new class extends Migration
             $table->id();
             $table->text('description')
                 ->nullable();
-            $table->datetime('executed_at');
-            $table->smallInteger('duration_minutes');
+            $table->datetime('usage_start');
+            $table->datetime('usage_end');
             $table->string('eq_item_code');
             $table->foreign('eq_item_code')
                 ->references('code')

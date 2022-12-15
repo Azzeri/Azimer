@@ -76,4 +76,19 @@ class EqItem extends Model
             'number'
         );
     }
+
+    /**
+     * Returns all services associated with item
+     * {@inheritdoc}
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function eqItemServices()
+    {
+        return $this->hasMany(
+            EqService::class,
+            'eq_item_code',
+            'code'
+        );
+    }
 }

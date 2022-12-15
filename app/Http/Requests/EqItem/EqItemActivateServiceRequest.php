@@ -35,14 +35,15 @@ class EqItemActivateServiceRequest extends FormRequest
     {
         return [
             'eq_service_template_id' => 'required|exists:eq_service_templates,id',
-            'description' => 'nullable|max:2048',
             'last_service_date' => [
+                'nullable',
                 // 'required_if:next_service_date,null',
                 // 'prohibited_unless:next_service_date,null',
                 'before_or_equal:today',
                 'date',
             ],
             'next_service_date' => [
+                'nullable',
                 // 'required_if:last_service_date,null',
                 // 'prohibited_unless:last_service_date,null',
                 'after_or_equal:today',
