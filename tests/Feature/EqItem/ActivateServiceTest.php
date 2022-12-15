@@ -56,7 +56,6 @@ class ActivateServiceTest extends TestCase
 
         $form = [
             'eq_service_template_id' => $eqServiceTemplate->id,
-            'description' => 'Lorem...',
             'last_service_date' => Carbon::now()->subDays(14),
         ];
 
@@ -72,7 +71,6 @@ class ActivateServiceTest extends TestCase
         // Assert
         $response->assertValid();
         $this->assertDatabaseHas('eq_services', [
-            'description' => $form['description'],
             'eq_service_template_id' => $form['eq_service_template_id'],
             'expected_perform_date' => $form['last_service_date']
                 ->addDays($interval)
@@ -94,7 +92,6 @@ class ActivateServiceTest extends TestCase
 
         $form = [
             'eq_service_template_id' => $eqServiceTemplate->id,
-            'description' => 'Lorem...',
             'next_service_date' => Carbon::now()->addDays(14),
         ];
 
@@ -110,7 +107,6 @@ class ActivateServiceTest extends TestCase
         // Assert
         $response->assertValid();
         $this->assertDatabaseHas('eq_services', [
-            'description' => $form['description'],
             'eq_service_template_id' => $form['eq_service_template_id'],
             'expected_perform_date' => $form['next_service_date']
                 ->format('y-m-d'),

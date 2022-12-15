@@ -103,7 +103,7 @@ class CreateEqFillTest extends TestCase
             ],
             'finished_at' => [
                 'finished_at',
-                '2023-10-10',
+                'invalid',
             ],
             'eq_item_code' => [
                 'eq_item_code',

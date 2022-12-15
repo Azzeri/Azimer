@@ -46,7 +46,7 @@ class CreateEqUsageTest extends TestCase
 
     /**
      * Case: Correct data
-     * Expected: Category created
+     * Expected: Usage created
      *
      * @author Piotr Nagórny
      */
@@ -96,7 +96,11 @@ class CreateEqUsageTest extends TestCase
     {
         return [
             'duration_minutes' => [
-                'duration_minutes',
+                'usage_start',
+                '',
+            ],
+            'duration_minutes' => [
+                'usage_end',
                 '',
             ],
             'eq_item_code' => [
