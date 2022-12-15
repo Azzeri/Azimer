@@ -39,6 +39,9 @@ class EqItemResource extends JsonResource
             'fire_brigade_unit' => new FireBrigadeUnitResource(
                 $this->whenLoaded('fireBrigadeUnit')
             ),
+            'services' => EqServiceResource::collection(
+                $this->whenLoaded('eqItemServices')
+            ),
         ];
     }
 }

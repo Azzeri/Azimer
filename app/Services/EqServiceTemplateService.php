@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Http\Resources\EqServiceTemplateResource;
 use App\Models\EqServiceTemplate;
+use App\Models\Manufacturer;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Equipment Item Templates services class
@@ -11,6 +14,28 @@ use App\Models\EqServiceTemplate;
  */
 class EqServiceTemplateService
 {
+    /**
+     * Gets service templates list for given category and manufacturer
+     *
+     * @author Mariusz Waloszczyk
+     *
+     * @return Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getTemplateServices(
+        string $manufacturerId,
+        string $eqItemCategoryId
+    ) {
+        $eqServiceTemplates = DB::table('eq_service_templates')
+            ->leftJoin('eq_services', 'eq_services.eq_service_template_id', '=', 'eq_service_templates.id')
+            ->select('*', 'eq_service_templates.description', 'eq_service_templates.id')
+            ->where('eq_item_category_id', $eqItemCategoryId)
+            ->where('manufacturer_id', $manufacturerId)
+            ->whereNull('eq_services.id')
+            ->get();
+
+        return EqServiceTemplateResource::collection($eqServiceTemplates);
+    }
+
     /**
      * Returns form that will pass validation
      *

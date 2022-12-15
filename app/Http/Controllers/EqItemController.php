@@ -8,12 +8,14 @@ use App\Actions\EqItem\StoreEqItemAction;
 use App\Actions\EqItem\UpdateEqItemAction;
 use App\Http\Requests\EqItem\EqItemActivateServiceRequest;
 use App\Http\Requests\EqItem\EqItemRequest;
+use App\Http\Resources\EqItemResource;
 use App\Models\EqItem;
 use App\Models\Resource;
 use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\DropdownService;
 use App\Services\EqItemService;
+use App\Services\EqServiceTemplateService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +28,7 @@ class EqItemController extends Controller
 {
     public function __construct(
         public EqItemService $eqItemService,
+        public EqServiceTemplateService $eqServiceTemplateService,
     ) {
     }
 
@@ -62,32 +65,34 @@ class EqItemController extends Controller
         EqItemRequest $request,
         EqItem $eqItem
     ) {
+        $itemServicesTemplates = $this
+            ->eqServiceTemplateService
+            ->getTemplateServices(
+                $eqItem->eqItemTemplate->manufacturer->id,
+                $eqItem->eqItemTemplate->eqItemCategory->id,
+            );
+
+        $eqItemWithRelations = (new EqItemResource($eqItem->load([
+            'fireBrigadeUnit',
+            'eqItemTemplate' => [
+                'eqItemCategory',
+                'manufacturer',
+            ],
+            'vehicle',
+            'eqItemServices' => [
+                'eqServiceTemplate',
+            ],
+        ])))
+            ->additional(['data' => [
+                'eqServiceTemplates' => $itemServicesTemplates,
+            ]]);
+
         return inertia(
-            'FireBrigadeUnit/Show',
+            'EqItem/Show',
             [
-                'eqItem' => [
-                    'code' => $eqItem->code,
-                    'name' => $eqItem->code,
-                    'eq_item_template' => [
-                        'id' => $eqItem->eqItemTemplate->id,
-                        'name' => $eqItem->eqItemTemplate->name,
-                    ],
-                    'fire_brigade_unit' => [
-                        'id' => $eqItem->fireBrigadeUnit->id,
-                        'name' => $eqItem->fireBrigadeUnit->name,
-                    ],
-                    'vehicle' => [
-                        'number' => $eqItem->vehicle->number ?? null,
-                        'name' => $eqItem->vehicle->name ?? null,
-                    ],
-                    'construction_number' => $eqItem->construction_number,
-                    'inventory_number' => $eqItem->inventory_number,
-                    'identification_number' => $eqItem->identification_number,
-                    'date_expiry' => $eqItem->date_expiry,
-                    'date_legalisation' => $eqItem->date_legalisation,
-                    'date_legalisation_due' => $eqItem->date_legalisation_due,
-                    'date_production' => $eqItem->date_production,
-                ],
+                'eqItem' => $eqItemWithRelations,
+                'fireBrigadeUnitsSelect' => DropdownService::getFireBrigadeUnitsDropdown(),
+                'eqItemVehiclesSelect' => DropdownService::getVehiclesDropdown(),
             ]
         );
     }

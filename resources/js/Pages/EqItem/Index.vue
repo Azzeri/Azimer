@@ -29,10 +29,16 @@ defineProps({
 					<template #content>
 						<tr v-for="row in eqItems.data" :key="row" class="hover">
 							<th class="font-bold">{{ row.code }}</th>
-							<th class="font-bold">{{ row.eq_item_template.name }}</th>
-							<th class="font-bold">{{ row.fire_brigade_unit.name }}</th>
+							<td>{{ row.eq_item_template.name }}</td>
+							<td>{{ row.fire_brigade_unit.name }}</td>
 							<td class="space-x-2 text-center">
-								<button class="btn btn-xs btn-primary">{{ __("details") }}</button>
+								<Link 
+									:href="route('eqItems.show', row.code)"
+									as="button"
+									class="btn btn-xs btn-primary"
+								>
+									{{ __("details") }}
+								</Link>
 							</td>
 						</tr>
 					</template>

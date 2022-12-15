@@ -13,7 +13,7 @@ defineProps({
         </label>
         <input
             v-if="form"
-            type="text"
+            type="datetime-local"
             :placeholder="label"
             class="input input-bordered w-full"
             v-model="form[field]"
@@ -21,7 +21,7 @@ defineProps({
         <input
             v-else
             disabled
-            type="text"
+            type="datetime-local"
             :placeholder="label"
             :value=value
             class="input input-bordered w-full"
