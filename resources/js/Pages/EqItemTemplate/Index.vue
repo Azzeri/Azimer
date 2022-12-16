@@ -32,6 +32,7 @@ defineProps({
 							<td>{{ row.manufacturer.name }}</td>
 							<td class="space-x-2 text-center">
 								<button class="btn btn-xs btn-primary">Szczegóły</button>
+								<button class="btn btn-xs btn-error">{{ __('delete') }}</button>
 							</td>
 						</tr>
 					</template>

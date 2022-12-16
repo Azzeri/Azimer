@@ -39,6 +39,7 @@ defineProps({
 								>
 									{{ __("details") }}
 								</Link>
+								<button class="btn btn-xs btn-error">{{ __('delete') }}</button>
 							</td>
 						</tr>
 					</template>
