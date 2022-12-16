@@ -1,5 +1,6 @@
 <script setup>
 defineProps({
+    showSeconds: Boolean,
     label: String,
     field: String,
     value: String,
@@ -13,6 +14,7 @@ defineProps({
         </label>
         <input
             v-if="form"
+            :step="showSeconds ? '1' : '0'"
             type="datetime-local"
             :placeholder="label"
             class="input input-bordered w-full"
@@ -23,7 +25,7 @@ defineProps({
             disabled
             type="datetime-local"
             :placeholder="label"
-            :value=value
+            :value="value"
             class="input input-bordered w-full"
         />
         <label v-if="form && form.errors[field]" class="label">
