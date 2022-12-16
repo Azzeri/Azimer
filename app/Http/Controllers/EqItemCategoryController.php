@@ -37,6 +37,7 @@ class EqItemCategoryController extends Controller
         return inertia('EqItemCategory/Index', [
             'categories' => $categories,
             'eqItemCategorySelect' => DropdownService::getEqItemCategoriesDropdown(),
+            'eqItemManufacturersSelect' => DropdownService::getManufacturersDropdown(),
             'filters' => DataTableService::getFilters(),
         ]);
     }

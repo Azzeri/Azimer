@@ -30,6 +30,9 @@ class EqItemCategoryResource extends JsonResource
             'subcategories' => EqItemCategoryResource::collection(
                 $this->whenLoaded('subcategories')
             ),
+            'serviceTemplates' => EqServiceTemplateResource::collection(
+                $this->whenLoaded('serviceTemplates')
+            ),
         ];
     }
 }

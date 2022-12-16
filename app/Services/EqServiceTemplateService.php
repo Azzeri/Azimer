@@ -45,6 +45,7 @@ class EqServiceTemplateService
         bool $withStoreParams
     ): array {
         $manufacturer = ManufacturerService::getRandomManufacturer();
+        $category = EqItemCategoryService::getRandomEqItemCategory();
 
         $commonParameters = [
             'name' => 'T1234',
@@ -53,7 +54,7 @@ class EqServiceTemplateService
         ];
 
         $storeParameters = [
-            'eq_item_category_id' => 1, // temp
+            'eq_item_category_id' => $category->id,
             'manufacturer_id' => $manufacturer->id,
         ];
 

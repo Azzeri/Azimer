@@ -52,4 +52,19 @@ class EqItemCategory extends Model
             'parent_category_id'
         );
     }
+
+    /**
+     * Returns service templates
+     * assigned to the category
+     * {@inheritdoc}
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function serviceTemplates()
+    {
+        return $this->hasMany(
+            EqServiceTemplate::class,
+            'eq_item_category_id'
+        );
+    }
 }

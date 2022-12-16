@@ -34,6 +34,7 @@ class EqItemCategoryService
             [
                 'parentCategory',
                 'subcategories',
+                'serviceTemplates',
             ],
         );
 
