@@ -20,9 +20,9 @@ class StoreEqItemAction
     ): EqItem {
         return EqItem::create([
             'code' => $request->code,
-            'name' => $request->name,
             'eq_item_template_id' => $request->eq_item_template_id,
             'fire_brigade_unit_id' => $request->fire_brigade_unit_id,
+            'name' => $request->name,
             'vehicle_number' => $request->vehicle_number,
             'construction_number' => $request->construction_number,
             'inventory_number' => $request->inventory_number,

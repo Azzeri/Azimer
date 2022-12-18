@@ -67,6 +67,14 @@ class DropdownService
         return EqItemTemplate::select([
             'id as value',
             'name as label',
+            'has_vehicle as vehicle_number',
+            'has_construction_number as construction_number',
+            'has_inventory_number as inventory_number',
+            'has_identification_number as identification_number',
+            'has_date_expiry as date_expiry',
+            'has_date_legalisation as date_legalisation',
+            'has_date_legalisation_due as date_legalisation_due',
+            'has_date_production as date_production'
         ])->get();
     }
 
