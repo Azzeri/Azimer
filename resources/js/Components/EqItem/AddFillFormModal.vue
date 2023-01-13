@@ -20,7 +20,6 @@ let fixedSeconds = ref(0)
 
 const setFillSeconds = () => {
     let date = new Date();
-    console.log(fixedSeconds.value)
     addFillForm.started_at = date.toISOString().substring(0, 19)
     date.setSeconds(date.getSeconds() + parseInt(fixedSeconds.value))
     addFillForm.finished_at = date.toISOString().substring(0, 19)

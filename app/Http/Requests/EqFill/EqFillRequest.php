@@ -22,8 +22,9 @@ class EqFillRequest extends BaseRequest
      */
     protected function getCommonValidationRules(): array
     {
+        // dd($this->request);
         return [
-            'started_at' => 'required|date|before_or_equal:today',
+            'started_at' => ['required', 'date', 'before_or_equal:' . now()->format('Y-m-d H:i:s')],
             'finished_at' => 'required|date|after:started_at',
             'eq_item_code' => 'exists:eq_items,code',
         ];
