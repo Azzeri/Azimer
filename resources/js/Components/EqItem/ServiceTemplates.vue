@@ -33,7 +33,12 @@ const activateService = (index) => {
         form.last_service_date = null;
     }
 
-    form.put(route("eqItems.activateService", itemData.code));
+    form.put(route("eqItems.activateService", itemData.code), {
+        preserveScroll: true,
+        onSuccess: () => {
+            form.reset(), form.clearErrors(), location.reload();
+        },
+    });
 };
 </script>
 <template>
