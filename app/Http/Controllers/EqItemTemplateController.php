@@ -91,6 +91,7 @@ class EqItemTemplateController extends Controller
         $deleteEqItemTemplateAction
             ->execute($eqItemTemplate);
 
-        return redirect(route('eqItemTemplates.index'));
+        return redirect(route('eqItemTemplates.index'))
+            ->with('message', __('Pomyślnie usunięto szablon'));;
     }
 }

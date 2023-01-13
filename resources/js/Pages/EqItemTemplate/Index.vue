@@ -4,6 +4,7 @@ import { openModal } from "@/shared.js";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import CreateFormModal from "@/Components/EqItemTemplate/CreateFormModal.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import { Inertia } from '@inertiajs/inertia';
 
 defineProps({
     eqItemTemplates: Object,
@@ -11,6 +12,10 @@ defineProps({
     eqItemCategoriesSelect: Array,
     filters: Object,
 });
+
+const deleteTemplate = (id) => {
+	Inertia.delete(route('eqItemTemplates.destroy', id))
+}
 
 </script>
 
@@ -32,7 +37,7 @@ defineProps({
 							<td>{{ row.manufacturer.name }}</td>
 							<td class="space-x-2 text-center">
 								<button class="btn btn-xs btn-primary">Szczegóły</button>
-								<button class="btn btn-xs btn-error">{{ __('delete') }}</button>
+								<button class="btn btn-xs btn-error" @click="deleteTemplate(row.id)">{{ __('delete') }}</button>
 							</td>
 						</tr>
 					</template>
