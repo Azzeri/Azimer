@@ -58,6 +58,6 @@ class DeleteEqServiceTemplateTest extends TestCase
 
         // Assert
         $this->assertModelMissing($template);
-        $response->assertRedirect(route('eqServiceTemplates.index'));
+        $response->assertRedirect(route('eqItemCategories.index'));
     }
 }

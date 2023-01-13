@@ -74,7 +74,7 @@ class DropdownService
             'has_date_expiry as date_expiry',
             'has_date_legalisation as date_legalisation',
             'has_date_legalisation_due as date_legalisation_due',
-            'has_date_production as date_production'
+            'has_date_production as date_production',
         ])->get();
     }
 

@@ -70,6 +70,6 @@ class UpdateEqServiceTemplateTest extends TestCase
         // Assert
         $response->assertValid();
         $this->assertDatabaseHas('eq_service_templates', $form);
-        $response->assertRedirect(route('eqServiceTemplates.index'));
+        $response->assertRedirect(route('eqItemCategories.index'));
     }
 }

@@ -21,21 +21,21 @@ class EqServiceTemplateSeeder extends Seeder
             'name' => 'Wymiana baterii',
             'eq_item_category_id' => 3,
             'manufacturer_id' => 1,
-            'interval' => 14
+            'interval' => 14,
         ]);
 
         EqServiceTemplate::create([
             'name' => 'Konserwacja ogólna',
             'eq_item_category_id' => 10,
             'manufacturer_id' => 3,
-            'interval' => 10
+            'interval' => 10,
         ]);
 
         EqServiceTemplate::create([
             'name' => 'Konserwacja ogólna',
             'eq_item_category_id' => 11,
             'manufacturer_id' => 3,
-            'interval' => 14
+            'interval' => 14,
         ]);
     }
 }

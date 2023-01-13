@@ -22,7 +22,7 @@ class FireBrigadeUnitSeeder extends Seeder
             'addr_street' => 'Marii Skłodowskiej',
             'addr_number' => '15',
             'addr_postcode' => '55-100',
-            'addr_locality' => 'Wrocław'
+            'addr_locality' => 'Wrocław',
         ]);
 
         FireBrigadeUnit::create([
@@ -31,7 +31,7 @@ class FireBrigadeUnitSeeder extends Seeder
             'addr_number' => '48',
             'addr_postcode' => '53-258',
             'addr_locality' => 'Opole',
-            'superior_unit_id' => 1
+            'superior_unit_id' => 1,
         ]);
 
         FireBrigadeUnit::create([
@@ -40,7 +40,7 @@ class FireBrigadeUnitSeeder extends Seeder
             'addr_number' => '69',
             'addr_postcode' => '48-300',
             'addr_locality' => 'Kluczbork',
-            'superior_unit_id' => 1
+            'superior_unit_id' => 1,
         ]);
     }
 }

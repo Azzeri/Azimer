@@ -23,7 +23,7 @@ class EqItemTemplateSeeder extends Seeder
             'manufacturer_id' => 1,
             'has_construction_number' => 1,
             'has_identification_number' => 1,
-            'has_date_production' => 1
+            'has_date_production' => 1,
         ]);
 
         EqItemTemplate::create([
@@ -35,7 +35,7 @@ class EqItemTemplateSeeder extends Seeder
             'has_date_production' => 1,
             'has_date_expiry' => 1,
             'has_date_legalisation' => 1,
-            'has_date_legalisation_due' => 1
+            'has_date_legalisation_due' => 1,
         ]);
 
         EqItemTemplate::create([
@@ -47,7 +47,7 @@ class EqItemTemplateSeeder extends Seeder
             'has_date_production' => 1,
             'has_date_expiry' => 1,
             'has_date_legalisation' => 1,
-            'has_date_legalisation_due' => 1
+            'has_date_legalisation_due' => 1,
         ]);
     }
 }
