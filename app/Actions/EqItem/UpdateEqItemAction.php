@@ -22,7 +22,6 @@ class UpdateEqItemAction
         return $eqItem->update([
             'code' => $request->code,
             'name' => $request->name,
-            'eq_item_template_id' => $request->eq_item_template_id,
             'fire_brigade_unit_id' => $request->fire_brigade_unit_id,
             'vehicle_number' => $request->vehicle_number,
             'construction_number' => $request->construction_number,

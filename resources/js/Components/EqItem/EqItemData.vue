@@ -24,10 +24,22 @@ const editItemForm = useForm({
     date_production: itemData.date_production,
     vehicle_number: itemData.vehicle ? itemData.vehicle.number : null,
 });
+
+const submit = () => {
+    editItemForm.put(route("eqItems.update", props.eqItem.data.code), {
+        preserveScroll: true,
+        onSuccess: () => {},
+    });
+};
 </script>
 <template>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 md:mt-4">
-        <InputText :label="__('code')" field="code" :form="editItemForm" />
+        <InputText
+            :label="__('code')"
+            field="code"
+            :form="editItemForm"
+            @focusout="submit"
+        />
         <InputText
             :label="__('category')"
             :value="itemData.eq_item_template.eq_item_category.name"
@@ -46,6 +58,7 @@ const editItemForm = useForm({
             :form="editItemForm"
             :options="fireBrigadeUnitsSelect"
             :selected="editItemForm.fire_brigade_unit_id"
+            @focusout="submit"
         />
     </div>
     <div class="divider" />
@@ -62,42 +75,49 @@ const editItemForm = useForm({
                     :label="__('construction number')"
                     field="construction_number"
                     :form="editItemForm"
+                    @focusout="submit"
                 />
                 <InputText
                     v-if="itemData.eq_item_template.has_inventory_number"
                     :label="__('inventory number')"
                     field="inventory_number"
                     :form="editItemForm"
+                    @focusout="submit"
                 />
                 <InputText
                     v-if="itemData.eq_item_template.has_identification_number"
                     :label="__('identification number')"
                     field="identification_number"
                     :form="editItemForm"
+                    @focusout="submit"
                 />
                 <InputDate
                     v-if="itemData.eq_item_template.has_date_expiry"
                     :label="__('date expiry')"
                     field="date_expiry"
                     :form="editItemForm"
+                    @focusout="submit"
                 />
                 <InputDate
                     v-if="itemData.eq_item_template.has_date_legalisation"
                     :label="__('date legalisation')"
                     field="date_legalisation"
                     :form="editItemForm"
+                    @focusout="submit"
                 />
                 <InputDate
                     v-if="itemData.eq_item_template.has_date_legalisation_due"
                     :label="__('date legalisation due')"
                     field="date_legalisation_due"
                     :form="editItemForm"
+                    @focusout="submit"
                 />
                 <InputDate
                     v-if="itemData.eq_item_template.has_date_production"
                     :label="__('date production')"
                     field="date_production"
                     :form="editItemForm"
+                    @focusout="submit"
                 />
                 <Select
                     v-if="itemData.eq_item_template.has_vehicle"
@@ -106,6 +126,7 @@ const editItemForm = useForm({
                     :form="editItemForm"
                     :options="eqItemVehiclesSelect"
                     :selected="editItemForm.vehicle_number"
+                    @focusout="submit"
                 />
             </div>
         </div>

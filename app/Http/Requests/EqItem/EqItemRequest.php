@@ -21,7 +21,6 @@ class EqItemRequest extends BaseRequest
     protected function getCommonValidationRules(): array
     {
         return [
-            'eq_item_template_id' => 'required|exists:eq_item_templates,id',
             'fire_brigade_unit_id' => 'required|exists:fire_brigade_units,id',
             'vehicle_number' => 'nullable|exists:eq_item_templates,id',
             'construction_number' => 'nullable|string',
@@ -38,7 +37,8 @@ class EqItemRequest extends BaseRequest
     {
         return [
             'code' => 'required|max:255|unique:eq_items',
-            'name' => 'required|max:128|unique:eq_items',
+            'name' => 'max:128|unique:eq_items',
+            'eq_item_template_id' => 'required|exists:eq_item_templates,id',
         ];
     }
 
@@ -52,7 +52,6 @@ class EqItemRequest extends BaseRequest
                     ->ignore($this->eqItem),
             ],
             'name' => [
-                'required',
                 'max:128',
                 Rule::unique('eq_items')
                     ->ignore($this->eqItem),

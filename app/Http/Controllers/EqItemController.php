@@ -128,7 +128,9 @@ class EqItemController extends Controller
             $eqItem
         );
 
-        return redirect(route('eqItems.index'));
+        return redirect()
+            ->back()
+            ->with('message', __('Pomyślnie zaktualizowano przedmiot'));
     }
 
     /**
