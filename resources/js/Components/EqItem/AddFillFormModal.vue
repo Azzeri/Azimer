@@ -42,7 +42,7 @@ const submit = () =>
                 <span class="label-text"> seconds </span>
             </label>
             <input v-model="fixedSeconds" class="input input-primary input-sm" />
-            <button @click="setFillSeconds" class="btn btn-sm ml-4">{{ __('start') }}</button>
+            <button @click="setFillSeconds" class="btn btn-sm ml-4">{{ __('calculate') }}</button>
             <form @submit.prevent="submit">
                 <InputDateTime
                     showSeconds
