@@ -12,19 +12,20 @@ const props = defineProps({
 const form = useForm({
     name: null,
     interval: null,
+    eq_item_category_id: props.eqItemCategory.id,
     manufacturer_id: props.eqItemManufacturersSelect
         ? props.eqItemManufacturersSelect[0].value
         : null,
 });
 
 const submit = () => {
-    // form.post("/eqItemCategories", {
-    //     onSuccess: () => {
-    //         form.reset(),
-    //             form.clearErrors(),
-    //             closeModal("create-category-modal");
-    //     },
-    // });
+    form.post("/eqServiceTemplates", {
+        onSuccess: () => {
+            form.reset(),
+                form.clearErrors(),
+                closeModal("category-details-modal");
+        },
+    });
 };
 </script>
 <template>

@@ -78,7 +78,7 @@ class EqServiceTemplateController extends Controller
         $storeEqServiceTemplateAction->execute($request);
 
         return redirect()
-            ->route('eqServiceTemplates.index')
+            ->route('eqItemCategories.index')
             ->with('message', 'Pomyślnie dodano szablon');
     }
 
@@ -97,7 +97,7 @@ class EqServiceTemplateController extends Controller
             $eqServiceTemplate
         );
 
-        return redirect(route('eqServiceTemplates.index'));
+        return redirect(route('eqItemCategories.index'));
     }
 
     /**
@@ -113,7 +113,7 @@ class EqServiceTemplateController extends Controller
         $deleteEqServiceTemplateAction
             ->execute($eqServiceTemplate);
 
-        return redirect(route('eqServiceTemplates.index'));
+        return redirect(route('eqItemCategories.index'));
     }
 
     /**
