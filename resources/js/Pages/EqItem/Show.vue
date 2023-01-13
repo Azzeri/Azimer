@@ -55,8 +55,6 @@ const isCategoryFillable = () => {
             </button>
         </div>
 
-        <div class="divider" />
-
         <ServiceTemplates :eqItem="eqItem" />
         <Services :eqItem="eqItem" />
 

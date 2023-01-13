@@ -32,7 +32,13 @@ const isDateAfterDue = (date) => {
 };
 </script>
 <template>
-    <template class="grid grid-cols-4 gap-2">
+    <template v-if="itemData.services.length">
+        <div class="divider" />
+        <div class="text-xl font-medium pl-0">
+            {{ __("services") }}
+        </div>
+    </template>
+    <template class="grid grid-cols-4 gap-2 mt-2">
         <template v-for="(service, index) in itemData.services">
             <form
                 v-if="!service.actual_perform_date"

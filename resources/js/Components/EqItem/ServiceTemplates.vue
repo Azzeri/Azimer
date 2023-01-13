@@ -42,7 +42,13 @@ const activateService = (index) => {
 };
 </script>
 <template>
-    <template class="grid grid-cols-4 gap-2">
+    <template v-if="itemData.eqServiceTemplates.length">
+        <div class="divider" />
+        <div class="text-xl font-medium pl-0">
+            {{ __("service templates") }}
+        </div>
+    </template>
+    <template class="grid grid-cols-4 gap-2 mt-4">
         <form
             v-for="(serviceTemplate, index) in itemData.eqServiceTemplates"
             @submit.prevent="activateService(index)"
@@ -89,5 +95,4 @@ const activateService = (index) => {
             </div>
         </form>
     </template>
-    <div class="divider" />
 </template>
