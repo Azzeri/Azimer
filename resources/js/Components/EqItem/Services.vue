@@ -18,6 +18,13 @@ const finishService = (index) => {
 
     form.put(route("eqServices.finish", itemData.services[index].id));
 };
+
+const isDateAfterDue = (date) => {
+    let dateNow = new Date();
+    let parsedDate = Date.parse(date);
+
+    return parsedDate < dateNow;
+};
 </script>
 <template>
     <template class="grid grid-cols-4 gap-2">
@@ -30,7 +37,14 @@ const finishService = (index) => {
                     <h2 class="card-title">
                         {{ service.eq_service_template.name }}
                     </h2>
-                    <h3 class="font-semibold">
+                    <h3
+                        class="font-semibold"
+                        :class="{
+                            'text-error': isDateAfterDue(
+                                service.expected_perform_date
+                            ),
+                        }"
+                    >
                         {{
                             `${__("expected")}: ${
                                 service.expected_perform_date
