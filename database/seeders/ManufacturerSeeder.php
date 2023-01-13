@@ -17,31 +17,31 @@ class ManufacturerSeeder extends Seeder
      */
     public function run(): void
     {
-        Manufacturer::create([
+        Manufacturer::create([ //1
             'name' => 'OgnioChron',
         ]);
 
-        Manufacturer::create([
+        Manufacturer::create([ //2
             'name' => 'Calisia Vulcan',
         ]);
 
-        Manufacturer::create([
+        Manufacturer::create([ //3
             'name' => 'Flir',
         ]);
 
-        Manufacturer::create([
+        Manufacturer::create([ //4
             'name' => 'HONEYWELL',
         ]);
 
-        Manufacturer::create([
+        Manufacturer::create([ //5
             'name' => 'BIOMASK',
         ]);
 
-        Manufacturer::create([
+        Manufacturer::create([ //6
             'name' => 'OPTI-PRO',
         ]);
 
-        Manufacturer::create([
+        Manufacturer::create([ //7
             'name' => 'Aeris',
         ]);
     }

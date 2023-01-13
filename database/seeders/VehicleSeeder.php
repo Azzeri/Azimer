@@ -17,16 +17,19 @@ class VehicleSeeder extends Seeder
         Vehicle::create([
             'number' => 1,
             'name' => 'STAR',
+            'fire_brigade_unit_id' => 1
         ]);
 
         Vehicle::create([
             'number' => 2,
             'name' => 'PGAZ',
+            'fire_brigade_unit_id' => 1
         ]);
 
         Vehicle::create([
             'number' => 3,
             'name' => 'MAN',
+            'fire_brigade_unit_id' => 1
         ]);
     }
 }

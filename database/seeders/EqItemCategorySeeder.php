@@ -26,7 +26,7 @@ class EqItemCategorySeeder extends Seeder
             'name' => 'Kamery Termowizyjne',
         ]);
 
-        DB::table('eq_item_categories')->insert([
+        DB::table('eq_item_categories')->insert([ //3
             'name' => 'Latarki',
         ]);
 
@@ -54,28 +54,31 @@ class EqItemCategorySeeder extends Seeder
             'parent_category_id' => 4,
         ]);
 
-        EqItemCategory::create([//9
+        EqItemCategory::create([ //9
             'name' => 'Butle',
+            'is_fillable' => true,
         ]);
 
-        EqItemCategory::create([//10
+        EqItemCategory::create([ //10
             'name' => 'Butle kompozytowe',
             'parent_category_id' => 9,
             'is_fillable' => true,
         ]);
 
-        EqItemCategory::create([//11
+        EqItemCategory::create([ //11
             'name' => 'Butle stalowe',
             'parent_category_id' => 9,
             'is_fillable' => true,
         ]);
 
-        EqItemCategory::create([//12
+        EqItemCategory::create([ //12
             'name' => 'Maski',
+            'is_fillable' => true,
         ]);
 
-        EqItemCategory::create([//13
+        EqItemCategory::create([ //13
             'name' => 'Aparaty powietrzne',
+            'is_fillable' => true,
         ]);
     }
 }
