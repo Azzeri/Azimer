@@ -5,6 +5,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import CreateFormModal from "@/Components/EqItemCategory/CreateFormModal.vue";
 import DetailsModal from "@/Components/EqItemCategory/DetailsModal.vue";
 import { ref } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps({
 		categories: Object,
@@ -27,6 +28,11 @@ const openDetailsModal = (category) => {
 	categoryForDetails.value = category;
 	openModal(detailsModalName);
 }
+
+const deleteCategory = (id) => {
+	Inertia.delete(route('eqItemCategories.destroy', id))
+}
+
 </script>
 
 <template>
@@ -48,7 +54,7 @@ const openDetailsModal = (category) => {
 							<td :innerHTML="assignIconToBoolean(row.is_fillable)" />
 							<td class="space-x-2 text-center">
 								<button @click="openDetailsModal(row)" class="btn btn-xs btn-primary">{{ __('details') }}</button>
-								<button class="btn btn-xs btn-error">{{ __('delete') }}</button>
+								<button class="btn btn-xs btn-error" @click="deleteCategory(row)">{{ __('delete') }}</button>
 							</td>
 						</tr>
 					</template>
