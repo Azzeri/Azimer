@@ -20,14 +20,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RoleResourceSeeder::class,
-            UserSeeder::class,
-            FireBrigadeUnitSeeder::class,
-            ManufacturerSeeder::class,
-            EqItemCategorySeeder::class,
-            VehicleSeeder::class,
-            EqItemTemplateSeeder::class,
-            EqServiceTemplateSeeder::class,
-            EqItemSeeder::class,
+            // UserSeeder::class,
+            // FireBrigadeUnitSeeder::class,
+            // ManufacturerSeeder::class,
+            // EqItemCategorySeeder::class,
+            // VehicleSeeder::class,
+            // EqItemTemplateSeeder::class,
+            // EqServiceTemplateSeeder::class,
+            // EqItemSeeder::class,
         ]);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Resource;
-use App\Models\Role;
+use App\Models\AclResource;
+use App\Models\AclRole;
+use App\Services\AclService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -21,109 +22,68 @@ class RoleResourceSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_DUMMY,
-                'name' => 'Dummy resource',
-            ],
+        $this->createDefaultResources();
+        $this->createSuperAdmin();
+    }
+
+    /**
+     * Creates default resources
+     * 
+     * @author Mariusz Waloszczyk
+     */
+    private function createDefaultResources(): void
+    {
+        $resources = [
+            AclResource::RES_DUMMY,
+            AclResource::RES_OVERALL_USERS,
+            AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::RES_OVERALL_EQUIPMENT,
+            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::RES_OWN_UNIT_USERS,
+            AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
+            AclResource::RES_OWN_UNIT_EQUIPMENT,
+            AclResource::RES_LOWLY_UNITS_USERS,
+            AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
+            AclResource::RES_LOWLY_UNITS_EQUIPMENT,
+        ];
+
+        foreach ($resources as $resourceName) {
+            AclResource::create([
+                'suffix' => $resourceName
+            ]);
+        }
+    }
+
+    /**
+     * creates super admin role and assigns him overall resources with every action
+     * @author Mariusz Waloszczyk
+     */
+    private function createSuperAdmin(): void
+    {
+        $aclService = new AclService();
+
+        $adminResources = [
+            AclResource::RES_OVERALL_USERS,
+            AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::RES_OVERALL_EQUIPMENT,
+            AclResource::RES_OVERALL_VEHICLES,
+        ];
+
+        $superAdminRole = AclRole::create([
+            'suffix' => AclRole::ROLE_SUPER_ADMIN,
         ]);
 
-        DB::table('roles')->insert([
-            [
-                'suffix' => Role::ROLE_ROLES_OVERALL,
-                'name' => 'Overall roles manager',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_ROLES_OVERALL,
-                'name' => 'Overall roles management',
-            ],
-        ]);
-
-        DB::table('roles')->insert([
-            [
-                'suffix' => Role::ROLE_USERS_OVERALL,
-                'name' => 'Overall users manager',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_USERS_OVERALL,
-                'name' => 'Overall users management',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_FIRE_BRIGADE_UNIT_OWN,
-                'name' => 'Own fire brigade unit management',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_FIRE_BRIGADE_UNITS_LOWLY,
-                'name' => 'Lowly fire brigade units management',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
-                'name' => 'Overall fire brigade units management',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_USERS_OWN_UNIT,
-                'name' => 'Users in own unit management',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_USERS_LOWLY_UNITS,
-                'name' => 'Users in lowly units management',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_VEHICLES_OVERALL,
-                'name' => 'Overall vehicles management',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
-                'name' => 'Overall equipment resources management',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_EQUIPMENT_OVERALL,
-                'name' => 'Overall equipment management',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_EQUIPMENT_OWN_UNIT,
-                'name' => 'Equipment in own unit management',
-            ],
-        ]);
-
-        DB::table('resources')->insert([
-            [
-                'suffix' => Resource::RES_EQUIPMENT_LOWLY_UNITS,
-                'name' => 'Equipment in lowly units management',
-            ],
-        ]);
+        $aclActions = AclResource::getPossibleActions();
+        foreach ($adminResources as $resourceName) {
+            foreach ($aclActions as $action) {
+                $aclService->attachResourceToRole(
+                    $superAdminRole,
+                    $resourceName,
+                    $action
+                );
+            }
+        }
     }
 }

@@ -16,11 +16,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('acl_roles', function (Blueprint $table) {
             $table->string('suffix', 64)->primary();
-            $table->string('name', 64);
             $table->comment('Roles which group resources.');
-            $table->timestamps();
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('acl_roles');
     }
 };

@@ -10,45 +10,30 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @author Mariusz Waloszczyk
  */
-class Resource extends Model
+class AclResource extends Model
 {
     use HasFactory;
 
-    const ACTION_CREATE = 'create';
-
-    const ACTION_UPDATE = 'update';
-
-    const ACTION_DELETE = 'delete';
-
-    const ACTION_VIEW_ANY = 'viewAny';
-
     const ACTION_VIEW = 'view';
+    const ACTION_CREATE = 'create';
+    const ACTION_UPDATE = 'update';
+    const ACTION_DELETE = 'delete';
 
     const RES_DUMMY = 'res_dummy';
 
-    const RES_ROLES_OVERALL = 'res_roles_overall';
+    const RES_OVERALL_USERS = 'res_overall_users';
+    const RES_OVERALL_FIRE_BRIGADE_UNITS = 'res_overall_fire_brigade_units';
+    const RES_OVERALL_EQUIPMENT_RESOURCES = 'res_overall_equipment_resources';
+    const RES_OVERALL_EQUIPMENT = 'res_overall_equipment';
+    const RES_OVERALL_VEHICLES = 'res_overall_vehicles';
+    
+    const RES_OWN_UNIT_USERS = 'res_own_unit_users';
+    const RES_OWN_UNIT_FIRE_BRIGADE_UNIT = 'res_own_unit_fire_brigade_unit';
+    const RES_OWN_UNIT_EQUIPMENT = 'res_own_unit_equipment';
 
-    const RES_VEHICLES_OVERALL = 'res_vehicles_overall';
-
-    const RES_USERS_OVERALL = 'res_users_overall';
-
-    const RES_USERS_OWN_UNIT = 'res_users_own_unit';
-
-    const RES_USERS_LOWLY_UNITS = 'res_users_lowly_units';
-
-    const RES_FIRE_BRIGADE_UNITS_OVERALL = 'res_fire_brigade_units_overall';
-
-    const RES_FIRE_BRIGADE_UNIT_OWN = 'res_fire_brigade_unit_own';
-
-    const RES_FIRE_BRIGADE_UNITS_LOWLY = 'res_fire_brigade_units_lowly';
-
-    const RES_EQUIPMENT_RESOURCES_OVERALL = 'res_equipment_resources_overall';
-
-    const RES_EQUIPMENT_OVERALL = 'res_equipment_overall';
-
-    const RES_EQUIPMENT_OWN_UNIT = 'res_equipment_own_unit';
-
-    const RES_EQUIPMENT_LOWLY_UNITS = 'res_equipment_lowly_units';
+    const RES_LOWLY_UNITS_USERS = 'res_lowly_units_users';
+    const RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT = 'res_lowly_units_fire_brigade_unit';
+    const RES_LOWLY_UNITS_EQUIPMENT = 'res_lowly_units_equipment';
 
     /**
      * The primary key associated with the table.
@@ -72,13 +57,19 @@ class Resource extends Model
     public $incrementing = false;
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
         'suffix',
-        'name',
     ];
 
     /**
@@ -89,11 +80,10 @@ class Resource extends Model
     public static function getPossibleActions(): array
     {
         return [
-            self::ACTION_CREATE,
-            self::ACTION_DELETE,
-            self::ACTION_UPDATE,
             self::ACTION_VIEW,
-            self::ACTION_VIEW_ANY,
+            self::ACTION_CREATE,
+            self::ACTION_UPDATE,
+            self::ACTION_DELETE,
         ];
     }
 }

@@ -16,23 +16,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resource_role', function (Blueprint $table) {
+        Schema::create('acl_resource_role', function (Blueprint $table) {
             $table->id();
-            $table->string('resource_suffix');
-            $table->foreign('resource_suffix')
-                ->references('suffix')
-                ->on('resources')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
             $table->string('role_suffix');
             $table->foreign('role_suffix')
                 ->references('suffix')
-                ->on('roles')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            $table->json('actions');
+                ->on('acl_roles');
+            $table->string('resource_suffix');
+            $table->foreign('resource_suffix')
+                ->references('suffix')
+                ->on('acl_resources');
+            $table->enum('action', ['view', 'create', 'update', 'delete']);
             $table->comment('Resources assigned to roles. Actions determine exact operations that user can perform.');
-            $table->timestamps();
         });
     }
 
@@ -43,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('resources_roles');
+        Schema::dropIfExists('acl_resource_role');
     }
 };

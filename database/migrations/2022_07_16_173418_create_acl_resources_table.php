@@ -16,11 +16,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resources', function (Blueprint $table) {
+        Schema::create('acl_resources', function (Blueprint $table) {
             $table->string('suffix', 64)->primary();
-            $table->string('name', 64);
-            $table->comment('Resources determine what user can access in system.');
-            $table->timestamps();
+            $table->comment('Resources determine functionalities that user can access in system.');
         }
         );
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('resources');
+        Schema::dropIfExists('acl_resources');
     }
 };

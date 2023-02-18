@@ -10,16 +10,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @author Mariusz Waloszczyk
  */
-class Role extends Model
+class AclRole extends Model
 {
     use HasFactory;
 
     /** Default roles */
-    const ROLE_ROLES_OVERALL = 'role_roles_overall';
-
-    const ROLE_USERS_OVERALL = 'role_users_overall';
-
-    const ROLE_FIRE_BRIGADE_UNITS_OVERALL = 'role_fire_brigade_units_overall';
+    const ROLE_SUPER_ADMIN = 'role_super_admin';
 
     /**
      * The primary key associated with the table.
@@ -43,13 +39,19 @@ class Role extends Model
     public $incrementing = false;
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
         'suffix',
-        'name',
     ];
 
     /**
@@ -61,11 +63,12 @@ class Role extends Model
     public function resources()
     {
         return $this->belongsToMany(
-            Resource::class,
-            'resource_role',
+            AclResource::class,
+            'acl_resource_role',
             'role_suffix',
+            'resource_suffix'
         )->withPivot(
-            'actions'
+            'action'
         );
     }
 
