@@ -75,8 +75,8 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(
-            Role::class,
-            'role_user',
+            AclRole::class,
+            'acl_role_user',
             'user_id',
             'role_suffix',
         );
@@ -94,25 +94,24 @@ class User extends Authenticatable
     }
 
     /**
-     * Checks if user has specified resource with actions
+     * Checks if user has the specified resource with the given action
      *
      * @author Mariusz Waloszczyk
      */
     public function hasResourceWithAction(
-        string $resource_suffix,
+        string $resourceSuffix,
         string $action
     ): bool {
         foreach ($this->roles as $role) {
             foreach ($role->resources as $resource) {
                 if (
-                    $resource->suffix === $resource_suffix &&
-                    in_array($action, json_decode($resource->pivot->actions))
+                    $resource->suffix === $resourceSuffix
+                    && $resource->pivot->action === $action
                 ) {
                     return true;
                 }
             }
         }
-
         return false;
     }
 }

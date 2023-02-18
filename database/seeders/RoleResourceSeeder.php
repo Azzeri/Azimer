@@ -4,9 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\AclResource;
 use App\Models\AclRole;
+use App\Models\User;
 use App\Services\AclService;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Default roles and resources
@@ -76,14 +77,22 @@ class RoleResourceSeeder extends Seeder
         ]);
 
         $aclActions = AclResource::getPossibleActions();
-        foreach ($adminResources as $resourceName) {
+        foreach ($adminResources as $resourceSuffix) {
             foreach ($aclActions as $action) {
                 $aclService->attachResourceToRole(
                     $superAdminRole,
-                    $resourceName,
+                    $resourceSuffix,
                     $action
                 );
             }
         }
+
+        $superAdminUser = User::create([
+            'name' => 'Super',
+            'surname' => 'Administrator',
+            'email' => 'admin@admin.admin',
+            'password' => Hash::make('qwerty'),
+        ]);
+        $superAdminUser->roles()->attach($superAdminRole);
     }
 }

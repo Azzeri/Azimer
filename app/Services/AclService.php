@@ -18,9 +18,9 @@ class AclService
      */
     public function attachResourceToRole(
         AclRole $role,
-        string $resourceName,
+        string $resourceSuffix,
         string $action
     ): void {
-        $role->resources()->attach($resourceName, ['action' => $action]);
+        $role->resources()->attach($resourceSuffix, ['action' => $action]);
     }
 }
