@@ -2,9 +2,10 @@
 
 namespace Tests;
 
-use App\Models\Resource;
-use App\Models\Role;
+use App\Models\AclResource;
+use App\Models\AclRole;
 use App\Models\User;
+use App\Services\AclService;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 /**
@@ -31,23 +32,24 @@ abstract class TestCase extends BaseTestCase
      * @author Mariusz Waloszczyk
      */
     protected function getUserWithResourcesAndActions(
-        array $resources,
+        array $resourcesWithActions,
     ): User {
-        $role = Role::factory()->create();
+        $aclService = new AclService();
+        $role = AclRole::factory()->create();
 
-        foreach ($resources as $resource) {
-            $role->resources()->attach(
-                Resource::findOrFail($resource['suffix']),
-                [
-                    'actions' => json_encode(
-                        $resource['actions']
-                    ),
-                ]
-            );
+        foreach ($resourcesWithActions as $data) {
+            $resource = AclResource::findOrFail($data['suffix']);
+            foreach ($data['actions'] as $action) {
+                $aclService->attachResourceToRole(
+                    $role,
+                    $resource->suffix,
+                    $action,
+                );
+            }
         }
 
         return User::factory()
-            ->hasAttached($role)
+            ->hasAttached($role, [], 'roles')
             ->create();
     }
 }
