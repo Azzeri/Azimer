@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\FireBrigadeUnit;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\Vehicle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -28,9 +28,9 @@ class VehicleTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_VEHICLES_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_VEHICLES,
                 'actions' => [
-                    Resource::ACTION_VIEW,
+                    AclResource::ACTION_VIEW,
                 ],
             ],
         ]);
@@ -51,9 +51,9 @@ class VehicleTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_VEHICLES_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_VEHICLES,
                 'actions' => [
-                    Resource::ACTION_CREATE,
+                    AclResource::ACTION_CREATE,
                 ],
             ],
         ]);
@@ -84,9 +84,9 @@ class VehicleTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_VEHICLES_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_VEHICLES,
                 'actions' => [
-                    Resource::ACTION_UPDATE,
+                    AclResource::ACTION_UPDATE,
                 ],
             ],
         ]);
@@ -133,9 +133,9 @@ class VehicleTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_VEHICLES_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_VEHICLES,
                 'actions' => [
-                    Resource::ACTION_DELETE,
+                    AclResource::ACTION_DELETE,
                 ],
             ],
         ]);

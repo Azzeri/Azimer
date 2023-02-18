@@ -3,7 +3,7 @@
 namespace Tests\Feature\FireBrigadeUnit;
 
 use App\Models\FireBrigadeUnit;
-use App\Models\Resource;
+use App\Models\AclResource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -35,7 +35,7 @@ class FireBrigadeUnitAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_VIEW_ANY,
+                    AclResource::ACTION_VIEW,
                 ],
             ],
         ]);
@@ -61,19 +61,19 @@ class FireBrigadeUnitAccessTest extends TestCase
         return [
             'overall units' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+                AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
             ],
             'own unit' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNIT_OWN,
+                AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
             ],
             'lowly units' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNITS_LOWLY,
+                AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -95,7 +95,7 @@ class FireBrigadeUnitAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_VIEW,
+                    AclResource::ACTION_VIEW,
                 ],
             ],
         ]);
@@ -131,20 +131,20 @@ class FireBrigadeUnitAccessTest extends TestCase
         return [
             'overall units' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+                AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
             ],
             'own unit' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNIT_OWN,
+                AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
             ],
             'lowly units' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNITS_LOWLY,
+                AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
                 true,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -165,7 +165,7 @@ class FireBrigadeUnitAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_CREATE,
+                    AclResource::ACTION_CREATE,
                 ],
             ],
         ]);
@@ -192,11 +192,11 @@ class FireBrigadeUnitAccessTest extends TestCase
         return [
             'overall units' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+                AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -218,7 +218,7 @@ class FireBrigadeUnitAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_UPDATE,
+                    AclResource::ACTION_UPDATE,
                 ],
             ],
         ]);
@@ -256,20 +256,20 @@ class FireBrigadeUnitAccessTest extends TestCase
         return [
             'overall units' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+                AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
             ],
             'own unit' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNIT_OWN,
+                AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
             ],
             'lowly units' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNITS_LOWLY,
+                AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
                 true,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -290,7 +290,7 @@ class FireBrigadeUnitAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_DELETE,
+                    AclResource::ACTION_DELETE,
                 ],
             ],
         ]);
@@ -319,11 +319,11 @@ class FireBrigadeUnitAccessTest extends TestCase
         return [
             'overall units' => [
                 false,
-                Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+                AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }

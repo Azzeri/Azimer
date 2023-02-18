@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Manufacturer;
-use App\Models\Resource;
+use App\Models\AclResource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -30,9 +30,9 @@ class ManufacturerTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
                 'actions' => [
-                    Resource::ACTION_VIEW_ANY,
+                    AclResource::ACTION_VIEW,
                 ],
             ],
         ]);
@@ -53,9 +53,9 @@ class ManufacturerTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
                 'actions' => [
-                    Resource::ACTION_CREATE,
+                    AclResource::ACTION_CREATE,
                 ],
             ],
         ]);
@@ -81,9 +81,9 @@ class ManufacturerTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
                 'actions' => [
-                    Resource::ACTION_UPDATE,
+                    AclResource::ACTION_UPDATE,
                 ],
             ],
         ]);
@@ -119,9 +119,9 @@ class ManufacturerTest extends TestCase
     {
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
                 'actions' => [
-                    Resource::ACTION_DELETE,
+                    AclResource::ACTION_DELETE,
                 ],
             ],
         ]);

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\EqServiceTemplate;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Services\EqServiceTemplateService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -34,9 +34,9 @@ class CreateEqServiceTemplateTest extends TestCase
 
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
                 'actions' => [
-                    Resource::ACTION_CREATE,
+                    AclResource::ACTION_CREATE,
                 ],
             ],
         ]);

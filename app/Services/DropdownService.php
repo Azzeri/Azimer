@@ -6,7 +6,7 @@ use App\Models\EqItemCategory;
 use App\Models\EqItemTemplate;
 use App\Models\FireBrigadeUnit;
 use App\Models\Manufacturer;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Collection;
 

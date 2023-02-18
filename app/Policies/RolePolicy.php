@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Resource;
-use App\Models\Role;
+use App\Models\AclResource;
+use App\Models\AclRole;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -24,8 +24,8 @@ class RolePolicy
     public function viewAny(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_ROLES_OVERALL,
-            Resource::ACTION_VIEW_ANY
+            AclResource::RES_OVERALL_USERS,
+            AclResource::ACTION_VIEW
         );
     }
 
@@ -39,8 +39,8 @@ class RolePolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_ROLES_OVERALL,
-            Resource::ACTION_CREATE
+            AclResource::RES_OVERALL_USERS,
+            AclResource::ACTION_CREATE
         );
     }
 
@@ -54,8 +54,8 @@ class RolePolicy
     public function update(User $user, Role $role)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_ROLES_OVERALL,
-            Resource::ACTION_UPDATE
+            AclResource::RES_OVERALL_USERS,
+            AclResource::ACTION_UPDATE
         );
     }
 
@@ -69,8 +69,8 @@ class RolePolicy
     public function delete(User $user, Role $role)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_ROLES_OVERALL,
-            Resource::ACTION_DELETE
+            AclResource::RES_OVERALL_USERS,
+            AclResource::ACTION_DELETE
         );
     }
 }

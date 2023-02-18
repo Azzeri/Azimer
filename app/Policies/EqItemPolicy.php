@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\EqItem;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -30,13 +30,13 @@ class EqItemPolicy
         $this->user = $user;
 
         return $this->canAccessOverallEquipment(
-            Resource::ACTION_VIEW_ANY
+            AclResource::ACTION_VIEW
         ) || $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OWN_UNIT,
-            Resource::ACTION_VIEW_ANY
+            AclResource::RES_OWN_UNIT_EQUIPMENT,
+            AclResource::ACTION_VIEW
         ) || $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_LOWLY_UNITS,
-            Resource::ACTION_VIEW_ANY
+            AclResource::RES_LOWLY_UNITS_EQUIPMENT,
+            AclResource::ACTION_VIEW
         );
     }
 
@@ -53,10 +53,10 @@ class EqItemPolicy
         $this->eqItem = $eqItem;
 
         return $this->canAccessOverallEquipment(
-            Resource::ACTION_VIEW
+            AclResource::ACTION_VIEW
         ) ||
-            $this->canAccessOwnUnitEquipment(Resource::ACTION_VIEW) ||
-            $this->canAccessLowlyUnitEquipment(Resource::ACTION_VIEW);
+            $this->canAccessOwnUnitEquipment(AclResource::ACTION_VIEW) ||
+            $this->canAccessLowlyUnitEquipment(AclResource::ACTION_VIEW);
     }
 
     /**
@@ -71,13 +71,13 @@ class EqItemPolicy
         $this->user = $user;
 
         return $this->canAccessOverallEquipment(
-            Resource::ACTION_CREATE
+            AclResource::ACTION_CREATE
         ) || $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OWN_UNIT,
-            Resource::ACTION_CREATE
+            AclResource::RES_OWN_UNIT_EQUIPMENT,
+            AclResource::ACTION_CREATE
         ) || $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_LOWLY_UNITS,
-            Resource::ACTION_CREATE
+            AclResource::RES_LOWLY_UNITS_EQUIPMENT,
+            AclResource::ACTION_CREATE
         );
     }
 
@@ -96,10 +96,10 @@ class EqItemPolicy
         $this->eqItem = $eqItem;
 
         return $this->canAccessOverallEquipment(
-            Resource::ACTION_UPDATE
+            AclResource::ACTION_UPDATE
         ) ||
-            $this->canAccessOwnUnitEquipment(Resource::ACTION_UPDATE) ||
-            $this->canAccessLowlyUnitEquipment(Resource::ACTION_UPDATE);
+            $this->canAccessOwnUnitEquipment(AclResource::ACTION_UPDATE) ||
+            $this->canAccessLowlyUnitEquipment(AclResource::ACTION_UPDATE);
     }
 
     /**
@@ -117,10 +117,10 @@ class EqItemPolicy
         $this->eqItem = $eqItem;
 
         return $this->canAccessOverallEquipment(
-            Resource::ACTION_DELETE
+            AclResource::ACTION_DELETE
         ) ||
-            $this->canAccessOwnUnitEquipment(Resource::ACTION_DELETE) ||
-            $this->canAccessLowlyUnitEquipment(Resource::ACTION_DELETE);
+            $this->canAccessOwnUnitEquipment(AclResource::ACTION_DELETE) ||
+            $this->canAccessLowlyUnitEquipment(AclResource::ACTION_DELETE);
     }
 
     /**
@@ -132,7 +132,7 @@ class EqItemPolicy
         string $action
     ): bool {
         return $this->user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OVERALL,
+            AclResource::RES_OVERALL_EQUIPMENT,
             $action
         );
     }
@@ -146,7 +146,7 @@ class EqItemPolicy
         string $action
     ): bool {
         return $this->user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OWN_UNIT,
+            AclResource::RES_OWN_UNIT_EQUIPMENT,
             $action
         ) &&
             $this->eqItem->fireBrigadeUnit
@@ -162,7 +162,7 @@ class EqItemPolicy
         string $action
     ): bool {
         return $this->user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_LOWLY_UNITS,
+            AclResource::RES_LOWLY_UNITS_EQUIPMENT,
             $action
         ) &&
             $this->eqItem->fireBrigadeUnit->superiorFireBrigadeUnit

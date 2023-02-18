@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Vehicle\StoreVehicleRequest;
 use App\Http\Requests\Vehicle\UpdateVehicleRequest;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\Vehicle;
 use App\Services\VehicleService;
 
@@ -75,7 +75,7 @@ class VehicleController extends Controller
     public function destroy(Vehicle $vehicle)
     {
         $this->authorize(
-            Resource::ACTION_DELETE,
+            AclResource::ACTION_DELETE,
             $vehicle,
             Vehicle::class
         );

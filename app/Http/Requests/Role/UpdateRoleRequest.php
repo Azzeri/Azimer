@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Role;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
@@ -16,7 +16,7 @@ class UpdateRoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::allows(Resource::ACTION_UPDATE, $this->role);
+        return Gate::allows(AclResource::ACTION_UPDATE, $this->role);
     }
 
     /**
@@ -50,11 +50,11 @@ class UpdateRoleRequest extends FormRequest
                 'required',
                 'array',
                 Rule::in([
-                    Resource::ACTION_CREATE,
-                    Resource::ACTION_DELETE,
-                    Resource::ACTION_UPDATE,
-                    Resource::ACTION_VIEW,
-                    Resource::ACTION_VIEW_ANY,
+                    AclResource::ACTION_CREATE,
+                    AclResource::ACTION_DELETE,
+                    AclResource::ACTION_UPDATE,
+                    AclResource::ACTION_VIEW,
+                    AclResource::ACTION_VIEW,
                 ]),
                 'max:5', //remove if unique actions implemented
             ],

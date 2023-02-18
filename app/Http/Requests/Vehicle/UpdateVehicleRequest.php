@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Vehicle;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
@@ -19,7 +19,7 @@ class UpdateVehicleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows(Resource::ACTION_UPDATE, $this->vehicle);
+        return Gate::allows(AclResource::ACTION_UPDATE, $this->vehicle);
     }
 
     /**

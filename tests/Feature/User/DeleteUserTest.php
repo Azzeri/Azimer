@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\User;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -33,9 +33,9 @@ class DeleteUserTest extends TestCase
     //     // Arrange
     //     $auth = $this->getUserWithResourcesAndActions([
     //         [
-    //             'suffix' => Resource::RES_USERS_OVERALL,
+    //             'suffix' => AclResource::RES_OVERALL_USERS,
     //             'actions' => [
-    //                 Resource::ACTION_DELETE,
+    //                 AclResource::ACTION_DELETE,
     //             ],
     //         ],
     //     ]);

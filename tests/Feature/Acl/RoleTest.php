@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Resource;
-use App\Models\Role;
+use App\Models\AclResource;
+use App\Models\AclRole;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;

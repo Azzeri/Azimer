@@ -4,7 +4,7 @@ namespace Tests\Feature\EqItem;
 
 use App\Models\EqItem;
 use App\Models\FireBrigadeUnit;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Services\EqItemService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -49,7 +49,7 @@ class EqItemAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_VIEW_ANY,
+                    AclResource::ACTION_VIEW,
                 ],
             ],
         ]);
@@ -79,19 +79,19 @@ class EqItemAccessTest extends TestCase
         return [
             'overall equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT,
             ],
             'own unit equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OWN_UNIT,
+                AclResource::RES_OWN_UNIT_EQUIPMENT,
             ],
             'lowly units equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_LOWLY_UNITS,
+                AclResource::RES_LOWLY_UNITS_EQUIPMENT,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -113,7 +113,7 @@ class EqItemAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_VIEW,
+                    AclResource::ACTION_VIEW,
                 ],
             ],
         ]);
@@ -155,20 +155,20 @@ class EqItemAccessTest extends TestCase
         return [
             'overall equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT,
             ],
             'own unit equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OWN_UNIT,
+                AclResource::RES_OWN_UNIT_EQUIPMENT,
             ],
             'lowly units equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_LOWLY_UNITS,
+                AclResource::RES_LOWLY_UNITS_EQUIPMENT,
                 true,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -189,7 +189,7 @@ class EqItemAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_CREATE,
+                    AclResource::ACTION_CREATE,
                 ],
             ],
         ]);
@@ -216,19 +216,19 @@ class EqItemAccessTest extends TestCase
         return [
             'overall units equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT,
             ],
             'own unit equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OWN_UNIT,
+                AclResource::RES_OWN_UNIT_EQUIPMENT,
             ],
             'lowly units equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_LOWLY_UNITS,
+                AclResource::RES_LOWLY_UNITS_EQUIPMENT,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -250,7 +250,7 @@ class EqItemAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_UPDATE,
+                    AclResource::ACTION_UPDATE,
                 ],
             ],
         ]);
@@ -294,20 +294,20 @@ class EqItemAccessTest extends TestCase
         return [
             'overall units equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT,
             ],
             'own unit equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OWN_UNIT,
+                AclResource::RES_OWN_UNIT_EQUIPMENT,
             ],
             'lowly units equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_LOWLY_UNITS,
+                AclResource::RES_LOWLY_UNITS_EQUIPMENT,
                 true,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -329,7 +329,7 @@ class EqItemAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_DELETE,
+                    AclResource::ACTION_DELETE,
                 ],
             ],
         ]);
@@ -371,20 +371,20 @@ class EqItemAccessTest extends TestCase
         return [
             'overall units equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT,
             ],
             'own unit equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OWN_UNIT,
+                AclResource::RES_OWN_UNIT_EQUIPMENT,
             ],
             'lowly units equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_LOWLY_UNITS,
+                AclResource::RES_LOWLY_UNITS_EQUIPMENT,
                 true,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -406,7 +406,7 @@ class EqItemAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_UPDATE,
+                    AclResource::ACTION_UPDATE,
                 ],
             ],
         ]);
@@ -449,20 +449,20 @@ class EqItemAccessTest extends TestCase
         return [
             'overall units equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT,
             ],
             'own unit equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_OWN_UNIT,
+                AclResource::RES_OWN_UNIT_EQUIPMENT,
             ],
             'lowly units equipment' => [
                 false,
-                Resource::RES_EQUIPMENT_LOWLY_UNITS,
+                AclResource::RES_LOWLY_UNITS_EQUIPMENT,
                 true,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }

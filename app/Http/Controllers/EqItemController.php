@@ -10,7 +10,7 @@ use App\Http\Requests\EqItem\EqItemActivateServiceRequest;
 use App\Http\Requests\EqItem\EqItemRequest;
 use App\Http\Resources\EqItemResource;
 use App\Models\EqItem;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\DropdownService;
@@ -179,15 +179,15 @@ class EqItemController extends Controller
     //     $auth = User::findOrFail(Auth::user()->id);
 
     //     if ($auth->hasResourceWithAction(
-    //         Resource::RES_EQUIPMENT_OVERALL,
-    //         Resource::ACTION_VIEW_ANY
+    //         AclResource::RES_OVERALL_EQUIPMENT,
+    //         AclResource::ACTION_VIEW
     //     )) {
     //         return $query;
     //     }
 
     //     if ($auth->hasResourceWithAction(
-    //         Resource::RES_EQUIPMENT_OWN_UNIT,
-    //         Resource::ACTION_VIEW_ANY
+    //         AclResource::RES_OWN_UNIT_EQUIPMENT,
+    //         AclResource::ACTION_VIEW
     //     )) {
     //         $query->orWhere(
     //             'fire_brigade_unit_id',
@@ -196,8 +196,8 @@ class EqItemController extends Controller
     //     }
 
     //     if ($auth->hasResourceWithAction(
-    //         Resource::RES_EQUIPMENT_LOWLY_UNITS,
-    //         Resource::ACTION_VIEW_ANY
+    //         AclResource::RES_LOWLY_UNITS_EQUIPMENT,
+    //         AclResource::ACTION_VIEW
     //     )) {
     //         $query->with('fireBrigadeUnit');
     //         $query->whereRelation(
@@ -221,8 +221,8 @@ class EqItemController extends Controller
     //     $auth = User::findOrFail(Auth::user()->id);
 
     //     if ($auth->hasResourceWithAction(
-    //         Resource::RES_EQUIPMENT_OVERALL,
-    //         Resource::ACTION_CREATE
+    //         AclResource::RES_OVERALL_EQUIPMENT,
+    //         AclResource::ACTION_CREATE
     //     )) {
     //         return DropdownService::getVehiclesDropdown();
     //     }

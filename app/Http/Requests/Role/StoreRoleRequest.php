@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Role;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
@@ -18,7 +18,7 @@ class StoreRoleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows(Resource::ACTION_CREATE, Role::class);
+        return Gate::allows(AclResource::ACTION_CREATE, Role::class);
     }
 
     /**

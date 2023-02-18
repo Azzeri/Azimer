@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\EqUsage;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Services\EqUsageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -49,7 +49,7 @@ class EqUsageAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_CREATE,
+                    AclResource::ACTION_CREATE,
                 ],
             ],
         ]);
@@ -76,11 +76,11 @@ class EqUsageAccessTest extends TestCase
         return [
             'overall Usage' => [
                 false,
-                Resource::RES_EQUIPMENT_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Vehicle;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\Vehicle;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
@@ -19,7 +19,7 @@ class StoreVehicleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows(Resource::ACTION_CREATE, Vehicle::class);
+        return Gate::allows(AclResource::ACTION_CREATE, Vehicle::class);
     }
 
     /**

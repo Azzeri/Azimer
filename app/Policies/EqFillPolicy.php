@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -20,8 +20,8 @@ class EqFillPolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OVERALL,
-            Resource::ACTION_CREATE,
+            AclResource::RES_OVERALL_EQUIPMENT,
+            AclResource::ACTION_CREATE,
         );
     }
 }

@@ -3,7 +3,7 @@
 namespace Tests\Feature\EqItemCategory;
 
 use App\Models\EqItemCategory;
-use App\Models\Resource;
+use App\Models\AclResource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -27,9 +27,9 @@ class DeleteEqItemCategoryTest extends TestCase
 
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
                 'actions' => [
-                    Resource::ACTION_DELETE,
+                    AclResource::ACTION_DELETE,
                 ],
             ],
         ]);

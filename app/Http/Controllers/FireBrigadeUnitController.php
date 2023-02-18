@@ -7,7 +7,7 @@ use App\Actions\FireBrigadeUnit\StoreFireBrigadeUnitAction;
 use App\Actions\FireBrigadeUnit\UpdateFireBrigadeUnitAction;
 use App\Http\Requests\FireBrigadeUnit\FireBrigadeUnitRequest;
 use App\Models\FireBrigadeUnit;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\DropdownService;
@@ -153,15 +153,15 @@ class FireBrigadeUnitController extends Controller
         $auth = User::findOrFail(Auth::user()->id);
 
         if ($auth->hasResourceWithAction(
-            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
-            Resource::ACTION_VIEW_ANY
+            AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
+            AclResource::ACTION_VIEW
         )) {
             return $query;
         }
 
         if ($auth->hasResourceWithAction(
-            Resource::RES_FIRE_BRIGADE_UNIT_OWN,
-            Resource::ACTION_VIEW_ANY
+            AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
+            AclResource::ACTION_VIEW
         )) {
             $query->orWhere(
                 'id',
@@ -170,8 +170,8 @@ class FireBrigadeUnitController extends Controller
         }
 
         if ($auth->hasResourceWithAction(
-            Resource::RES_FIRE_BRIGADE_UNITS_LOWLY,
-            Resource::ACTION_VIEW_ANY
+            AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
+            AclResource::ACTION_VIEW
         )) {
             $query->orWhere(
                 'superior_unit_id',

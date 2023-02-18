@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\EqItemCategory;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -22,8 +22,8 @@ class EqItemCategoryPolicy
     public function viewAny(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
-            Resource::ACTION_VIEW_ANY,
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_VIEW,
         );
     }
 
@@ -38,8 +38,8 @@ class EqItemCategoryPolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
-            Resource::ACTION_CREATE,
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_CREATE,
         );
     }
 
@@ -55,8 +55,8 @@ class EqItemCategoryPolicy
     public function update(User $user, EqItemCategory $eqItemCategory)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
-            Resource::ACTION_UPDATE,
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_UPDATE,
         );
     }
 
@@ -72,8 +72,8 @@ class EqItemCategoryPolicy
     public function delete(User $user, EqItemCategory $eqItemCategory)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
-            Resource::ACTION_DELETE,
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_DELETE,
         );
     }
 }

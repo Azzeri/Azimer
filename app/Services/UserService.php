@@ -6,8 +6,8 @@ use App\Helpers\DataTableRow;
 use App\Http\Resources\DateTableRowResource;
 use App\Http\Resources\UserResource;
 use App\Mail\WelcomeEmail;
-use App\Models\Resource;
-use App\Models\Role;
+use App\Models\AclResource;
+use App\Models\AclRole;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -115,11 +115,11 @@ class UserService
     public function canUserBeDeleted(): bool
     {
         return $this->getUsersWithFullResourceControl(
-            Resource::RES_ROLES_OVERALL
+            AclResource::RES_OVERALL_USERS
         ) > 1 && $this->getUsersWithFullResourceControl(
-            Resource::RES_USERS_OVERALL
+            AclResource::RES_OVERALL_USERS
         ) > 1 && $this->getUsersWithFullResourceControl(
-            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL
+            AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS
         ) > 1;
     }
 

@@ -3,7 +3,7 @@
 namespace Tests\Feature\EqItem;
 
 use App\Models\EqItem;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Services\EqItemService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -35,9 +35,9 @@ class UpdateEqItemTest extends TestCase
 
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_EQUIPMENT_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_EQUIPMENT,
                 'actions' => [
-                    Resource::ACTION_UPDATE,
+                    AclResource::ACTION_UPDATE,
                 ],
             ],
         ]);

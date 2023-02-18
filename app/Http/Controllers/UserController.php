@@ -6,7 +6,7 @@ use App\Actions\User\DeleteUserAction;
 use App\Actions\User\StoreUserAction;
 use App\Actions\User\UpdateUserAction;
 use App\Http\Requests\User\UserRequest;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use App\Services\DataTableService;
 use App\Services\DropdownService;
@@ -125,15 +125,15 @@ class UserController extends Controller
     //     $auth = User::findOrFail(Auth::user()->id);
 
     //     if ($auth->hasResourceWithAction(
-    //         Resource::RES_USERS_OVERALL,
-    //         Resource::ACTION_VIEW_ANY
+    //         AclResource::RES_OVERALL_USERS,
+    //         AclResource::ACTION_VIEW
     //     )) {
     //         return $query;
     //     }
 
     //     if ($auth->hasResourceWithAction(
-    //         Resource::RES_USERS_OWN_UNIT,
-    //         Resource::ACTION_VIEW_ANY
+    //         AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
+    //         AclResource::ACTION_VIEW
     //     )) {
     //         $query->orWhere(
     //             'fire_brigade_unit_id',
@@ -142,8 +142,8 @@ class UserController extends Controller
     //     }
 
     //     // if ($auth->hasResourceWithAction(
-    //     //     Resource::RES_USERS_LOWLY_UNITS,
-    //     //     Resource::ACTION_VIEW_ANY
+    //     //     AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
+    //     //     AclResource::ACTION_VIEW
     //     // )) {
     //     //     $query->orWhere(
     //     //         'fireBrigadeUnit',

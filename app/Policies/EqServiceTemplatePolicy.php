@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\EqServiceTemplate;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -24,8 +24,8 @@ class EqServiceTemplatePolicy
     public function viewAny(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
-            Resource::ACTION_VIEW_ANY
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_VIEW
         );
     }
 
@@ -39,8 +39,8 @@ class EqServiceTemplatePolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
-            Resource::ACTION_CREATE
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_CREATE
         );
     }
 
@@ -56,8 +56,8 @@ class EqServiceTemplatePolicy
         EqServiceTemplate $eqServiceTemplate
     ) {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
-            Resource::ACTION_UPDATE
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_UPDATE
         );
     }
 
@@ -73,8 +73,8 @@ class EqServiceTemplatePolicy
         EqServiceTemplate $eqServiceTemplate
     ) {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
-            Resource::ACTION_DELETE
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_DELETE
         );
     }
 }

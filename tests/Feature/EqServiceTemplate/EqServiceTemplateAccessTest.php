@@ -3,7 +3,7 @@
 namespace Tests\Feature\EqServiceTemplate;
 
 use App\Models\EqServiceTemplate;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Services\EqServiceTemplateService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -48,7 +48,7 @@ class EqServiceTemplateAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_VIEW_ANY,
+                    AclResource::ACTION_VIEW,
                 ],
             ],
         ]);
@@ -74,11 +74,11 @@ class EqServiceTemplateAccessTest extends TestCase
         return [
             'success' => [
                 false,
-                Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -99,7 +99,7 @@ class EqServiceTemplateAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_CREATE,
+                    AclResource::ACTION_CREATE,
                 ],
             ],
         ]);
@@ -126,11 +126,11 @@ class EqServiceTemplateAccessTest extends TestCase
         return [
             'overall units' => [
                 false,
-                Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -151,7 +151,7 @@ class EqServiceTemplateAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_UPDATE,
+                    AclResource::ACTION_UPDATE,
                 ],
             ],
         ]);
@@ -182,11 +182,11 @@ class EqServiceTemplateAccessTest extends TestCase
         return [
             'overall units' => [
                 false,
-                Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }
@@ -207,7 +207,7 @@ class EqServiceTemplateAccessTest extends TestCase
             [
                 'suffix' => $resource,
                 'actions' => [
-                    Resource::ACTION_DELETE,
+                    AclResource::ACTION_DELETE,
                 ],
             ],
         ]);
@@ -236,11 +236,11 @@ class EqServiceTemplateAccessTest extends TestCase
         return [
             'overall units' => [
                 false,
-                Resource::RES_EQUIPMENT_RESOURCES_OVERALL,
+                AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
             ],
             'forbidden' => [
                 true,
-                Resource::RES_DUMMY,
+                AclResource::RES_DUMMY,
             ],
         ];
     }

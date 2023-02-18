@@ -3,7 +3,7 @@
 namespace Tests\Feature\EqItem;
 
 use App\Models\EqService;
-use App\Models\Resource;
+use App\Models\AclResource;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -28,9 +28,9 @@ class FinishServiceTest extends TestCase
 
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_EQUIPMENT_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_EQUIPMENT,
                 'actions' => [
-                    Resource::ACTION_UPDATE,
+                    AclResource::ACTION_UPDATE,
                 ],
             ],
         ]);

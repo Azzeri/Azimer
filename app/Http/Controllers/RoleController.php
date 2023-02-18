@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Role\StoreRoleRequest;
 use App\Http\Requests\Role\UpdateRoleRequest;
-use App\Models\Resource;
-use App\Models\Role;
+use App\Models\AclResource;
+use App\Models\AclRole;
 use App\Services\DropdownService;
 use App\Services\RoleService;
 use Exception;
@@ -30,7 +30,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $this->authorize(Resource::ACTION_VIEW_ANY, Role::class);
+        $this->authorize(AclResource::ACTION_VIEW, Role::class);
 
         return inertia('Roles', [
             'roles' => $this->roleService->getRolesCollection(),
@@ -82,7 +82,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $this->authorize(
-            Resource::ACTION_DELETE,
+            AclResource::ACTION_DELETE,
             $role,
             Role::class
         );

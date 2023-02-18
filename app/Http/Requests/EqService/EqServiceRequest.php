@@ -3,7 +3,7 @@
 namespace App\Http\Requests\EqService;
 
 use App\Models\EqService;
-use App\Models\Resource;
+use App\Models\AclResource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
@@ -20,7 +20,7 @@ class EqServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows(Resource::ACTION_UPDATE, EqService::class);
+        return Gate::allows(AclResource::ACTION_UPDATE, EqService::class);
     }
 
     /**

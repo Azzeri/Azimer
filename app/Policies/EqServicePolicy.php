@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -23,8 +23,8 @@ class EqServicePolicy
     public function update(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_EQUIPMENT_OVERALL,
-            Resource::ACTION_UPDATE
+            AclResource::RES_OVERALL_EQUIPMENT,
+            AclResource::ACTION_UPDATE
         );
     }
 }

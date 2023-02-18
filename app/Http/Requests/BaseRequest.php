@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
@@ -67,14 +67,14 @@ class BaseRequest extends FormRequest
     {
         if ($this->model) {
             return Gate::allows(
-                Resource::ACTION_VIEW,
+                AclResource::ACTION_VIEW,
                 $this->model,
                 $this->class
             );
         }
 
         return Gate::allows(
-            Resource::ACTION_VIEW_ANY,
+            AclResource::ACTION_VIEW,
             $this->class
         );
     }
@@ -87,7 +87,7 @@ class BaseRequest extends FormRequest
     private function accessForCreate()
     {
         return Gate::allows(
-            Resource::ACTION_CREATE,
+            AclResource::ACTION_CREATE,
             $this->class
         );
     }
@@ -100,7 +100,7 @@ class BaseRequest extends FormRequest
     private function accessForUpdate()
     {
         return Gate::allows(
-            Resource::ACTION_UPDATE,
+            AclResource::ACTION_UPDATE,
             $this->model,
             $this->class
         );
@@ -114,7 +114,7 @@ class BaseRequest extends FormRequest
     private function accessForDelete()
     {
         return Gate::allows(
-            Resource::ACTION_DELETE,
+            AclResource::ACTION_DELETE,
             $this->model,
             $this->class
         );

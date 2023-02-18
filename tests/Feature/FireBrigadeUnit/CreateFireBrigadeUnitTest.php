@@ -3,7 +3,7 @@
 namespace Tests\Feature\FireBrigadeUnit;
 
 use App\Models\FireBrigadeUnit;
-use App\Models\Resource;
+use App\Models\AclResource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -27,9 +27,9 @@ class CreateFireBrigadeUnitTest extends TestCase
 
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
                 'actions' => [
-                    Resource::ACTION_CREATE,
+                    AclResource::ACTION_CREATE,
                 ],
             ],
         ]);

@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\FireBrigadeUnit;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -30,13 +30,13 @@ class FireBrigadeUnitPolicy
         $this->user = $user;
 
         return $this->canAccessOverallUnits(
-            Resource::ACTION_VIEW_ANY
+            AclResource::ACTION_VIEW
         ) || $user->hasResourceWithAction(
-            Resource::RES_FIRE_BRIGADE_UNIT_OWN,
-            Resource::ACTION_VIEW_ANY
+            AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
+            AclResource::ACTION_VIEW
         ) || $user->hasResourceWithAction(
-            Resource::RES_FIRE_BRIGADE_UNITS_LOWLY,
-            Resource::ACTION_VIEW_ANY
+            AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
+            AclResource::ACTION_VIEW
         );
     }
 
@@ -55,10 +55,10 @@ class FireBrigadeUnitPolicy
         $this->fireBrigadeUnit = $fireBrigadeUnit;
 
         return $this->canAccessOverallUnits(
-            Resource::ACTION_VIEW
+            AclResource::ACTION_VIEW
         ) ||
-            $this->canAccessOwnUnit(Resource::ACTION_VIEW) ||
-            $this->canAccessLowlyUnit(Resource::ACTION_VIEW);
+            $this->canAccessOwnUnit(AclResource::ACTION_VIEW) ||
+            $this->canAccessLowlyUnit(AclResource::ACTION_VIEW);
     }
 
     /**
@@ -71,8 +71,8 @@ class FireBrigadeUnitPolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
-            Resource::ACTION_CREATE
+            AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
+            AclResource::ACTION_CREATE
         );
     }
 
@@ -91,10 +91,10 @@ class FireBrigadeUnitPolicy
         $this->fireBrigadeUnit = $fireBrigadeUnit;
 
         return $this->canAccessOverallUnits(
-            Resource::ACTION_UPDATE
+            AclResource::ACTION_UPDATE
         ) ||
-            $this->canAccessOwnUnit(Resource::ACTION_UPDATE) ||
-            $this->canAccessLowlyUnit(Resource::ACTION_UPDATE);
+            $this->canAccessOwnUnit(AclResource::ACTION_UPDATE) ||
+            $this->canAccessLowlyUnit(AclResource::ACTION_UPDATE);
     }
 
     /**
@@ -109,8 +109,8 @@ class FireBrigadeUnitPolicy
         FireBrigadeUnit $fireBrigadeUnit
     ) {
         return $user->hasResourceWithAction(
-            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
-            Resource::ACTION_DELETE
+            AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
+            AclResource::ACTION_DELETE
         );
     }
 
@@ -123,7 +123,7 @@ class FireBrigadeUnitPolicy
         string $action
     ): bool {
         return $this->user->hasResourceWithAction(
-            Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+            AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
             $action
         );
     }
@@ -137,7 +137,7 @@ class FireBrigadeUnitPolicy
         string $action
     ): bool {
         return $this->user->hasResourceWithAction(
-            Resource::RES_FIRE_BRIGADE_UNIT_OWN,
+            AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
             $action
         ) &&
             $this->fireBrigadeUnit == $this->user->fireBrigadeUnit;
@@ -152,7 +152,7 @@ class FireBrigadeUnitPolicy
         string $action
     ): bool {
         return $this->user->hasResourceWithAction(
-            Resource::RES_FIRE_BRIGADE_UNITS_LOWLY,
+            AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
             $action
         ) &&
             $this->fireBrigadeUnit->superiorFireBrigadeUnit ==

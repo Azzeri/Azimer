@@ -3,7 +3,7 @@
 namespace Tests\Feature\FireBrigadeUnit;
 
 use App\Models\FireBrigadeUnit;
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -28,9 +28,9 @@ class DeleteFireBrigadeUnitTest extends TestCase
 
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_FIRE_BRIGADE_UNITS_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
                 'actions' => [
-                    Resource::ACTION_DELETE,
+                    AclResource::ACTION_DELETE,
                 ],
             ],
         ]);

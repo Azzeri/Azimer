@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Resource;
+use App\Models\AclResource;
 use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -25,8 +25,8 @@ class VehiclePolicy
     public function viewAny(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_VEHICLES_OVERALL,
-            Resource::ACTION_VIEW_ANY
+            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::ACTION_VIEW
         );
     }
 
@@ -41,8 +41,8 @@ class VehiclePolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_VEHICLES_OVERALL,
-            Resource::ACTION_CREATE
+            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::ACTION_CREATE
         );
     }
 
@@ -58,8 +58,8 @@ class VehiclePolicy
     public function update(User $user, Vehicle $vehicle)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_VEHICLES_OVERALL,
-            Resource::ACTION_UPDATE
+            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::ACTION_UPDATE
         );
     }
 
@@ -75,8 +75,8 @@ class VehiclePolicy
     public function delete(User $user, Vehicle $vehicle)
     {
         return $user->hasResourceWithAction(
-            Resource::RES_VEHICLES_OVERALL,
-            Resource::ACTION_DELETE
+            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::ACTION_DELETE
         );
     }
 }

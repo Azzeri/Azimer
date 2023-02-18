@@ -5,8 +5,8 @@ namespace App\Services;
 use App\Http\Requests\Role\StoreRoleRequest;
 use App\Http\Requests\Role\UpdateRoleRequest;
 use App\Http\Resources\RoleResource;
-use App\Models\Resource;
-use App\Models\Role;
+use App\Models\AclResource;
+use App\Models\AclRole;
 use Exception;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -129,7 +129,7 @@ class RoleService
     {
         return
             $this->userService->getUsersWithFullResourceControl(
-                Resource::RES_ROLES_OVERALL
+                AclResource::RES_OVERALL_USERS
             )->count() > 1;
     }
 }

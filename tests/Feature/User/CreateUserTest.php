@@ -3,7 +3,7 @@
 namespace Tests\Feature\User;
 
 use App\Models\FireBrigadeUnit;
-use App\Models\Resource;
+use App\Models\AclResource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -32,9 +32,9 @@ class CreateUserTest extends TestCase
         // Arrange
         $auth = $this->getUserWithResourcesAndActions([
             [
-                'suffix' => Resource::RES_USERS_OVERALL,
+                'suffix' => AclResource::RES_OVERALL_USERS,
                 'actions' => [
-                    Resource::ACTION_CREATE,
+                    AclResource::ACTION_CREATE,
                 ],
             ],
         ]);
