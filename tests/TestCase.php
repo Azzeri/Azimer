@@ -6,6 +6,7 @@ use App\Models\AclResource;
 use App\Models\AclRole;
 use App\Models\User;
 use App\Services\AclService;
+use App\Services\UserService;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 /**
@@ -49,7 +50,18 @@ abstract class TestCase extends BaseTestCase
         }
 
         return User::factory()
-            ->hasAttached($role, [], 'roles')
+            ->hasAttached(factory: $role, relationship: 'roles')
             ->create();
+    }
+
+    /**
+     * Authenticates as super admin
+     * @author Mariusz Waloszczyk
+     */
+    protected function authenticateAsSuperAdmin(): void
+    {
+        $admin = UserService::getSuperAdmin();
+
+        $this->actingAs($admin);
     }
 }
