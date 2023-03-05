@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\EqItem;
 
-use App\Models\EqItem;
 use App\Models\AclResource;
+use App\Models\EqItem;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,27 +15,17 @@ class DeleteEqItemTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Indicates whether the default seeder should run before each test.
-     *
-     * @var bool
-     */
-    protected $seed = true;
+    private User $userWithPermission;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_EQUIPMENT,
-                'actions' => [
-                    AclResource::ACTION_DELETE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $this->userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_EQUIPMENT,
+            AclResource::ACTION_DELETE
+        );
+        $this->actingAs($this->userWithPermission);
     }
 
     /**

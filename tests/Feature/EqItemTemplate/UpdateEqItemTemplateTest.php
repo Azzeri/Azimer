@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\EqItemTemplate;
 
-use App\Models\EqItemTemplate;
 use App\Models\AclResource;
+use App\Models\EqItemTemplate;
+use App\Models\User;
 use App\Services\EqItemTemplateService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -15,17 +16,9 @@ class UpdateEqItemTemplateTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Indicates whether the default seeder should run before each test.
-     *
-     * @var bool
-     */
-    protected $seed = true;
+    private User $userWithPermission;
 
-    /**
-     * @var EqItemTemplateService
-     */
-    private $eqItemTemplateService;
+    private EqItemTemplateService $eqItemTemplateService;
 
     public function setUp(): void
     {
@@ -33,16 +26,11 @@ class UpdateEqItemTemplateTest extends TestCase
 
         $this->eqItemTemplateService = new EqItemTemplateService();
 
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-                'actions' => [
-                    AclResource::ACTION_UPDATE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $this->userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_UPDATE
+        );
+        $this->actingAs($this->userWithPermission);
     }
 
     /**

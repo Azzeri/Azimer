@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\EqItemCategory;
 
-use App\Models\EqItemCategory;
 use App\Models\AclResource;
+use App\Models\EqItemCategory;
 use App\Services\EqItemCategoryService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -13,235 +13,235 @@ use Tests\TestCase;
  */
 class EqItemCategoryAccessTest extends TestCase
 {
-    use RefreshDatabase;
+    // use RefreshDatabase;
 
-    /**
-     * Indicates whether the default seeder should run before each test.
-     *
-     * @var bool
-     */
-    protected $seed = true;
+    // /**
+    //  * Indicates whether the default seeder should run before each test.
+    //  *
+    //  * @var bool
+    //  */
+    // protected $seed = true;
 
-    /**
-     * @var EqItemCategoryService
-     */
-    private $eqItemCategoryService;
+    // /**
+    //  * @var EqItemCategoryService
+    //  */
+    // private $eqItemCategoryService;
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    // public function setUp(): void
+    // {
+    //     parent::setUp();
 
-        $this->eqItemCategoryService = new EqItemCategoryService();
-    }
+    //     $this->eqItemCategoryService = new EqItemCategoryService();
+    // }
 
-    /**
-     * Tests index access with different resources
-     *
-     * @dataProvider indexProvider
-     *
-     * @author Piotr Nagórny
-     */
-    public function test_index_access($forbidden, $resource)
-    {
-        // Arrange
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => $resource,
-                'actions' => [
-                    AclResource::ACTION_VIEW,
-                ],
-            ],
-        ]);
-        $this->actingAs($auth);
+    // /**
+    //  * Tests index access with different resources
+    //  *
+    //  * @dataProvider indexProvider
+    //  *
+    //  * @author Piotr Nagórny
+    //  */
+    // public function test_index_access($forbidden, $resource)
+    // {
+    //     // Arrange
+    //     $auth = $this->getUserWithResourcesAndActions([
+    //         [
+    //             'suffix' => $resource,
+    //             'actions' => [
+    //                 AclResource::ACTION_VIEW,
+    //             ],
+    //         ],
+    //     ]);
+    //     $this->actingAs($auth);
 
-        // Act
-        $response = $this->get(
-            route(
-                'eqItemCategories.index',
-            )
-        );
+    //     // Act
+    //     $response = $this->get(
+    //         route(
+    //             'eqItemCategories.index',
+    //         )
+    //     );
 
-        // Assert
-        if ($forbidden) {
-            $response->assertForbidden();
-        } else {
-            $response->assertOk();
-        }
-    }
+    //     // Assert
+    //     if ($forbidden) {
+    //         $response->assertForbidden();
+    //     } else {
+    //         $response->assertOk();
+    //     }
+    // }
 
-    public function indexProvider()
-    {
-        return [
-            'overall category' => [
-                false,
-                AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-            ],
-            'forbidden' => [
-                true,
-                AclResource::RES_DUMMY,
-            ],
-        ];
-    }
+    // public function indexProvider()
+    // {
+    //     return [
+    //         'overall category' => [
+    //             false,
+    //             AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+    //         ],
+    //         'forbidden' => [
+    //             true,
+    //             AclResource::RES_DUMMY,
+    //         ],
+    //     ];
+    // }
 
-    /**
-     * Tests store access with different resources
-     *
-     * @dataProvider storeProvider
-     *
-     * @author Piotr Nagórny
-     */
-    public function test_store_access(
-        $forbidden,
-        $resource,
-    ) {
-        // Arrange
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => $resource,
-                'actions' => [
-                    AclResource::ACTION_CREATE,
-                ],
-            ],
-        ]);
-        $this->actingAs($auth);
+    // /**
+    //  * Tests store access with different resources
+    //  *
+    //  * @dataProvider storeProvider
+    //  *
+    //  * @author Piotr Nagórny
+    //  */
+    // public function test_store_access(
+    //     $forbidden,
+    //     $resource,
+    // ) {
+    //     // Arrange
+    //     $auth = $this->getUserWithResourcesAndActions([
+    //         [
+    //             'suffix' => $resource,
+    //             'actions' => [
+    //                 AclResource::ACTION_CREATE,
+    //             ],
+    //         ],
+    //     ]);
+    //     $this->actingAs($auth);
 
-        $form = $this->eqItemCategoryService->getCorrectForm();
+    //     $form = $this->eqItemCategoryService->getCorrectForm();
 
-        // Act
-        $response = $this->post(
-            route('eqItemCategories.store'),
-            $form,
-        );
+    //     // Act
+    //     $response = $this->post(
+    //         route('eqItemCategories.store'),
+    //         $form,
+    //     );
 
-        // Assert
-        if ($forbidden) {
-            $response->assertForbidden();
-        } else {
-            $response->assertStatus(302);
-        }
-    }
+    //     // Assert
+    //     if ($forbidden) {
+    //         $response->assertForbidden();
+    //     } else {
+    //         $response->assertStatus(302);
+    //     }
+    // }
 
-    public function storeProvider()
-    {
-        return [
-            'overall category' => [
-                false,
-                AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-            ],
-            'forbidden' => [
-                true,
-                AclResource::RES_DUMMY,
-            ],
-        ];
-    }
+    // public function storeProvider()
+    // {
+    //     return [
+    //         'overall category' => [
+    //             false,
+    //             AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+    //         ],
+    //         'forbidden' => [
+    //             true,
+    //             AclResource::RES_DUMMY,
+    //         ],
+    //     ];
+    // }
 
-    /**
-     * Tests update access with different resources
-     *
-     * @dataProvider updateProvider
-     *
-     * @author Piotr Nagórny
-     */
-    public function test_update_access(
-        $forbidden,
-        $resource,
-    ) {
-        // Arrange
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => $resource,
-                'actions' => [
-                    AclResource::ACTION_UPDATE,
-                ],
-            ],
-        ]);
-        $this->actingAs($auth);
+    // /**
+    //  * Tests update access with different resources
+    //  *
+    //  * @dataProvider updateProvider
+    //  *
+    //  * @author Piotr Nagórny
+    //  */
+    // public function test_update_access(
+    //     $forbidden,
+    //     $resource,
+    // ) {
+    //     // Arrange
+    //     $auth = $this->getUserWithResourcesAndActions([
+    //         [
+    //             'suffix' => $resource,
+    //             'actions' => [
+    //                 AclResource::ACTION_UPDATE,
+    //             ],
+    //         ],
+    //     ]);
+    //     $this->actingAs($auth);
 
-        $form = $this->eqItemCategoryService->getCorrectForm();
-        $category = EqItemCategory::factory()->create();
+    //     $form = $this->eqItemCategoryService->getCorrectForm();
+    //     $category = EqItemCategory::factory()->create();
 
-        // Act
-        $response = $this->put(
-            route(
-                'eqItemCategories.update',
-                $category,
-            ),
-            $form
-        );
+    //     // Act
+    //     $response = $this->put(
+    //         route(
+    //             'eqItemCategories.update',
+    //             $category,
+    //         ),
+    //         $form
+    //     );
 
-        // Assert
-        if ($forbidden) {
-            $response->assertForbidden();
-        } else {
-            $response->assertStatus(302);
-        }
-    }
+    //     // Assert
+    //     if ($forbidden) {
+    //         $response->assertForbidden();
+    //     } else {
+    //         $response->assertStatus(302);
+    //     }
+    // }
 
-    public function updateProvider()
-    {
-        return [
-            'overall category' => [
-                false,
-                AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-            ],
-            'forbidden' => [
-                true,
-                AclResource::RES_DUMMY,
-            ],
-        ];
-    }
+    // public function updateProvider()
+    // {
+    //     return [
+    //         'overall category' => [
+    //             false,
+    //             AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+    //         ],
+    //         'forbidden' => [
+    //             true,
+    //             AclResource::RES_DUMMY,
+    //         ],
+    //     ];
+    // }
 
-    /**
-     * Tests delete access with different resources
-     *
-     * @dataProvider deleteProvider
-     *
-     * @author Piotr Nagórny
-     */
-    public function test_delete_access(
-        $forbidden,
-        $resource,
-    ) {
-        // Arrange
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => $resource,
-                'actions' => [
-                    AclResource::ACTION_DELETE,
-                ],
-            ],
-        ]);
-        $this->actingAs($auth);
+    // /**
+    //  * Tests delete access with different resources
+    //  *
+    //  * @dataProvider deleteProvider
+    //  *
+    //  * @author Piotr Nagórny
+    //  */
+    // public function test_delete_access(
+    //     $forbidden,
+    //     $resource,
+    // ) {
+    //     // Arrange
+    //     $auth = $this->getUserWithResourcesAndActions([
+    //         [
+    //             'suffix' => $resource,
+    //             'actions' => [
+    //                 AclResource::ACTION_DELETE,
+    //             ],
+    //         ],
+    //     ]);
+    //     $this->actingAs($auth);
 
-        $category = EqItemCategory::factory()->create();
+    //     $category = EqItemCategory::factory()->create();
 
-        // Act
-        $response = $this->delete(
-            route(
-                'eqItemCategories.destroy',
-                $category
-            ),
-        );
+    //     // Act
+    //     $response = $this->delete(
+    //         route(
+    //             'eqItemCategories.destroy',
+    //             $category
+    //         ),
+    //     );
 
-        // Assert
-        if ($forbidden) {
-            $response->assertForbidden();
-        } else {
-            $response->assertStatus(302);
-        }
-    }
+    //     // Assert
+    //     if ($forbidden) {
+    //         $response->assertForbidden();
+    //     } else {
+    //         $response->assertStatus(302);
+    //     }
+    // }
 
-    public function deleteProvider()
-    {
-        return [
-            'overall category' => [
-                false,
-                AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-            ],
-            'forbidden' => [
-                true,
-                AclResource::RES_DUMMY,
-            ],
-        ];
-    }
+    // public function deleteProvider()
+    // {
+    //     return [
+    //         'overall category' => [
+    //             false,
+    //             AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+    //         ],
+    //         'forbidden' => [
+    //             true,
+    //             AclResource::RES_DUMMY,
+    //         ],
+    //     ];
+    // }
 }

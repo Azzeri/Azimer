@@ -92,6 +92,6 @@ class EqItemTemplateController extends Controller
             ->execute($eqItemTemplate);
 
         return redirect(route('eqItemTemplates.index'))
-            ->with('message', __('Pomyślnie usunięto szablon'));;
+            ->with('message', __('Pomyślnie usunięto szablon'));
     }
 }

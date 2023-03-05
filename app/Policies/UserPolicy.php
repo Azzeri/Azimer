@@ -24,13 +24,13 @@ class UserPolicy
     {
         return $user->hasResourceWithAction(
             AclResource::RES_OVERALL_USERS,
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         ) || $user->hasResourceWithAction(
             AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         ) || $user->hasResourceWithAction(
             AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         );
     }
 

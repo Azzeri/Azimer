@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\User;
 
-use App\Models\FireBrigadeUnit;
 use App\Models\AclResource;
+use App\Models\FireBrigadeUnit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,13 +15,6 @@ class CreateUserTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Indicates whether the default seeder should run before each test.
-     *
-     * @var bool
-     */
-    protected $seed = true;
-
-    /**
      * Case: Permitted user and correct data
      * Expect: User created
      *
@@ -30,16 +23,11 @@ class CreateUserTest extends TestCase
     public function test_can_permitted_user_store_user_correct_data(): void
     {
         // Arrange
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_USERS,
-                'actions' => [
-                    AclResource::ACTION_CREATE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_USERS,
+            AclResource::ACTION_CREATE
+        );
+        $this->actingAs($userWithPermission);
 
         $fireBrigadeUnit =
             FireBrigadeUnit::factory()->create();

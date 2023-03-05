@@ -3,6 +3,7 @@
 namespace Tests\Feature\EqFill;
 
 use App\Models\AclResource;
+use App\Models\User;
 use App\Services\EqFillService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,34 +16,19 @@ class CreateEqFillTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Indicates whether the default seeder should run before each test.
-     *
-     * @var bool
-     */
-    protected $seed = true;
+    private EqFillService $eqFillService;
 
-    /**
-     * @var EqFillService
-     */
-    private $eqFillService;
+    private User $userWithPermission;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->eqFillService = new EqFillService();
-
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_EQUIPMENT,
-                'actions' => [
-                    AclResource::ACTION_CREATE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $this->userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_EQUIPMENT,
+            AclResource::ACTION_CREATE
+        );
     }
 
     /**
@@ -54,6 +40,7 @@ class CreateEqFillTest extends TestCase
     public function test_store_fill_success(): void
     {
         // Arrange
+        $this->actingAs($this->userWithPermission);
         $form = $this->eqFillService->getCorrectForm();
 
         // Act
@@ -80,6 +67,7 @@ class CreateEqFillTest extends TestCase
         $incorrectFieldValue
     ): void {
         // Arrange
+        $this->actingAs($this->userWithPermission);
         $form = $this->eqFillService->getCorrectForm();
         $form[$incorrectField] = $incorrectFieldValue;
 

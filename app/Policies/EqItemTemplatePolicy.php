@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\EqItemTemplate;
 use App\Models\AclResource;
+use App\Models\EqItemTemplate;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -25,7 +25,7 @@ class EqItemTemplatePolicy
     {
         return $user->hasResourceWithAction(
             AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         );
     }
 

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Manufacturer;
 use App\Models\AclResource;
+use App\Models\Manufacturer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,29 +15,17 @@ class ManufacturerTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Indicates whether the default seeder should run before each test.
-     *
-     * @var bool
-     */
-    protected $seed = true;
-
-    /**
      * A basic feature test example.
      *
      * @author Piotr Nagórny
      */
     public function test_index(): void
     {
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-                'actions' => [
-                    AclResource::ACTION_VIEW,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_VIEW_ANY
+        );
+        $this->actingAs($userWithPermission);
 
         $response = $this->get(route('manufacturers.index'));
 
@@ -51,16 +39,11 @@ class ManufacturerTest extends TestCase
      */
     public function test_store(): void
     {
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-                'actions' => [
-                    AclResource::ACTION_CREATE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_CREATE
+        );
+        $this->actingAs($userWithPermission);
 
         $params = [
             'name' => 'test manufacturer',
@@ -79,16 +62,11 @@ class ManufacturerTest extends TestCase
      */
     public function test_update(): void
     {
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-                'actions' => [
-                    AclResource::ACTION_UPDATE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_UPDATE
+        );
+        $this->actingAs($userWithPermission);
 
         $currentManufacturerParams = [
             'name' => 'current_name',
@@ -117,16 +95,11 @@ class ManufacturerTest extends TestCase
      */
     public function test_delete(): void
     {
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-                'actions' => [
-                    AclResource::ACTION_DELETE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_DELETE
+        );
+        $this->actingAs($userWithPermission);
 
         $manufacturer = Manufacturer::factory()->create();
         $response = $this->delete(route('manufacturers.destroy', $manufacturer));

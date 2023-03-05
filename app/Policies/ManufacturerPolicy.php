@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Manufacturer;
 use App\Models\AclResource;
+use App\Models\Manufacturer;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -23,7 +23,7 @@ class ManufacturerPolicy
     {
         return $user->hasResourceWithAction(
             AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-            AclResource::ACTION_VIEW,
+            AclResource::ACTION_VIEW_ANY,
         );
     }
 

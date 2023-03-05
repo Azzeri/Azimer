@@ -26,7 +26,7 @@ class VehiclePolicy
     {
         return $user->hasResourceWithAction(
             AclResource::RES_OVERALL_VEHICLES,
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         );
     }
 

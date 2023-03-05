@@ -3,6 +3,7 @@
 namespace Tests\Feature\EqServiceTemplate;
 
 use App\Models\AclResource;
+use App\Models\User;
 use App\Services\EqServiceTemplateService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -14,17 +15,9 @@ class CreateEqServiceTemplateTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Indicates whether the default seeder should run before each test.
-     *
-     * @var bool
-     */
-    protected $seed = true;
+    private User $userWithPermission;
 
-    /**
-     * @var EqServiceTemplateService
-     */
-    private $eqServiceTemplateService;
+    private EqServiceTemplateService $eqServiceTemplateService;
 
     public function setUp(): void
     {
@@ -32,16 +25,11 @@ class CreateEqServiceTemplateTest extends TestCase
 
         $this->eqServiceTemplateService = new EqServiceTemplateService();
 
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-                'actions' => [
-                    AclResource::ACTION_CREATE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $this->userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_CREATE
+        );
+        $this->actingAs($this->userWithPermission);
     }
 
     /**

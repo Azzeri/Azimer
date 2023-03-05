@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\User;
 
-use App\Models\FireBrigadeUnit;
 use App\Models\AclResource;
-use App\Models\AclRole;
+use App\Models\FireBrigadeUnit;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;

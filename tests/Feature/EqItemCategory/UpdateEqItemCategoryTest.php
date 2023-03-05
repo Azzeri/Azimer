@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\EqItemCategory;
 
-use App\Models\EqItemCategory;
 use App\Models\AclResource;
+use App\Models\EqItemCategory;
+use App\Models\User;
 use App\Services\EqItemCategoryService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -15,17 +16,9 @@ class UpdateEqItemCategoryTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Indicates whether the default seeder should run before each test.
-     *
-     * @var bool
-     */
-    protected $seed = true;
+    private User $userWithPermission;
 
-    /**
-     * @var EqItemCategoryService
-     */
-    private $eqItemCategoryService;
+    private EqItemCategoryService $eqItemCategoryService;
 
     public function setUp(): void
     {
@@ -33,16 +26,11 @@ class UpdateEqItemCategoryTest extends TestCase
 
         $this->eqItemCategoryService = new EqItemCategoryService();
 
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
-                'actions' => [
-                    AclResource::ACTION_UPDATE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $this->userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
+            AclResource::ACTION_UPDATE
+        );
+        $this->actingAs($this->userWithPermission);
     }
 
     /**

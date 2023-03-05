@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\EqItem;
 use App\Models\AclResource;
+use App\Models\EqItem;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -30,13 +30,13 @@ class EqItemPolicy
         $this->user = $user;
 
         return $this->canAccessOverallEquipment(
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         ) || $user->hasResourceWithAction(
             AclResource::RES_OWN_UNIT_EQUIPMENT,
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         ) || $user->hasResourceWithAction(
             AclResource::RES_LOWLY_UNITS_EQUIPMENT,
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         );
     }
 

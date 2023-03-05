@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\FireBrigadeUnit;
 
-use App\Models\FireBrigadeUnit;
 use App\Models\AclResource;
+use App\Models\FireBrigadeUnit;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -15,27 +15,17 @@ class DeleteFireBrigadeUnitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Indicates whether the default seeder should run before each test.
-     *
-     * @var bool
-     */
-    protected $seed = true;
+    private User $userWithPermission;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
-                'actions' => [
-                    AclResource::ACTION_DELETE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $this->userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
+            AclResource::ACTION_DELETE
+        );
+        $this->actingAs($this->userWithPermission);
     }
 
     /**

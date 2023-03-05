@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\FireBrigadeUnit;
 use App\Models\AclResource;
+use App\Models\FireBrigadeUnit;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -30,13 +30,13 @@ class FireBrigadeUnitPolicy
         $this->user = $user;
 
         return $this->canAccessOverallUnits(
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         ) || $user->hasResourceWithAction(
             AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         ) || $user->hasResourceWithAction(
             AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         );
     }
 

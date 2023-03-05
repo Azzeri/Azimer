@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\EqService;
 
-use App\Models\EqService;
 use App\Models\AclResource;
+use App\Models\EqService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;

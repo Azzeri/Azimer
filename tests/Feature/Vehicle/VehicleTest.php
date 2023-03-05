@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\FireBrigadeUnit;
 use App\Models\AclResource;
+use App\Models\FireBrigadeUnit;
 use App\Models\Vehicle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -13,29 +13,17 @@ class VehicleTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Indicates whether the default seeder should run before each test.
-     *
-     * @var bool
-     */
-    protected $seed = true;
-
-    /**
      * A basic feature test example.
      *
      * @author Piotr Nagórny
      */
     public function test_index(): void
     {
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_VEHICLES,
-                'actions' => [
-                    AclResource::ACTION_VIEW,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::ACTION_VIEW_ANY
+        );
+        $this->actingAs($userWithPermission);
 
         $response = $this->get(route('vehicles.index'));
 
@@ -49,16 +37,11 @@ class VehicleTest extends TestCase
      */
     public function test_store_vehicle(): void
     {
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_VEHICLES,
-                'actions' => [
-                    AclResource::ACTION_CREATE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::ACTION_CREATE
+        );
+        $this->actingAs($userWithPermission);
 
         $unit = FireBrigadeUnit::factory()->create();
 
@@ -82,16 +65,11 @@ class VehicleTest extends TestCase
      */
     public function test_update_vehicle(): void
     {
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_VEHICLES,
-                'actions' => [
-                    AclResource::ACTION_UPDATE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::ACTION_UPDATE
+        );
+        $this->actingAs($userWithPermission);
 
         $unit = FireBrigadeUnit::factory()->create();
 
@@ -131,16 +109,11 @@ class VehicleTest extends TestCase
      */
     public function test_delete_vehicle(): void
     {
-        $auth = $this->getUserWithResourcesAndActions([
-            [
-                'suffix' => AclResource::RES_OVERALL_VEHICLES,
-                'actions' => [
-                    AclResource::ACTION_DELETE,
-                ],
-            ],
-        ]);
-
-        $this->actingAs($auth);
+        $userWithPermission = $this->getUserWithOneResourceAndAction(
+            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::ACTION_DELETE
+        );
+        $this->actingAs($userWithPermission);
 
         $unit = FireBrigadeUnit::factory()->create();
 
