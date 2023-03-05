@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\AclResource;
 use App\Models\EqItemCategory;
 use App\Models\EqItemTemplate;
 use App\Models\FireBrigadeUnit;
 use App\Models\Manufacturer;
-use App\Models\AclResource;
 use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -25,9 +25,9 @@ class DropdownService
      */
     public static function getResourcesDropdown(): Collection
     {
-        return Resource::select([
+        return AclResource::select([
             'suffix as value',
-            'name as label',
+            'suffix as label',
         ])->get();
     }
 

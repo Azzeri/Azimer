@@ -5,7 +5,6 @@ namespace Tests;
 use App\Models\AclResource;
 use App\Models\AclRole;
 use App\Models\User;
-use App\Services\AclService;
 use App\Services\UserService;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -24,29 +23,19 @@ abstract class TestCase extends BaseTestCase
     protected $seed = true;
 
     /**
-     * Creates a new user with role having
-     * given resources with actions
-     * and authorizes as him
-     *
-     * @param  array<string>  $resources
+     * Creates a new user with role having given resources with actions
      *
      * @author Mariusz Waloszczyk
      */
     protected function getUserWithResourcesAndActions(
         array $resourcesWithActions,
     ): User {
-        $aclService = new AclService();
         $role = AclRole::factory()->create();
-
         foreach ($resourcesWithActions as $data) {
             $resource = AclResource::findOrFail($data['suffix']);
-            foreach ($data['actions'] as $action) {
-                $aclService->attachResourceToRole(
-                    $role,
-                    $resource->suffix,
-                    $action,
-                );
-            }
+            $role->resources()->attach(
+                $resource->suffix, ['action' => $data['action']]
+            );
         }
 
         return User::factory()
@@ -55,7 +44,25 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * Creates a new user with role having the given resource with the given action
+     *
+     * @author Mariusz Waloszczyk
+     */
+    protected function getUserWithOneResourceAndAction(
+        string $resourceSuffix,
+        string $action
+    ): User {
+        return $this->getUserWithResourcesAndActions([
+            [
+                'suffix' => $resourceSuffix,
+                'action' => $action,
+            ],
+        ]);
+    }
+
+    /**
      * Authenticates as super admin
+     *
      * @author Mariusz Waloszczyk
      */
     protected function authenticateAsSuperAdmin(): void
@@ -63,5 +70,17 @@ abstract class TestCase extends BaseTestCase
         $admin = UserService::getSuperAdmin();
 
         $this->actingAs($admin);
+    }
+
+    /**
+     * Authenticates as user who doesn't have any resources
+     *
+     * @author Mariusz Waloszczyk
+     */
+    protected function authenticateAsUserWithoutPermissions(): void
+    {
+        $auth = User::factory()->create();
+
+        $this->actingAs($auth);
     }
 }

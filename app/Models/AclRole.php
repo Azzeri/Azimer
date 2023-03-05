@@ -82,4 +82,14 @@ class AclRole extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    /**
+     * Checks if role is the superadmin
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->suffix == self::ROLE_SUPER_ADMIN;
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\AclResource;
+use App\Http\Resources\AclRoleResource;
 use App\Models\AclRole;
 
 /**
@@ -13,14 +13,27 @@ use App\Models\AclRole;
 class AclService
 {
     /**
-     * attach the resource to the role with given action
+     * Returns all roles from database
+     * with optional pagination
+     *
+     * @return mixed
+     *
      * @author Mariusz Waloszczyk
      */
-    public function attachResourceToRole(
-        AclRole $role,
-        string $resourceSuffix,
-        string $action
-    ): void {
-        $role->resources()->attach($resourceSuffix, ['action' => $action]);
+    public function getAclRolesCollection()
+    {
+        $query = AclRole::with('resources')->get();
+
+        return AclRoleResource::collection($query);
+    }
+
+    /**
+     * returns superadmin role
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public static function getSuperAdminRole(): AclRole
+    {
+        return AclRole::find(AclRole::ROLE_SUPER_ADMIN);
     }
 }

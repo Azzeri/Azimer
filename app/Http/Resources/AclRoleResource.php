@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @author Mariusz Waloszczyk
  */
-class RoleResource extends JsonResource
+class AclRoleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,8 +22,9 @@ class RoleResource extends JsonResource
     {
         return [
             'suffix' => $this->suffix,
-            'name' => $this->name,
-            'resources' => ResourceResource::collection($this->resources),
+            'resources' => AclResourceResource::collection(
+                $this->whenLoaded('resources')
+            ),
         ];
     }
 }

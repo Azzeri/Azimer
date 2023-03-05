@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @author Mariusz Waloszczyk
  */
-class ResourceResource extends JsonResource
+class AclResourceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,11 +22,10 @@ class ResourceResource extends JsonResource
     {
         return [
             'suffix' => $this->suffix,
-            'name' => $this->name,
-            'actions' => $this->whenPivotLoaded(
-                'resource_role',
+            'action' => $this->whenPivotLoaded(
+                'acl_resource_role',
                 function () {
-                    return $this->pivot->actions;
+                    return $this->pivot->action;
                 }
             ),
         ];

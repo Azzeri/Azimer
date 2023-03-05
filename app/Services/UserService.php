@@ -68,7 +68,7 @@ class UserService
 
         foreach ($roles as $role) {
             $user->roles()->attach(
-                Role::findOrFail($role['suffix']),
+                AclRole::findOrFail($role['suffix']),
             );
         }
     }
@@ -136,7 +136,7 @@ class UserService
     ) {
         $users = User::all();
         $collectedUsers = collect();
-        $possibleActions = Resource::getPossibleActions();
+        $possibleActions = AclResource::getPossibleActions();
 
         foreach ($users as $user) {
             $actionsCounter = 0;
@@ -178,13 +178,14 @@ class UserService
 
         return $user;
     }
-    
+
     /**
      * Returns super admin user
+     *
      * @author Mariusz Waloszczyk
      */
     public static function getSuperAdmin(): User
     {
-        return User::where('id', User::SUPER_USER_ID)->first();
+        return User::find(User::SUPER_USER_ID)->first();
     }
 }

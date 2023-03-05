@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AclRoleController;
 use App\Http\Controllers\EqFillController;
 use App\Http\Controllers\EqItemCategoryController;
 use App\Http\Controllers\EqItemController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\EqServiceTemplateController;
 use App\Http\Controllers\EqUsageController;
 use App\Http\Controllers\FireBrigadeUnitController;
 use App\Http\Controllers\ManufacturerController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Foundation\Application;
@@ -45,10 +45,11 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('/manufacturers', ManufacturerController::class)
+    /** AclRoles */
+    Route::resource('/aclRoles', AclRoleController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 
-    Route::resource('/roles', RoleController::class)
+    Route::resource('/manufacturers', ManufacturerController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 
     Route::resource('/users', UserController::class)

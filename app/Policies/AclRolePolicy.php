@@ -6,11 +6,12 @@ use App\Models\AclResource;
 use App\Models\AclRole;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 /**
  * @author Mariusz Waloszczyk
  */
-class RolePolicy
+class AclRolePolicy
 {
     use HandlesAuthorization;
 
@@ -18,14 +19,12 @@ class RolePolicy
      * Determine whether the user can view any models.
      *
      * @author Mariusz Waloszczyk
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): Response|bool
     {
         return $user->hasResourceWithAction(
             AclResource::RES_OVERALL_USERS,
-            AclResource::ACTION_VIEW
+            AclResource::ACTION_VIEW_ANY
         );
     }
 
@@ -33,10 +32,8 @@ class RolePolicy
      * Determine whether the user can create models.
      *
      * @author Mariusz Waloszczyk
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): Response|bool
     {
         return $user->hasResourceWithAction(
             AclResource::RES_OVERALL_USERS,
@@ -48,29 +45,29 @@ class RolePolicy
      * Determine whether the user can update the model.
      *
      * @author Mariusz Waloszczyk
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Role $role)
+    public function update(User $user, AclRole $role): Response|bool
     {
-        return $user->hasResourceWithAction(
+        $userHasPermissions = $user->hasResourceWithAction(
             AclResource::RES_OVERALL_USERS,
             AclResource::ACTION_UPDATE
         );
+
+        return $userHasPermissions && ! $role->isSuperAdmin();
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @author Mariusz Waloszczyk
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Role $role)
+    public function delete(User $user, AclRole $role): Response|bool
     {
-        return $user->hasResourceWithAction(
+        $userHasPermissions = $user->hasResourceWithAction(
             AclResource::RES_OVERALL_USERS,
             AclResource::ACTION_DELETE
         );
+
+        return $userHasPermissions && ! $role->isSuperAdmin();
     }
 }

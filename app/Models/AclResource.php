@@ -14,25 +14,40 @@ class AclResource extends Model
 {
     use HasFactory;
 
+    /** Actions */
+    const ACTION_VIEW_ANY = 'view_any';
+
     const ACTION_VIEW = 'view';
+
     const ACTION_CREATE = 'create';
+
     const ACTION_UPDATE = 'update';
+
     const ACTION_DELETE = 'delete';
 
+    /** Resources */
     const RES_DUMMY = 'res_dummy';
 
     const RES_OVERALL_USERS = 'res_overall_users';
+
     const RES_OVERALL_FIRE_BRIGADE_UNITS = 'res_overall_fire_brigade_units';
+
     const RES_OVERALL_EQUIPMENT_RESOURCES = 'res_overall_equipment_resources';
+
     const RES_OVERALL_EQUIPMENT = 'res_overall_equipment';
+
     const RES_OVERALL_VEHICLES = 'res_overall_vehicles';
-    
+
     const RES_OWN_UNIT_USERS = 'res_own_unit_users';
+
     const RES_OWN_UNIT_FIRE_BRIGADE_UNIT = 'res_own_unit_fire_brigade_unit';
+
     const RES_OWN_UNIT_EQUIPMENT = 'res_own_unit_equipment';
 
     const RES_LOWLY_UNITS_USERS = 'res_lowly_units_users';
+
     const RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT = 'res_lowly_units_fire_brigade_unit';
+
     const RES_LOWLY_UNITS_EQUIPMENT = 'res_lowly_units_equipment';
 
     /**
@@ -80,6 +95,7 @@ class AclResource extends Model
     public static function getPossibleActions(): array
     {
         return [
+            self::ACTION_VIEW_ANY,
             self::ACTION_VIEW,
             self::ACTION_CREATE,
             self::ACTION_UPDATE,

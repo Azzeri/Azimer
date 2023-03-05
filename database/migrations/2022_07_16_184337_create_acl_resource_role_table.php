@@ -26,8 +26,9 @@ return new class extends Migration
             $table->foreign('resource_suffix')
                 ->references('suffix')
                 ->on('acl_resources');
-            $table->enum('action', ['view', 'create', 'update', 'delete']);
-            $table->comment('Resources assigned to roles. Actions determine exact operations that user can perform.');
+            $table->enum('action', ['view', 'view_any', 'create', 'update', 'delete']);
+            $table
+                ->comment('Resources assigned to roles. Actions determine exact operations that user can perform.');
         });
     }
 

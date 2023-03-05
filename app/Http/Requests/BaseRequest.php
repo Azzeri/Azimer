@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Request;
  */
 class BaseRequest extends FormRequest
 {
+    const VIEW_ANY_POLICY = 'viewAny';
+
     protected string $class;
 
     protected mixed $model;
@@ -63,7 +65,7 @@ class BaseRequest extends FormRequest
      *
      * @author Mariusz Waloszczyk
      */
-    private function accessForView()
+    private function accessForView(): bool
     {
         if ($this->model) {
             return Gate::allows(
@@ -74,7 +76,7 @@ class BaseRequest extends FormRequest
         }
 
         return Gate::allows(
-            AclResource::ACTION_VIEW,
+            self::VIEW_ANY_POLICY,
             $this->class
         );
     }
@@ -84,7 +86,7 @@ class BaseRequest extends FormRequest
      *
      * @author Mariusz Waloszczyk
      */
-    private function accessForCreate()
+    private function accessForCreate(): bool
     {
         return Gate::allows(
             AclResource::ACTION_CREATE,
@@ -97,7 +99,7 @@ class BaseRequest extends FormRequest
      *
      * @author Mariusz Waloszczyk
      */
-    private function accessForUpdate()
+    private function accessForUpdate(): bool
     {
         return Gate::allows(
             AclResource::ACTION_UPDATE,
@@ -111,7 +113,7 @@ class BaseRequest extends FormRequest
      *
      * @author Mariusz Waloszczyk
      */
-    private function accessForDelete()
+    private function accessForDelete(): bool
     {
         return Gate::allows(
             AclResource::ACTION_DELETE,
