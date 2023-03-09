@@ -39,7 +39,6 @@ class RoleResourceSeeder extends Seeder
             AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
             AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
             AclResource::RES_OVERALL_EQUIPMENT,
-            AclResource::RES_OVERALL_VEHICLES,
             AclResource::RES_OWN_UNIT_USERS,
             AclResource::RES_OWN_UNIT_FIRE_BRIGADE_UNIT,
             AclResource::RES_OWN_UNIT_EQUIPMENT,
@@ -67,7 +66,6 @@ class RoleResourceSeeder extends Seeder
             AclResource::RES_OVERALL_FIRE_BRIGADE_UNITS,
             AclResource::RES_OVERALL_EQUIPMENT_RESOURCES,
             AclResource::RES_OVERALL_EQUIPMENT,
-            AclResource::RES_OVERALL_VEHICLES,
         ];
 
         $superAdminRole = AclRole::create([

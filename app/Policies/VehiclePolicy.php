@@ -25,7 +25,7 @@ class VehiclePolicy
     public function viewAny(User $user)
     {
         return $user->hasResourceWithAction(
-            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::RES_OVERALL_EQUIPMENT,
             AclResource::ACTION_VIEW_ANY
         );
     }
@@ -41,7 +41,7 @@ class VehiclePolicy
     public function create(User $user)
     {
         return $user->hasResourceWithAction(
-            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::RES_OVERALL_EQUIPMENT,
             AclResource::ACTION_CREATE
         );
     }
@@ -58,7 +58,7 @@ class VehiclePolicy
     public function update(User $user, Vehicle $vehicle)
     {
         return $user->hasResourceWithAction(
-            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::RES_OVERALL_EQUIPMENT,
             AclResource::ACTION_UPDATE
         );
     }
@@ -75,7 +75,7 @@ class VehiclePolicy
     public function delete(User $user, Vehicle $vehicle)
     {
         return $user->hasResourceWithAction(
-            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::RES_OVERALL_EQUIPMENT,
             AclResource::ACTION_DELETE
         );
     }

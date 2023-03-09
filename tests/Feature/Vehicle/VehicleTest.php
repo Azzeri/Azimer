@@ -20,7 +20,7 @@ class VehicleTest extends TestCase
     public function test_index(): void
     {
         $userWithPermission = $this->getUserWithOneResourceAndAction(
-            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::RES_OVERALL_EQUIPMENT,
             AclResource::ACTION_VIEW_ANY
         );
         $this->actingAs($userWithPermission);
@@ -38,7 +38,7 @@ class VehicleTest extends TestCase
     public function test_store_vehicle(): void
     {
         $userWithPermission = $this->getUserWithOneResourceAndAction(
-            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::RES_OVERALL_EQUIPMENT,
             AclResource::ACTION_CREATE
         );
         $this->actingAs($userWithPermission);
@@ -66,7 +66,7 @@ class VehicleTest extends TestCase
     public function test_update_vehicle(): void
     {
         $userWithPermission = $this->getUserWithOneResourceAndAction(
-            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::RES_OVERALL_EQUIPMENT,
             AclResource::ACTION_UPDATE
         );
         $this->actingAs($userWithPermission);
@@ -110,7 +110,7 @@ class VehicleTest extends TestCase
     public function test_delete_vehicle(): void
     {
         $userWithPermission = $this->getUserWithOneResourceAndAction(
-            AclResource::RES_OVERALL_VEHICLES,
+            AclResource::RES_OVERALL_EQUIPMENT,
             AclResource::ACTION_DELETE
         );
         $this->actingAs($userWithPermission);

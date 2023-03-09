@@ -36,8 +36,6 @@ class AclResource extends Model
 
     public const RES_OVERALL_EQUIPMENT = 'res_overall_equipment';
 
-    public const RES_OVERALL_VEHICLES = 'res_overall_vehicles';
-
     public const RES_OWN_UNIT_USERS = 'res_own_unit_users';
 
     public const RES_OWN_UNIT_FIRE_BRIGADE_UNIT = 'res_own_unit_fire_brigade_unit';
