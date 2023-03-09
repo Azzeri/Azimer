@@ -32,7 +32,7 @@ class AclRoleDeleteTest extends TestCase
     }
 
     /**
-     * Case: given unused role to delete
+     * Case: given role to delete
      * Expected: Role deleted
      *
      * @author Mariusz Waloszczyk
@@ -41,6 +41,8 @@ class AclRoleDeleteTest extends TestCase
     {
         // Arrange
         $this->actingAs($this->userWithPermission);
+        $user = User::factory()->create();
+        $user->roles()->attach($this->roleToDelete);
 
         // Act
         $this->delete(route('aclRoles.destroy', $this->roleToDelete));

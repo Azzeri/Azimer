@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Role model class
@@ -61,7 +62,7 @@ class AclRole extends Model
      *
      * @author Mariusz Waloszczyk
      */
-    public function resources()
+    public function resources(): BelongsToMany
     {
         return $this->belongsToMany(
             AclResource::class,
@@ -87,7 +88,7 @@ class AclRole extends Model
      *
      * @author Mariusz Waloszczyk
      */
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }

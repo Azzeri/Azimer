@@ -45,6 +45,8 @@ class AclRoleUpdateTest extends TestCase
     {
         // Arrange
         $this->actingAs($this->userWithPermission);
+        $user = User::factory()->create();
+        $user->roles()->attach($this->roleToUpdate);
 
         // Act
         $response = $this->put(

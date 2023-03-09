@@ -18,12 +18,12 @@ return new class extends Migration
     {
         Schema::create('acl_role_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('role_suffix');
             $table->foreign('role_suffix')
                 ->references('suffix')
-                ->on('acl_roles');
+                ->on('acl_roles')
+                ->cascadeOnUpdate();
             $table->comment('Roles assigned to each user.');
         });
     }
