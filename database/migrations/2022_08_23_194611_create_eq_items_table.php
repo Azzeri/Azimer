@@ -17,34 +17,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('eq_items', function (Blueprint $table) {
-            $table->string('code', 32)
-                ->primary();
-            $table->string('name', 255)
-                ->nullable();
-            $table->foreignId('eq_item_template_id')
-                ->constrained();
-            $table->foreignId('fire_brigade_unit_id')
-                ->constrained();
-            $table->string('vehicle_number')
-                ->nullable();
+            $table->string('code', 32)->primary();
+            $table->foreignId('eq_item_template_id')->constrained();
+            $table->foreignId('fire_brigade_unit_id')->constrained();
+            $table->string('vehicle_number')->nullable();
             $table->foreign('vehicle_number')
                 ->nullable()
                 ->references('number')
                 ->on('vehicles');
-            $table->string('construction_number')
-                ->nullable();
-            $table->string('inventory_number')
-                ->nullable();
-            $table->string('identification_number')
-                ->nullable();
-            $table->date('date_expiry')
-                ->nullable();
-            $table->date('date_legalisation')
-                ->nullable();
-            $table->date('date_legalisation_due')
-                ->nullable();
-            $table->date('date_production')
-                ->nullable();
+            $table->string('name', 255)->nullable();
+            $table->string('construction_number')->nullable();
+            $table->string('inventory_number')->nullable();
+            $table->string('identification_number')->nullable();
+            $table->date('date_production')->nullable();
+            $table->date('date_expiry')->nullable();
+            $table->date('date_legalisation')->nullable();
+            $table->date('date_legalisation_due')->nullable();
         });
     }
 

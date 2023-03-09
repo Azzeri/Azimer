@@ -19,17 +19,18 @@ class StoreEqItemTemplateAction
         Request $request
     ): EqItemTemplate {
         return EqItemTemplate::create([
-            'name' => $request->name,
             'eq_item_category_id' => $request->eq_item_category_id,
             'manufacturer_id' => $request->manufacturer_id,
-            'has_vehicle' => $request->has_vehicle,
+            'has_name' => $request->has_name,
             'has_construction_number' => $request->has_construction_number,
             'has_inventory_number' => $request->has_inventory_number,
             'has_identification_number' => $request->has_identification_number,
+            'has_date_production' => $request->has_date_production,
             'has_date_expiry' => $request->has_date_expiry,
             'has_date_legalisation' => $request->has_date_legalisation,
             'has_date_legalisation_due' => $request->has_date_legalisation_due,
-            'has_date_production' => $request->has_date_production,
+            'has_vehicle' => $request->has_vehicle,
+            'is_fillable' => $request->is_fillable,
         ]);
     }
 }

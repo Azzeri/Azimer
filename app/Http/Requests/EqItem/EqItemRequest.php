@@ -26,10 +26,10 @@ class EqItemRequest extends BaseRequest
             'construction_number' => 'nullable|string',
             'inventory_number' => 'nullable|string',
             'identification_number' => 'nullable|string',
+            'date_production' => 'nullable|date',
             'date_expiry' => 'nullable|date',
             'date_legalisation' => 'nullable|date',
             'date_legalisation_due' => 'nullable|date',
-            'date_production' => 'nullable|date',
         ];
     }
 

@@ -20,17 +20,18 @@ class EqItemTemplate extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
         'eq_item_category_id',
         'manufacturer_id',
-        'has_vehicle',
+        'has_name',
         'has_construction_number',
         'has_inventory_number',
         'has_identification_number',
+        'has_date_production',
         'has_date_expiry',
         'has_date_legalisation',
         'has_date_legalisation_due',
-        'has_date_production',
+        'has_vehicle',
+        'is_fillable',
     ];
 
     /**

@@ -44,8 +44,7 @@ class EqServiceTemplateService
     public function getSampleCorrectForm(
         bool $withStoreParams
     ): array {
-        $manufacturer = ManufacturerService::getRandomManufacturer();
-        $category = EqItemCategoryService::getRandomEqItemCategory();
+        $template = EqItemTemplateService::getRandomEqItemTemplate();
 
         $commonParameters = [
             'name' => 'T1234',
@@ -54,8 +53,7 @@ class EqServiceTemplateService
         ];
 
         $storeParameters = [
-            'eq_item_category_id' => $category->id,
-            'manufacturer_id' => $manufacturer->id,
+            'eq_item_template_id' => $template->id,
         ];
 
         return $withStoreParams

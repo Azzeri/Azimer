@@ -20,8 +20,8 @@ class StoreEqItemCategoryAction
     ): EqItemCategory {
         return EqItemCategory::create([
             'name' => $request->name,
-            'is_fillable' => $request->is_fillable,
             'parent_category_id' => $request->parent_category_id,
+            'photo_path' => $request->photo_path,
         ]);
     }
 }

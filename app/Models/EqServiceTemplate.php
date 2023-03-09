@@ -20,34 +20,9 @@ class EqServiceTemplate extends Model
      * @var string[]
      */
     protected $fillable = [
+        'eq_item_template_id',
         'name',
         'description',
         'interval',
-        'eq_item_category_id',
-        'manufacturer_id',
     ];
-
-    /**
-     * Returns item category to which service template belongs
-     * {@inheritdoc}
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public function eqItemCategory()
-    {
-        //
-    }
-
-    /**
-     * Returns manufacturer to which service template belongs
-     * {@inheritdoc}
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public function manufacturer()
-    {
-        return $this->belongsTo(
-            Manufacturer::class,
-        );
-    }
 }

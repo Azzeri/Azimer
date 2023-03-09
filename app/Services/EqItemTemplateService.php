@@ -77,17 +77,18 @@ class EqItemTemplateService
         $manufacturer = ManufacturerService::getRandomManufacturer();
 
         return [
-            'name' => 'test template',
             'eq_item_category_id' => $eqItemCategory->id,
             'manufacturer_id' => $manufacturer->id,
-            'has_vehicle' => true,
+            'has_name' => true,
             'has_construction_number' => true,
             'has_inventory_number' => true,
             'has_identification_number' => true,
+            'has_date_production' => true,
             'has_date_expiry' => true,
             'has_date_legalisation' => true,
             'has_date_legalisation_due' => true,
-            'has_date_production' => true,
+            'has_vehicle' => true,
+            'is_fillable' => true,
         ];
     }
 }

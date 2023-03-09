@@ -22,15 +22,15 @@ class StoreEqItemAction
             'code' => $request->code,
             'eq_item_template_id' => $request->eq_item_template_id,
             'fire_brigade_unit_id' => $request->fire_brigade_unit_id,
-            'name' => $request->name,
             'vehicle_number' => $request->vehicle_number,
+            'name' => $request->name,
             'construction_number' => $request->construction_number,
             'inventory_number' => $request->inventory_number,
             'identification_number' => $request->identification_number,
+            'date_production' => $request->date_production,
             'date_expiry' => $request->date_expiry,
             'date_legalisation' => $request->date_legalisation,
             'date_legalisation_due' => $request->date_legalisation_due,
-            'date_production' => $request->date_production,
         ]);
     }
 }

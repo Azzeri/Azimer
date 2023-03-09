@@ -27,17 +27,17 @@ class EqItem extends Model
      */
     protected $fillable = [
         'code',
-        'name',
         'eq_item_template_id',
         'fire_brigade_unit_id',
         'vehicle_number',
+        'name',
         'construction_number',
         'inventory_number',
         'identification_number',
+        'date_production',
         'date_expiry',
         'date_legalisation',
         'date_legalisation_due',
-        'date_production',
     ];
 
     /**

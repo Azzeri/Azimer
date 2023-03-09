@@ -33,10 +33,10 @@ class EqItemFactory extends Factory
 
         return [
             'code' => 'I'.$code,
-            'name' => 'Item - '.$code,
             'eq_item_template_id' => $template->id,
             'fire_brigade_unit_id' => $unit->id,
             'vehicle_number' => $vehicle->number ?? null,
+            'name' => 'Item - '.$code,
             'construction_number' => $template->has_construction_number
                 ? fake()->unique()->numerify('CN######')
                 : null,
@@ -46,6 +46,9 @@ class EqItemFactory extends Factory
             'identification_number' => $template->has_identification_number
                 ? fake()->unique()->numerify('ID######')
                 : null,
+            'date_production' => $template->has_date_production
+                ? fake()->date()
+                : null,
             'date_expiry' => $template->has_date_expiry
                 ? fake()->date()
                 : null,
@@ -53,9 +56,6 @@ class EqItemFactory extends Factory
                 ? fake()->date()
                 : null,
             'date_legalisation_due' => $template->has_date_legalisation_due
-                ? fake()->date()
-                : null,
-            'date_production' => $template->has_date_production
                 ? fake()->date()
                 : null,
         ];

@@ -26,20 +26,18 @@ class EqItemTemplateFactory extends Factory
         $eqItemCategory = EqItemCategoryService::getRandomEqItemCategory();
 
         return [
-            'name' => fake()
-                ->unique()
-                ->numerify('Template - ####'),
             'eq_item_category_id' => $eqItemCategory->id,
             'manufacturer_id' => $manufacturer->id,
-            'has_vehicle' => fake()->boolean(),
+            'has_name' => fake()->boolean(),
             'has_construction_number' => fake()->boolean(),
             'has_inventory_number' => fake()->boolean(),
             'has_identification_number' => fake()->boolean(),
+            'has_date_production' => fake()->boolean(),
             'has_date_expiry' => fake()->boolean(),
             'has_date_legalisation' => fake()->boolean(),
             'has_date_legalisation_due' => fake()->boolean(),
-            'has_date_production' => fake()->boolean(),
-
+            'has_vehicle' => fake()->boolean(),
+            'is_fillable' => fake()->boolean(),
         ];
     }
 }

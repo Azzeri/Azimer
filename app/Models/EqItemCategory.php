@@ -21,9 +21,8 @@ class EqItemCategory extends Model
 
     protected $fillable = [
         'name',
-        'photo_path',
-        'is_fillable',
         'parent_category_id',
+        'photo_path',
     ];
 
     /**
@@ -50,21 +49,6 @@ class EqItemCategory extends Model
         return $this->hasMany(
             EqItemCategory::class,
             'parent_category_id'
-        );
-    }
-
-    /**
-     * Returns service templates
-     * assigned to the category
-     * {@inheritdoc}
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public function serviceTemplates()
-    {
-        return $this->hasMany(
-            EqServiceTemplate::class,
-            'eq_item_category_id'
         );
     }
 }

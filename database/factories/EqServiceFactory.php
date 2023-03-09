@@ -27,10 +27,10 @@ class EqServiceFactory extends Factory
         $template = EqServiceTemplateService::getRandomEqServiceTemplate();
 
         return [
-            'description' => fake()->paragraph(),
-            'expected_perform_date' => fake()->date(),
             'eq_item_code' => $item->code,
             'eq_service_template_id' => $template->id,
+            'expected_perform_date' => fake()->date(),
+            'note' => fake()->paragraph(),
         ];
     }
 

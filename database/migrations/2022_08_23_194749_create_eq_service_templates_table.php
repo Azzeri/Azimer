@@ -18,15 +18,10 @@ return new class extends Migration
     {
         Schema::create('eq_service_templates', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('eq_item_template_id')->constrained();
             $table->string('name', 64);
-            $table->text('description', 2048)
-                ->nullable();
-            $table->smallInteger('interval')
-                ->unsigned();
-            $table->foreignId('eq_item_category_id')
-                ->constrained();
-            $table->foreignId('manufacturer_id')
-                ->constrained();
+            $table->text('description', 2048)->nullable();
+            $table->smallInteger('interval')->unsigned();
         });
     }
 

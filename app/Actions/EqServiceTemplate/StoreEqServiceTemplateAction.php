@@ -19,11 +19,10 @@ class StoreEqServiceTemplateAction
         Request $request
     ): EqServiceTemplate {
         return EqServiceTemplate::create([
+            'eq_item_template_id' => $request->eq_item_template_id,
             'name' => $request->name,
             'description' => $request->description,
             'interval' => $request->interval,
-            'eq_item_category_id' => $request->eq_item_category_id,
-            'manufacturer_id' => $request->manufacturer_id,
         ]);
     }
 }

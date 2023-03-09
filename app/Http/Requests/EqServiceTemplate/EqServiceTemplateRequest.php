@@ -29,9 +29,8 @@ class EqServiceTemplateRequest extends BaseRequest
     protected function getStoreValidationRules(): array
     {
         return [
+            'eq_item_template_id' => 'required|exists:eq_item_templates,id',
             'name' => 'required|max:64|unique:eq_service_templates',
-            'eq_item_category_id' => 'required|exists:eq_item_categories,id',
-            'manufacturer_id' => 'required|exists:manufacturers,id',
         ];
     }
 

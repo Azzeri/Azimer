@@ -64,17 +64,17 @@ class EqItemService
 
         return [
             'code' => 'C1234',
-            'name' => 'testName',
             'eq_item_template_id' => $template->id,
             'fire_brigade_unit_id' => $unit->id,
             'vehicle_number' => $vehicle->id,
+            'name' => 'testName',
             'construction_number' => '1234',
             'inventory_number' => '1234',
             'identification_number' => '1234',
-            'date_expiry' => '2010-10-10',
-            'date_legalisation' => '2010-10-10',
-            'date_legalisation_due' => '2010-10-10',
             'date_production' => '2010-10-10',
+            'date_expiry' => '2010-10-11',
+            'date_legalisation' => '2010-10-10',
+            'date_legalisation_due' => '2010-10-11',
         ];
     }
 

@@ -21,7 +21,7 @@ class EqItemCategoryRequest extends BaseRequest
     protected function getCommonValidationRules(): array
     {
         return [
-            'is_fillable' => 'boolean',
+            'photo_path' => 'string',
         ];
     }
 

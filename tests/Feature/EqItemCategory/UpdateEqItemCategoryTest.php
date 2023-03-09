@@ -100,10 +100,6 @@ class UpdateEqItemCategoryTest extends TestCase
                 'name',
                 '',
             ],
-            'is_fillable' => [
-                'is_fillable',
-                '',
-            ],
             'parent_category_id' => [
                 'parent_category_id',
                 1000000,

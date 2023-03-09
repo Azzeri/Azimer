@@ -18,16 +18,11 @@ return new class extends Migration
     {
         Schema::create('eq_item_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 64);
-            $table->string('photo_path', 255)
-                ->default('/images/default.png');
-            $table->boolean('is_fillable')
-                ->default(false);
             $table->foreignId('parent_category_id')
                 ->nullable()
-                ->constrained('eq_item_categories')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+                ->constrained('eq_item_categories');
+            $table->string('name', 64);
+            $table->string('photo_path', 255)->default('/images/default.png');
         });
     }
 

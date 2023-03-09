@@ -59,8 +59,8 @@ class EqItemCategoryService
 
         return [
             'name' => 'test category',
-            'is_fillable' => true,
             'parent_category_id' => $parentCategory->id,
+            'photo_path' => '\tmp\1234.png',
         ];
     }
 
