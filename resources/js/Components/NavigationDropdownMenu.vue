@@ -1,7 +1,7 @@
 <script setup>
 import { navigation } from "../navigation";
 import { Link } from "@inertiajs/inertia-vue3";
-import { autheniticatedUserHasResources, capitalize } from "../shared";
+import { autheniticatedUserHasResources } from "../shared";
 import { computed } from "vue";
 import { usePage } from "@inertiajs/inertia-vue3";
 
@@ -28,13 +28,13 @@ const authenticatedUserIsPermitted = (resources) => {
                 <li v-if="!nav.subNavigation">
                     <Link :href="route(nav.link)">
                         <i :class="nav.icon"></i>
-                        {{ capitalize(__(nav.label)) }}
+                        {{ __(nav.label) }}
                     </Link>
                 </li>
                 <li v-else :tabindex="nav.tabindex">
                     <a>
                         <i :class="nav.icon"></i>
-                        {{ capitalize(__(nav.label)) }}
+                        {{ __(nav.label) }}
                     </a>
                     <ul class="p-2 text-base-content bg-base-100 shadow">
                         <template v-for="sub in nav.subNavigation" :key="sub">
@@ -44,7 +44,7 @@ const authenticatedUserIsPermitted = (resources) => {
                                     :class="{ active: route().current() === sub.link }"
                                 >
                                     <i :class="sub.icon"></i>
-                                    {{ capitalize(__(sub.label)) }}
+                                    {{ __(sub.label) }}
                                 </Link>
                             </li>
                         </template>
