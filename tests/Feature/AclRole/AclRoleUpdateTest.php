@@ -27,8 +27,24 @@ class AclRoleUpdateTest extends TestCase
 
         $this->correctForm = [
             'suffix' => 'role_updated',
+            'aclResources' => [
+                AclResource::RES_LOWLY_UNITS_EQUIPMENT => [
+                    'action' => AclResource::ACTION_DELETE,
+                ],
+                AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT => [
+                    'action' => AclResource::ACTION_CREATE,
+                ],
+            ],
         ];
         $this->roleToUpdate = AclRole::factory()->create();
+        $this->roleToUpdate->resources()->attach(
+            AclResource::RES_LOWLY_UNITS_EQUIPMENT,
+            ['action' => AclResource::ACTION_DELETE]
+        );
+        $this->roleToUpdate->resources()->attach(
+            AclResource::RES_DUMMY,
+            ['action' => AclResource::ACTION_DELETE]
+        );
         $this->userWithPermission = $this->getUserWithOneResourceAndAction(
             AclResource::RES_OVERALL_USERS,
             AclResource::ACTION_UPDATE
@@ -55,8 +71,28 @@ class AclRoleUpdateTest extends TestCase
         );
 
         // Assert
+        $this->roleToUpdate = AclRole::find($this->correctForm['suffix']);
         $response->assertValid();
-        $this->assertDatabaseHas('acl_roles', $this->correctForm);
+        $this->assertDatabaseHas('acl_roles', [
+            'suffix' => $this->correctForm['suffix'],
+        ]);
+        $this->assertEquals(
+            AclResource::RES_LOWLY_UNITS_EQUIPMENT,
+            $this->roleToUpdate->resources[0]->suffix
+        );
+        $this->assertEquals(
+            AclResource::ACTION_DELETE,
+            $this->roleToUpdate->resources[0]->pivot->action
+        );
+        $this->assertEquals(
+            AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
+            $this->roleToUpdate->resources[1]->suffix
+        );
+        $this->assertEquals(
+            AclResource::ACTION_CREATE,
+            $this->roleToUpdate->resources[1]->pivot->action
+        );
+        $this->assertEquals(2, $this->roleToUpdate->resources->count());
     }
 
     /**

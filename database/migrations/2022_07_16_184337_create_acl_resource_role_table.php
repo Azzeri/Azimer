@@ -21,11 +21,10 @@ return new class extends Migration
             $table->string('role_suffix');
             $table->foreign('role_suffix')
                 ->references('suffix')
-                ->on('acl_roles');
+                ->on('acl_roles')
+                ->cascadeOnUpdate();
             $table->string('resource_suffix');
-            $table->foreign('resource_suffix')
-                ->references('suffix')
-                ->on('acl_resources');
+            $table->foreign('resource_suffix')->references('suffix')->on('acl_resources');
             $table->enum('action', ['view', 'view_any', 'create', 'update', 'delete']);
             $table
                 ->comment('Resources assigned to roles. Actions determine exact operations that user can perform.');
