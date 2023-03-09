@@ -46,9 +46,7 @@ class HandleInertiaRequests extends Middleware
                 $this->getAuthenticatedUserRoles(),
             ],
             'flash' => [
-                'message' => fn () => $request
-                    ->session()
-                    ->get('message'),
+                'message' => fn () => $request->session()->get('message'),
             ],
         ]);
     }
@@ -62,7 +60,7 @@ class HandleInertiaRequests extends Middleware
      */
     private function getAuthenticatedUserRoles()
     {
-        if (! Auth::user()) {
+        if (!Auth::user()) {
             return;
         }
 

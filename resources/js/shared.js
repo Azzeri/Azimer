@@ -4,8 +4,17 @@
  * @param {string} surname
  * @author Mariusz Waloszczyk
  */
-const getUserInitials = (name, surname) => {
+export const getUserInitials = (name, surname) => {
     return name.charAt(0).toUpperCase() + surname.charAt(0).toUpperCase();
+};
+
+/**
+ * Returns string with first letter as uppercase
+ * @param {string} text
+ * @author Mariusz Waloszczyk
+ */
+export const capitalize = (text) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
 /**
@@ -14,24 +23,20 @@ const getUserInitials = (name, surname) => {
  * @param {array<string>} navResources
  * @author Mariusz Waloszczyk
  */
-const hasUserResourceWithAction = (roles, navResources) => {
+export const autheniticatedUserHasResources = (roles, navResources) => {
+    const ACTION_VIEW_ANY = 'view_any';
     for (let element of roles.value) {
         for (let role of element) {
             for (let resource of role.resources) {
-                if (!navResources.length) {
-                    return true;
-                } else {
-                    for (let navResource of navResources) {
-                        if (
-                            resource.suffix === navResource &&
-                            JSON.parse(resource.pivot.actions).includes(
-                                "viewAny"
-                            )
-                        ) {
-                            return true;
-                        }
+                for (let navResource of navResources) {
+                    if (
+                        resource.suffix === navResource
+                        && resource.pivot.action === ACTION_VIEW_ANY
+                    ) {
+                        return true;
                     }
                 }
+
             }
         }
     }
@@ -44,15 +49,15 @@ const hasUserResourceWithAction = (roles, navResources) => {
  * @param {string} id
  * @author Mariusz Waloszczyk
  */
-const openModal = (id) =>
+export const openModal = (id) => {
     document.getElementById(id).classList.add("modal-open");
+}
 
 /**
  * Closes modal window by Id
  * @param {string} id
  * @author Mariusz Waloszczyk
  */
-const closeModal = (id) =>
+export const closeModal = (id) => {
     document.getElementById(id).classList.remove("modal-open");
-
-export { getUserInitials, hasUserResourceWithAction, openModal, closeModal };
+}
