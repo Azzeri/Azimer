@@ -23,7 +23,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    const SUPER_ADMIN_ID = 1;
+    public const SUPER_ADMIN_ID = 1;
 
     /**
      * The attributes that are mass assignable.

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Request;
  */
 class BaseRequest extends FormRequest
 {
-    const VIEW_ANY_POLICY = 'viewAny';
+    private const VIEW_ANY_POLICY = 'viewAny';
 
     protected string $class;
 

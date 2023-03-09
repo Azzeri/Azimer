@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class AclRoleFactory extends Factory
 {
-    const SUFFIX = 'role_';
+    private const SUFFIX = 'role_';
 
     /**
      * Define the model's default state.

@@ -16,7 +16,7 @@ class AclRole extends Model
     use HasFactory;
 
     /** Default roles */
-    const ROLE_SUPER_ADMIN = 'role_super_admin';
+    public const ROLE_SUPER_ADMIN = 'role_super_admin';
 
     /**
      * The primary key associated with the table.

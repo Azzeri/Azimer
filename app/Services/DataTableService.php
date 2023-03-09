@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
  */
 class DataTableService
 {
-    const DEFAULT_PAGINATION_SIZE = 15;
+    private const DEFAULT_PAGINATION_SIZE = 15;
 
     private array $sortableFields;
 

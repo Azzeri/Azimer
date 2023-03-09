@@ -15,40 +15,40 @@ class AclResource extends Model
     use HasFactory;
 
     /** Actions */
-    const ACTION_VIEW_ANY = 'view_any';
+    public const ACTION_VIEW_ANY = 'view_any';
 
-    const ACTION_VIEW = 'view';
+    public const ACTION_VIEW = 'view';
 
-    const ACTION_CREATE = 'create';
+    public const ACTION_CREATE = 'create';
 
-    const ACTION_UPDATE = 'update';
+    public const ACTION_UPDATE = 'update';
 
-    const ACTION_DELETE = 'delete';
+    public const ACTION_DELETE = 'delete';
 
     /** Resources */
-    const RES_DUMMY = 'res_dummy';
+    public const RES_DUMMY = 'res_dummy';
 
-    const RES_OVERALL_USERS = 'res_overall_users';
+    public const RES_OVERALL_USERS = 'res_overall_users';
 
-    const RES_OVERALL_FIRE_BRIGADE_UNITS = 'res_overall_fire_brigade_units';
+    public const RES_OVERALL_FIRE_BRIGADE_UNITS = 'res_overall_fire_brigade_units';
 
-    const RES_OVERALL_EQUIPMENT_RESOURCES = 'res_overall_equipment_resources';
+    public const RES_OVERALL_EQUIPMENT_RESOURCES = 'res_overall_equipment_resources';
 
-    const RES_OVERALL_EQUIPMENT = 'res_overall_equipment';
+    public const RES_OVERALL_EQUIPMENT = 'res_overall_equipment';
 
-    const RES_OVERALL_VEHICLES = 'res_overall_vehicles';
+    public const RES_OVERALL_VEHICLES = 'res_overall_vehicles';
 
-    const RES_OWN_UNIT_USERS = 'res_own_unit_users';
+    public const RES_OWN_UNIT_USERS = 'res_own_unit_users';
 
-    const RES_OWN_UNIT_FIRE_BRIGADE_UNIT = 'res_own_unit_fire_brigade_unit';
+    public const RES_OWN_UNIT_FIRE_BRIGADE_UNIT = 'res_own_unit_fire_brigade_unit';
 
-    const RES_OWN_UNIT_EQUIPMENT = 'res_own_unit_equipment';
+    public const RES_OWN_UNIT_EQUIPMENT = 'res_own_unit_equipment';
 
-    const RES_LOWLY_UNITS_USERS = 'res_lowly_units_users';
+    public const RES_LOWLY_UNITS_USERS = 'res_lowly_units_users';
 
-    const RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT = 'res_lowly_units_fire_brigade_unit';
+    public const RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT = 'res_lowly_units_fire_brigade_unit';
 
-    const RES_LOWLY_UNITS_EQUIPMENT = 'res_lowly_units_equipment';
+    public const RES_LOWLY_UNITS_EQUIPMENT = 'res_lowly_units_equipment';
 
     /**
      * The primary key associated with the table.
