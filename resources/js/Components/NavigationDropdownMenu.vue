@@ -39,7 +39,10 @@ const authenticatedUserIsPermitted = (resources) => {
                     <ul class="p-2 text-base-content bg-base-100 shadow">
                         <template v-for="sub in nav.subNavigation" :key="sub">
                             <li v-if="authenticatedUserIsPermitted(sub.resources)">
-                                <Link :href="route(sub.link)">
+                                <Link 
+                                    :href="route(sub.link)" 
+                                    :class="{ active: route().current() === sub.link }"
+                                >
                                     <i :class="sub.icon"></i>
                                     {{ capitalize(__(sub.label)) }}
                                 </Link>
