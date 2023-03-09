@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\AclResource;
 use App\Models\AclRole;
 use App\Models\User;
-use App\Services\AclService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -90,7 +89,7 @@ class AclRoleUpdateTest extends TestCase
     {
         // Arrange
         $this->actingAs($this->userWithPermission);
-        $superAdminRole = AclService::getSuperAdminRole();
+        $superAdminRole = AclRole::superAdmin()->first();
 
         // Act
         $response = $this->put(

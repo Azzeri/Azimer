@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -70,6 +71,14 @@ class AclRole extends Model
         )->withPivot(
             'action'
         );
+    }
+
+    /**
+     * Scope a query to only include super admin role
+     */
+    public function scopeSuperAdmin(Builder $query): void
+    {
+        $query->where('suffix', self::ROLE_SUPER_ADMIN);
     }
 
     /**

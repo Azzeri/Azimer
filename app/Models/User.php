@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,7 +23,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    const SUPER_USER_ID = 1;
+    const SUPER_ADMIN_ID = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -67,6 +68,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Scope a query to only include super admin
+     */
+    public function scopeSuperAdmin(Builder $query): void
+    {
+        $query->where('id', self::SUPER_ADMIN_ID);
+    }
 
     /**
      * Returns all roles assigned to the user

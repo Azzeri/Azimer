@@ -178,14 +178,4 @@ class UserService
 
         return $user;
     }
-
-    /**
-     * Returns super admin user
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public static function getSuperAdmin(): User
-    {
-        return User::find(User::SUPER_USER_ID)->first();
-    }
 }

@@ -26,14 +26,4 @@ class AclService
 
         return AclRoleResource::collection($query);
     }
-
-    /**
-     * returns superadmin role
-     *
-     * @author Mariusz Waloszczyk
-     */
-    public static function getSuperAdminRole(): AclRole
-    {
-        return AclRole::find(AclRole::ROLE_SUPER_ADMIN);
-    }
 }

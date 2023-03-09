@@ -5,7 +5,6 @@ namespace Tests;
 use App\Models\AclResource;
 use App\Models\AclRole;
 use App\Models\User;
-use App\Services\UserService;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 /**
@@ -67,7 +66,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function authenticateAsSuperAdmin(): void
     {
-        $admin = UserService::getSuperAdmin();
+        $admin = User::superAdmin()->first();
 
         $this->actingAs($admin);
     }
