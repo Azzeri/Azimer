@@ -8,6 +8,7 @@ module.exports = {
     "prettier"
   ],
   rules: {
+    "vue/require-default-prop": "off",
     // override/add rules settings here, such as:
     // 'vue/no-unused-vars': 'error'
   }
