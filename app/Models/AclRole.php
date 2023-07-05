@@ -75,14 +75,6 @@ class AclRole extends Model
     }
 
     /**
-     * Scope a query to only include super admin role
-     */
-    public function scopeSuperAdmin(Builder $query): void
-    {
-        $query->where('suffix', self::ROLE_SUPER_ADMIN);
-    }
-
-    /**
      * Returns all users assigned to the role
      * {@inheritdoc}
      *
@@ -90,7 +82,20 @@ class AclRole extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(
+            User::class,
+            'acl_role_user',
+            'role_suffix',
+            'user_id'
+        );
+    }
+
+    /**
+     * Scope a query to only include super admin role
+     */
+    public function scopeSuperAdmin(Builder $query): void
+    {
+        $query->where('suffix', self::ROLE_SUPER_ADMIN);
     }
 
     /**

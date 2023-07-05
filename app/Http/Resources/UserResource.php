@@ -26,7 +26,7 @@ class UserResource extends JsonResource
             'surname' => $this->surname,
             'email' => $this->email,
             'phone' => $this->phone,
-            'roles' => RoleResource::collection(
+            'roles' => AclRoleResource::collection(
                 $this->whenLoaded('roles')
             ),
             'fire_brigade_unit' => new FireBrigadeUnitResource(

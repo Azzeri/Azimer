@@ -6,6 +6,7 @@ use App\Actions\AclRole\DeleteAclRoleAction;
 use App\Actions\AclRole\StoreAclRoleAction;
 use App\Actions\AclRole\UpdateAclRoleAction;
 use App\Http\Requests\AclRole\AclRoleRequest;
+use App\Models\AclResource;
 use App\Models\AclRole;
 use App\Services\AclService;
 use App\Services\DropdownService;
@@ -31,14 +32,15 @@ class AclRoleController extends Controller
     public function index(
         AclRoleRequest $aclRoleRequest,
     ): InertiaResponse {
-        $eqItems = $this->aclService->getAclRolesCollection();
+        $aclData = [
+            'aclRoles' => $this->aclService->getAclRolesCollection(),
+            'aclResources' => $this->aclService->getAclResourcesCollection(),
+            'aclActions' => AclResource::getPossibleActions(),
+        ];
 
         return inertia(
-            'AclRole/Index',
-            [
-                'aclRoles' => $eqItems,
-                'aclResourcesDropdown' => DropdownService::getResourcesDropdown(),
-            ]
+            'AclRole/AclRolesIndex',
+            ['aclData' => $aclData]
         );
     }
 

@@ -25,6 +25,9 @@ class AclRoleResource extends JsonResource
             'resources' => AclResourceResource::collection(
                 $this->whenLoaded('resources')
             ),
+            'users' => UserResource::collection(
+                $this->whenLoaded('users')
+            ),
         ];
     }
 }

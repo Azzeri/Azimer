@@ -21,7 +21,7 @@ class AclRoleRequest extends BaseRequest
     protected function getCommonValidationRules(): array
     {
         return [
-            'aclResources' => 'array',
+            'aclResources' => 'array', //TODO
         ];
     }
 

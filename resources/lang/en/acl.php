@@ -2,7 +2,7 @@
 
 return [
     'action_view' => 'view',
-    'action_view_many' => 'view many',
+    'action_view_any' => 'view any',
     'action_create' => 'create',
     'action_update' => 'update',
     'action_delete' => 'delete',
@@ -21,4 +21,6 @@ return [
     'res_lowly_units_equipment' => 'lowly units equipment',
 
     'role_super_admin' => 'super administrator',
+
+    'role_has_no_users' => 'role is not assigned to any user'
 ];

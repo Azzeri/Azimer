@@ -28,10 +28,12 @@ class AclRoleUpdateTest extends TestCase
         $this->correctForm = [
             'suffix' => 'role_updated',
             'aclResources' => [
-                AclResource::RES_LOWLY_UNITS_EQUIPMENT => [
+                [
+                    'suffix' => AclResource::RES_LOWLY_UNITS_EQUIPMENT,
                     'action' => AclResource::ACTION_DELETE,
                 ],
-                AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT => [
+                [
+                    'suffix' => AclResource::RES_LOWLY_UNITS_FIRE_BRIGADE_UNIT,
                     'action' => AclResource::ACTION_CREATE,
                 ],
             ],

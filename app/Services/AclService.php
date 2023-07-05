@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Http\Resources\AclResourceResource;
 use App\Http\Resources\AclRoleResource;
+use App\Models\AclResource;
 use App\Models\AclRole;
 use App\Models\User;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /**
  * Class for acl roles and resources operations
@@ -15,17 +18,28 @@ class AclService
 {
     /**
      * Returns all roles from database
-     * with optional pagination
-     *
-     * @return mixed
      *
      * @author Mariusz Waloszczyk
      */
-    public function getAclRolesCollection()
+    public function getAclRolesCollection(): AnonymousResourceCollection
     {
-        $query = AclRole::with('resources')->get();
+        $query = AclRole::with(['resources', 'users'])->get(); // KOLEJNOŚĆ
 
         return AclRoleResource::collection($query);
+    }
+
+    /**
+     * Returns all resources from database
+     *
+     * @author Mariusz Waloszczyk
+     */
+    public function getAclResourcesCollection(): AnonymousResourceCollection
+    {
+        $query = AclResource::where(
+            'suffix', '!=', AclResource::RES_DUMMY
+        )->get();
+
+        return AclResourceResource::collection($query);
     }
 
     /**

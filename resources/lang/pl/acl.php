@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'action_view' => 'przeglądanie',
-    'action_view_many' => 'przeglądanie pojedynczego',
+    'action_view' => 'przeglądanie pojedynczego',
+    'action_view_any' => 'przeglądanie',
     'action_create' => 'dodawanie',
     'action_update' => 'aktualizowanie',
     'action_delete' => 'usuwanie',
@@ -21,4 +21,7 @@ return [
     'res_lowly_units_equipment' => 'sprzęt jednostek podrzędnych',
 
     'role_super_admin' => 'super administrator',
+
+    'role_has_no_users' => 'rola nie jest przypisana żadnemu użytkownikowi'
+
 ];

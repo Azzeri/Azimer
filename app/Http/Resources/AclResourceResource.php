@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use JsonSerializable;
 
 /**
  * @author Mariusz Waloszczyk
@@ -16,9 +17,8 @@ class AclResourceResource extends JsonResource
      *
      * @author Mariusz Waloszczyk
      *
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray($request)
+    public function toArray($request): array|JsonSerializable
     {
         return [
             'suffix' => $this->suffix,

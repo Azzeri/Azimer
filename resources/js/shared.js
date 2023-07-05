@@ -1,3 +1,33 @@
+export const defaultResourcesActions = [
+  {
+    label: "view_any",
+    icon: "fa-solid fa-eye",
+  },
+  {
+    label: "view",
+    icon: "fa-regular fa-eye",
+  },
+  {
+    label: "create",
+    icon: "fa-solid fa-plus",
+  },
+  {
+    label: "update",
+    icon: "fa-solid fa-pen-to-square",
+  },
+  {
+    label: "delete",
+    icon: "fa-solid fa-trash",
+  },
+];
+
+export const superAdminOnlyResources = [
+  "res_overall_users",
+  "res_overall_fire_brigade_units",
+  "res_overall_equipment_resources",
+  "res_overall_equipment",
+];
+
 /**
  * Returns initials from given name and surname
  * @param {string} name
@@ -5,7 +35,7 @@
  * @author Mariusz Waloszczyk
  */
 export const getUserInitials = (name, surname) => {
-    return name.charAt(0).toUpperCase() + surname.charAt(0).toUpperCase();
+  return name.charAt(0).toUpperCase() + surname.charAt(0).toUpperCase();
 };
 
 /**
@@ -14,7 +44,7 @@ export const getUserInitials = (name, surname) => {
  * @author Mariusz Waloszczyk
  */
 export const capitalize = (text) => {
-    return text.charAt(0).toUpperCase() + text.slice(1);
+  return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
 /**
@@ -24,24 +54,23 @@ export const capitalize = (text) => {
  * @author Mariusz Waloszczyk
  */
 export const autheniticatedUserHasResources = (roles, navResources) => {
-    const ACTION_VIEW_ANY = 'view_any';
-    for (let element of roles.value) {
-        for (let role of element) {
-            for (let resource of role.resources) {
-                for (let navResource of navResources) {
-                    if (
-                        resource.suffix === navResource
-                        && resource.pivot.action === ACTION_VIEW_ANY
-                    ) {
-                        return true;
-                    }
-                }
-
-            }
+  const ACTION_VIEW_ANY = "view_any";
+  for (let element of roles.value) {
+    for (let role of element) {
+      for (let resource of role.resources) {
+        for (let navResource of navResources) {
+          if (
+            resource.suffix === navResource &&
+            resource.pivot.action === ACTION_VIEW_ANY
+          ) {
+            return true;
+          }
         }
+      }
     }
+  }
 
-    return false;
+  return false;
 };
 
 /**
@@ -50,8 +79,8 @@ export const autheniticatedUserHasResources = (roles, navResources) => {
  * @author Mariusz Waloszczyk
  */
 export const openModal = (id) => {
-    document.getElementById(id).classList.add("modal-open");
-}
+  document.getElementById(id).classList.add("modal-open");
+};
 
 /**
  * Closes modal window by Id
@@ -59,5 +88,14 @@ export const openModal = (id) => {
  * @author Mariusz Waloszczyk
  */
 export const closeModal = (id) => {
-    document.getElementById(id).classList.remove("modal-open");
-}
+  document.getElementById(id).classList.remove("modal-open");
+};
+
+/**
+ * Checks if role is superadmin
+ * @param {string} suffix
+ * @author Mariusz Waloszczyk
+ */
+export const isRoleSuperAdmin = (suffix) => {
+  return suffix === "role_super_admin";
+};
